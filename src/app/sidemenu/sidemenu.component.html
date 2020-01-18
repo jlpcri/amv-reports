@@ -1,0 +1,5 @@
+<ul class="nav flex-column">
+  <li *ngFor="let route of childRoutes()" class="nav-item sidemenu-item">
+    <a class="nav-link" [ngClass]="{'active': isActive(route)}" [routerLink]="'/' + base + '/' + route">{{route}}</a>
+  </li>
+</ul>

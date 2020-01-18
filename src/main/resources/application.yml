@@ -1,0 +1,30 @@
+server:
+  tomcat:
+    use-relative-redirects: true
+    internal-proxies: .*
+    protocol-header: x-forwarded-proto
+    remote-ip-header: x-forwarded-for
+  port: 8989
+  servlet:
+    session:
+      timeout: 8h
+    context-path: /amv-reports
+
+#zuul:
+#  routes:
+#    amv-data-api:
+#      sensitiveHeaders: Cookie,Set-Cookie
+#      path: /**
+#      url: http://localhost:8080/
+
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          netflix: trace
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/amv_master?serverTimezond=GMT
+    username: amvapi
+    password: password

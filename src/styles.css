@@ -1,0 +1,26 @@
+/* You can add global styles to this file, and also import other style files */
+html, body { height: 100%; }
+body {
+  padding-top: 65px;
+}
+
+.dark {
+  background: #343a40;
+  color: rgba(255,255,255,.7);
+}
+
+.nav-link.active {
+  color: #FFF;
+}
+.nav-link.active:hover {
+  color: #FFF;
+}
+.nav-item {
+  cursor: pointer;
+}
+.nav-link {
+  color: rgba(255,255,255,.5);
+}
+.nav-link:hover {
+  color: rgba(255,255,255,.75);
+}
