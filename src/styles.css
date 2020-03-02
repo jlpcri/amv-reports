@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-html, body { height: 100%; }
+html, body { height: 100%; width: 100%; overflow: hidden; }
 body {
   padding-top: 65px;
 }
@@ -23,4 +23,30 @@ body {
 }
 .nav-link:hover {
   color: rgba(255,255,255,.75);
+}
+
+.filter-section {
+    position: fixed;
+    top: 65px;
+    left: 200px;
+    right: 0;
+    border-bottom: 1px solid #777;
+    min-height: 200px;
+    background: #343a40;
+    padding: 10px;
+}
+
+table {
+    font-size: 10pt;
+    width: 100%;
+}
+td,th {
+    padding: 0 6px 0 6px;
+    white-space: nowrap;
+}
+.mono {
+    font-family: monospace;
+}
+tr:nth-child(even) {
+    background: #242a30;
 }

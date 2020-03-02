@@ -1,0 +1,39 @@
+<div class="filter-section">
+    <h3>eCommerce Product Sales by Order Date</h3>
+</div>
+<table>
+    <thead>
+    <tr>
+        <th>Order Date</th>
+        <th>Source</th>
+        <th>Order Id</th>
+        <th>Invoice Id</th>
+        <th>SKU</th>
+        <th>Product</th>
+        <th>Size</th>
+        <th>Strength</th>
+        <th>First</th>
+        <th>Last</th>
+        <th>Street</th>
+        <th>State</th>
+        <th>Zip</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of ecommSkus">
+        <td class="mono">{{item.createdAt | date:'yyyy-MM-dd' }}</td>
+        <td>{{item.source}}</td>
+        <td>{{item.sourceId}}</td>
+        <td>{{item.invoiceId}}</td>
+        <td>{{item.sku}}</td>
+        <td>{{item.productName}}</td>
+        <td>{{item.size}}</td>
+        <td>{{item.strength}}</td>
+        <td>{{item.shippingFirstName}}</td>
+        <td>{{item.shippingLastName}}</td>
+        <td>{{item.shippingStreet}}</td>
+        <td>{{item.shippingRegion}}</td>
+        <td>{{item.shippingZipCode}}</td>
+    </tr>
+    </tbody>
+</table>

@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import {SalesSummaryComponent} from "./sales/sales-summary/sales-summary.component";
 import {GuestSummaryComponent} from "./guests/guest-summary/guest-summary.component";
 import {StockSummaryComponent} from "./inventory/stock-summary/stock-summary.component";
+import {EcommSkuComponent} from "./sales/ecomm-sku/ecomm-sku.component";
 
 
 const routes: Routes = [
@@ -17,6 +18,7 @@ const routes: Routes = [
       { path: '', redirectTo: 'summary', pathMatch: 'full' },
       { path: 'summary', component: SalesSummaryComponent },
       { path: 'invoices', component: SalesSummaryComponent },
+      { path: 'ecomm-sku', component: EcommSkuComponent },
     ]
   },
   {
@@ -38,7 +40,7 @@ const routes: Routes = [
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { useHash: true })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

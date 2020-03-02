@@ -27,7 +27,7 @@ export class SidemenuComponent implements OnInit {
   private childRoutes() : string[] {
     let childRoutes = [];
     this.router.config.forEach(route => {
-      if (route.path === this.base) {
+      if (route.path === this.base && route.children) {
         route.children.forEach(child => {
           childRoutes.push(child.path)
         })

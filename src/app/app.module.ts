@@ -8,6 +8,11 @@ import { SalesSummaryComponent } from "./sales/sales-summary/sales-summary.compo
 import { GuestSummaryComponent } from './guests/guest-summary/guest-summary.component';
 import { SidemenuComponent } from './sidemenu/sidemenu.component';
 import { StockSummaryComponent } from './inventory/stock-summary/stock-summary.component';
+import { EcommSkuComponent } from './sales/ecomm-sku/ecomm-sku.component';
+import {HttpClientModule} from "@angular/common/http";
+import { PageableTableComponent } from './shared/pageable-table/pageable-table.component';
+import { PagerComponent } from './shared/pager/pager.component';
+import { DatePickerComponent } from './shared/date-picker/date-picker.component';
 
 @NgModule({
   declarations: [
@@ -16,11 +21,16 @@ import { StockSummaryComponent } from './inventory/stock-summary/stock-summary.c
     SalesSummaryComponent,
     GuestSummaryComponent,
     SidemenuComponent,
-    StockSummaryComponent
+    StockSummaryComponent,
+    EcommSkuComponent,
+    PageableTableComponent,
+    PagerComponent,
+    DatePickerComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+      HttpClientModule
   ],
   providers: [],
   bootstrap: [AppComponent]

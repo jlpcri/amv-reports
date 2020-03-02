@@ -3,6 +3,10 @@
 .gradle/
 build/
 out/
+src/main/resources/static
+gradle_cache/*
+!gradle_cache/.tmp
+
 
 # compiled output
 /dist

@@ -25,6 +25,46 @@ logging:
           netflix: trace
 spring:
   datasource:
-    url: jdbc:mysql://localhost:3306/amv_master?serverTimezond=GMT
+    url: jdbc:mysql://localhost:3306/amv_master?serverTimezone=GMT&verifyServerCertificate=false
     username: amvapi
     password: password
+  security:
+    oauth2:
+      client:
+        registration:
+          azure:
+            client-id: 8e5abaa2-5404-4860-ab07-0c60175abefb
+            client-secret: UFquspE9YfFnLwwmbSLfi398xc4XzfotR1Z5GOd09f0=
+
+amv-reports:
+  mysql-key-store: classpath:keystore-local.jks
+  mysql-trust-store: classpath:truststore-local.jks
+
+azure:
+  activedirectory:
+    tenant-id: ffaac3fb-7eb5-4ccd-bd2d-9f03b3f8db3d
+    active-directory-groups: GROUP - Alohma Admin, GROUP - Corporate Office
+    app-id-uri: https://madvapes.com/56809657-5c90-4b2c-a304-7822ab043d10
+
+---
+
+spring:
+  profiles: test
+  datasource:
+    url: jdbc:mysql://10.26.81.3/amv_master?requireSSL=true&serverTimezone=GMT&verifyServerCertificate=false
+    username: amvapi
+    password: amvtest
+amv-reports:
+  mysql-key-store: classpath:keystore-test.jks
+  mysql-trust-store: classpath:truststore-test.jks
+---
+
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:mysql://10.87.32.5/amv_master?requireSSL=true&serverTimezone=GMT&verifyServerCertificate=false
+    username: amvapi
+    password: jGQG119gGMR35rii
+amv-reports:
+  mysql-key-store: classpath:keystore-prod.jks
+  mysql-trust-store: classpath:truststore-prod.jks

@@ -1,11 +1,5 @@
-<div class="container-fluid h-100">
 <app-header></app-header>
-  <div class="row h-100">
-    <div class="col-auto bg-dark side-menu">
-      <app-sidemenu></app-sidemenu>
-    </div>
-    <div class="col">
-      <router-outlet></router-outlet>
-    </div>
-  </div>
+<app-sidemenu></app-sidemenu>
+<div class="router-content">
+  <router-outlet></router-outlet>
 </div>

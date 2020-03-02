@@ -1,4 +1,9 @@
-.side-menu {
-  border-right: 1px solid #777;
-  min-width: 180px;
+.router-content {
+    position: absolute;
+    top: 265px;
+    left: 200px;
+    padding: 12px;
+    bottom: 0;
+    right: 0;
+    overflow: scroll;
 }
