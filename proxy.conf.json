@@ -4,6 +4,11 @@
     "secure": false,
     "changeOrigin": false
   },
+  "/amv-reports/user": {
+    "target": "http://localhost:8989",
+    "secure": false,
+    "changeOrigin": false
+  },
   "/amv-reports/oauth2": {
     "target": "http://localhost:8989",
     "secure": false,

@@ -12,6 +12,6 @@ import org.springframework.stereotype.Component;
 @Configuration
 @ConfigurationProperties(prefix = "amv-reports")
 public class Config {
-    String mysqlTrustStore;
-    String mysqlKeyStore;
+    String reportsApiUsername;
+    String reportsApiPassword;
 }

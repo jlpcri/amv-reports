@@ -21,7 +21,7 @@ public class Security extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/api/user-info")
+                .antMatchers("/user/user-info")
                 .authenticated()
                 .antMatchers("/api/**")
                 .hasAnyRole("GROUP - Alohma Admin", "GROUP - Corporate Office")

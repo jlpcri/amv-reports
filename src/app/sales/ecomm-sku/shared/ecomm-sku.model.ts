@@ -9,11 +9,14 @@ export class EcommSku {
     size?: number;
     strength?: number;
     productName: string;
-    shippingFirstName: string;
-    shippingLastName: string;
+    customerGroup: string;
+    billTo: string;
+    shipTo: string;
     shippingStreet: string;
     shippingRegion: string;
     shippingZipCode: string;
     quantity: number;
     price: number;
+    orderDiscount: number;
+    orderSubtotal: number;
 }

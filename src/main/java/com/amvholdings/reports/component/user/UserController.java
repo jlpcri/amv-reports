@@ -10,7 +10,7 @@ import java.util.stream.Collectors;
 @RestController
 public class UserController {
 
-    @GetMapping("/api/user-info")
+    @GetMapping("/user/user-info")
     UserModel getUserInfo(Authentication auth)  {
         List<String> roles = auth.getAuthorities().stream()
                 .map(Object::toString)

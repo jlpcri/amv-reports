@@ -8,7 +8,7 @@ plugins {
 
 apply plugin: 'io.spring.dependency-management'
 apply plugin: 'java'
-// apply plugin: 'idea'
+apply plugin: 'idea'
 
 repositories {
   mavenCentral()
@@ -25,9 +25,7 @@ dependencies {
     implementation 'com.microsoft.azure:azure-active-directory-spring-boot-starter:2.2.3'
     implementation 'org.springframework.security:spring-security-oauth2-client'
     implementation 'org.springframework.security:spring-security-oauth2-jose'
-    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul:2.2+'
-    implementation 'mysql:mysql-connector-java:8+'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
 }
 

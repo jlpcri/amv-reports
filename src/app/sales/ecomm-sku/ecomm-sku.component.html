@@ -10,10 +10,13 @@
         <th>Invoice Id</th>
         <th>SKU</th>
         <th>Product</th>
-        <th>Size</th>
-        <th>Strength</th>
-        <th>First</th>
-        <th>Last</th>
+        <th class="rt">Quantity</th>
+        <th class="rt">Price</th>
+        <th class="rt">Size</th>
+        <th class="rt">Strength</th>
+        <th>Customer Group</th>
+        <th>Bill To</th>
+        <th>Ship To</th>
         <th>Street</th>
         <th>State</th>
         <th>Zip</th>
@@ -27,10 +30,13 @@
         <td>{{item.invoiceId}}</td>
         <td>{{item.sku}}</td>
         <td>{{item.productName}}</td>
-        <td>{{item.size}}</td>
-        <td>{{item.strength}}</td>
-        <td>{{item.shippingFirstName}}</td>
-        <td>{{item.shippingLastName}}</td>
+        <td class="rt">{{item.quantity}}</td>
+        <td class="rt">{{item.price | number:'1.2-2'}}</td>
+        <td class="rt">{{item.size}}</td>
+        <td class="rt">{{item.strength}}</td>
+        <td>{{item.customerGroup}}</td>
+        <td>{{item.billTo}}</td>
+        <td>{{item.shipTo}}</td>
         <td>{{item.shippingStreet}}</td>
         <td>{{item.shippingRegion}}</td>
         <td>{{item.shippingZipCode}}</td>
