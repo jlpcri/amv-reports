@@ -47,6 +47,7 @@ table {
 td,th {
     padding: 0 6px 0 6px;
     white-space: nowrap;
+    vertical-align: bottom;
 }
 .mono {
     font-family: monospace;

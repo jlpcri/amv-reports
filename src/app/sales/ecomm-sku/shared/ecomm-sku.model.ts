@@ -19,4 +19,6 @@ export class EcommSku {
     price: number;
     orderDiscount: number;
     orderSubtotal: number;
+    discountPercent: number;
+    discount: number;
 }

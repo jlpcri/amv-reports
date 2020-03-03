@@ -12,9 +12,12 @@
         <th>Product</th>
         <th class="rt">Quantity</th>
         <th class="rt">Price</th>
+        <th class="rt">Order<br>Subtotal</th>
+        <th class="rt">Discount</th>
+        <th class="rt">Discount<br>Percent</th>
         <th class="rt">Size</th>
         <th class="rt">Strength</th>
-        <th>Customer Group</th>
+        <th>Customer<br>Group</th>
         <th>Bill To</th>
         <th>Ship To</th>
         <th>Street</th>
@@ -32,6 +35,9 @@
         <td>{{item.productName}}</td>
         <td class="rt">{{item.quantity}}</td>
         <td class="rt">{{item.price | number:'1.2-2'}}</td>
+        <td class="rt">{{item.orderSubtotal | number:'1.2-2'}}</td>
+        <td class="rt">{{item.discount | number:'1.2-2'}}</td>
+        <td class="rt">{{item.discountPercent | number:'1.2-2'}}</td>
         <td class="rt">{{item.size}}</td>
         <td class="rt">{{item.strength}}</td>
         <td>{{item.customerGroup}}</td>
