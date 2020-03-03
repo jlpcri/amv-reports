@@ -1,4 +1,5 @@
 export class EcommSku {
+    id: number;
     source: string;
     sourceName: string;
     sourceId: string;

@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {EcommSkuService} from "./shared/ecomm-sku.service";
 import {EcommSku} from "./shared/ecomm-sku.model";
+import {ExportToCsv} from "export-to-csv";
 
 @Component({
   selector: 'app-ecomm-sku',
@@ -14,8 +15,16 @@ export class EcommSkuComponent implements OnInit {
     constructor(private ecommSkuService: EcommSkuService) { }
 
     ngOnInit() {
-        this.ecommSkuService.getEcommSkus('2020-02-01', '2020-02-29').subscribe(
+        this.ecommSkuService.getEcommSkus('2020-02-01', '2020-03-01').subscribe(
             skus => this.ecommSkus = skus
         )
+    }
+
+    exportCsv() {
+        const exportToCsv = new ExportToCsv({
+            useKeysAsHeaders: true,
+            filename: 'ecommerce-sku-report'
+        });
+        exportToCsv.generateCsv(this.ecommSkus);
     }
 }
