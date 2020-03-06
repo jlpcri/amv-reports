@@ -47,7 +47,9 @@ export class EcommSkuService {
                 resp = resp.filter(item => {
                     return (item.sku !== 'NCEXCISE' && (
                         item.status === 'completed' ||
+                        item.status === 'processing' ||
                         item.status === 'Shipped' ||
+                        item.status === 'Payment accepted' ||
                         item.status === 'complete'
                     ));
                 });
