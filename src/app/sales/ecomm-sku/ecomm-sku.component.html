@@ -1,14 +1,15 @@
 <div class="filter-section">
-    <h3>eCommerce Product Sales by Order Date</h3>
-    <div class="row">
-
+    <div class="row align-items-start">
+        <div class="col">
+            <b>eCommerce SKUs by Order Date</b>
+        </div>
     </div>
-    <div class="row align-bottom">
+    <div class="row align-items-end">
         <div class="col">
             DatePicker
         </div>
         <div class="col-auto text-right">
-            <button class="btn btn-dark" (click)="exportCsv()">Export CSV</button>
+            <button class="btn btn-outline-info" (click)="exportCsv()">Export CSV</button>
         </div>
     </div>
 </div>
@@ -16,9 +17,11 @@
     <thead>
     <tr>
         <th>Order Date</th>
+        <th>AMV ID</th>
         <th>Source</th>
         <th>Order Id</th>
         <th>Invoice Id</th>
+        <th>Status</th>
         <th>SKU</th>
         <th>Product</th>
         <th class="rt">Quantity</th>
@@ -39,9 +42,11 @@
     <tbody>
     <tr *ngFor="let item of ecommSkus">
         <td class="mono">{{item.createdAt | date:'yyyy-MM-dd' }}</td>
+        <td>{{item.id}}</td>
         <td>{{item.source}}</td>
         <td>{{item.sourceId}}</td>
         <td>{{item.invoiceId}}</td>
+        <td>{{item.status}}</td>
         <td>{{item.sku}}</td>
         <td>{{item.productName}}</td>
         <td class="rt">{{item.quantity}}</td>

@@ -10,7 +10,6 @@ export class EcommSkuService {
 
     private sizeRegex = /([\d]+)\s*ml/i;
     private strengthRegex = /([\d]+)\s*mg/i;
-    private wcRegex = /^\D/;
     constructor(private http: HttpClient) { }
 
     getEcommSkus(startDate: string, stopDate: string): Observable<EcommSku[]> {
@@ -18,6 +17,7 @@ export class EcommSkuService {
         let options = {
             params: new HttpParams().set('startDate', startDate).set('stopDate', stopDate)
         };
+
         this.http.get<EcommSku[]>('/amv-reports/api/v1/sales/ecomm-sku', options).subscribe(
             resp => {
                 for (let i=0; i < resp.length; ++i) {
@@ -38,17 +38,19 @@ export class EcommSkuService {
                     }
 
                     if (item.orderDiscount) {
-                        // WC items already have discount applied to the item price - undo that
-                        if (item.invoiceId.match(this.wcRegex)) {
-                            let itemPercent = item.price / (item.orderSubtotal - item.orderDiscount);
-                            item.price = item.orderSubtotal * itemPercent;
-                        }
                         item.discountPercent = item.price / item.orderSubtotal;
                         item.discount = item.orderDiscount * item.discountPercent;
                         item.discountPercent *= 100;
                     }
                 }
-                resp = resp.filter(item => item.sku !== 'NCEXCISE');
+
+                resp = resp.filter(item => {
+                    return (item.sku !== 'NCEXCISE' && (
+                        item.status === 'completed' ||
+                        item.status === 'Shipped' ||
+                        item.status === 'complete'
+                    ));
+                });
                 ecommSkus.next(resp)
             }
         );
