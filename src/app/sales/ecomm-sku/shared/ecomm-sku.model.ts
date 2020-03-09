@@ -10,6 +10,8 @@ export class EcommSku {
     size?: number;
     strength?: number;
     productName: string;
+    productGroup: string;
+    manufacturer: string;
     customerGroup: string;
     billTo: string;
     shipTo: string;
