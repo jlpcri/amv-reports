@@ -1,12 +1,23 @@
 <div class="filter-section">
     <div class="row align-items-start">
         <div class="col">
-            <b>eCommerce SKUs by Order Date</b>
+            <b>eCommerce SKUs by Order Date</b><br><br>
+        </div>
+    </div>
+    <div class="row align-items-start">
+        <div class="col">
+            <b>SKU Sales: &nbsp;</b>
+            <span *ngIf="ecommSkus" class="green">Ready</span>
+            <span *ngIf="!ecommSkus" class="blink red">Loading...</span>
+            <br>
+            <b>Stock History/COGS: &nbsp;</b>
+            <span *ngIf="warehouseCogs" class="green">Ready</span>
+            <span *ngIf="!warehouseCogs" class="blink red">Loading...</span>
         </div>
     </div>
     <div class="row align-items-end">
         <div class="col">
-            DatePicker
+            DatePicker (IN PROGRESS)
         </div>
         <div class="col-auto text-right">
             <button class="btn btn-outline-info" (click)="exportCsv()">Export CSV</button>
@@ -29,6 +40,7 @@
         <th class="rt">Order<br>Subtotal</th>
         <th class="rt">Discount</th>
         <th class="rt">Discount<br>Percent</th>
+        <th>Coupon<br>Code</th>
         <th class="rt">Size</th>
         <th class="rt">Strength</th>
         <th>Product<br>Group</th>
@@ -56,6 +68,7 @@
         <td class="rt">{{item.orderSubtotal | number:'1.2-2'}}</td>
         <td class="rt">{{item.discount | number:'1.2-2'}}</td>
         <td class="rt">{{item.discountPercent | number:'1.2-2'}}</td>
+        <td>{{item.couponCode}}</td>
         <td class="rt">{{item.size}}</td>
         <td class="rt">{{item.strength}}</td>
         <td>{{item.productGroup}}</td>

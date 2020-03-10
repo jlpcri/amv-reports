@@ -12,6 +12,7 @@ export class EcommSku {
     productName: string;
     productGroup: string;
     manufacturer: string;
+    couponCode: string;
     customerGroup: string;
     billTo: string;
     shipTo: string;

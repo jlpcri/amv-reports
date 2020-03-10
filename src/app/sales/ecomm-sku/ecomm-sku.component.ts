@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {EcommSkuService} from "./shared/ecomm-sku.service";
 import {EcommSku} from "./shared/ecomm-sku.model";
 import {ExportToCsv} from "export-to-csv";
+import {Cogs} from "./shared/cogs.model";
 
 @Component({
   selector: 'app-ecomm-sku',
@@ -11,13 +12,17 @@ import {ExportToCsv} from "export-to-csv";
 export class EcommSkuComponent implements OnInit {
 
     ecommSkus: EcommSku[];
+    warehouseCogs: Cogs[];
 
     constructor(private ecommSkuService: EcommSkuService) { }
 
     ngOnInit() {
         this.ecommSkuService.getEcommSkus('2020-02-01 05:00:00', '2020-03-01 05:00:00').subscribe(
             skus => this.ecommSkus = skus
-        )
+        );
+        this.ecommSkuService.getWarehouseCogs('2020-02-01 05:00:00', '2020-03-01 05:00:00').subscribe(
+            cogs => this.warehouseCogs = cogs
+        );
     }
 
     exportCsv() {

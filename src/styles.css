@@ -4,6 +4,13 @@ body {
   padding-top: 65px;
 }
 
+.green {
+    color: aquamarine;
+}
+.red {
+    color: #e51f4a;
+}
+
 .rt {
     text-align: right;
 }

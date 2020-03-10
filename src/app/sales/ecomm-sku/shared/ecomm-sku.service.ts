@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from "@angular/common/http";
 import {Observable, Subject} from "rxjs";
 import {EcommSku} from "./ecomm-sku.model";
+import {Cogs} from "./cogs.model";
 
 @Injectable({
   providedIn: 'root'
@@ -57,5 +58,17 @@ export class EcommSkuService {
             }
         );
         return ecommSkus;
+    }
+
+    getWarehouseCogs(startDate: string, stopDate: string ): Observable<Cogs[]> {
+        let cogsSubject: Subject<Cogs[]> = new Subject();
+        let options = {
+            params: new HttpParams().set('startDate', startDate).set('stopDate', stopDate)
+        };
+
+        this.http.get<Cogs[]>('/amv-reports/api/v1/warehouse-cogs', options).subscribe(
+            resp => cogsSubject.next(resp)
+        );
+        return cogsSubject;
     }
 }
