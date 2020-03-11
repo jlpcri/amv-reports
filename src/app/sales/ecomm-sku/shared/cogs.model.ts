@@ -2,6 +2,7 @@ export class Cogs {
     createdAt: string;
     updatedAt: string;
     packDate: string;
+    invoiceId: string;
     shipDate: string;
     sku: string;
     orderType: string;
@@ -9,12 +10,11 @@ export class Cogs {
     price: number;
     priceEach: number;
     balance?: number;
+    cost: number;
+    averageCost: number;
+}
 
-    get stockDate(): string {
-        if (this.packDate)
-            return this.packDate;
-        if (this.shipDate)
-            return this.shipDate;
-        return this.createdAt;
-    }
+export class StockCost {
+    quantity: number;
+    cost: number;
 }
