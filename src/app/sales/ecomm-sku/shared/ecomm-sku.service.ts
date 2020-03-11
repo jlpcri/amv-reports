@@ -42,6 +42,10 @@ export class EcommSkuService {
                         item.discountPercent = item.price / item.orderSubtotal;
                         item.discount = item.orderDiscount * item.discountPercent;
                         item.discountPercent *= 100;
+                    } else {
+                        item.discountPercent = null;
+                        item.discount = null;
+                        item.orderDiscount = null;
                     }
                 }
 

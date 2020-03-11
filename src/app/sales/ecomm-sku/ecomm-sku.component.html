@@ -37,6 +37,8 @@
         <th>Product</th>
         <th class="rt">Quantity</th>
         <th class="rt">Price</th>
+        <th class="rt">Cost</th>
+        <th></th>
         <th class="rt">Order<br>Subtotal</th>
         <th class="rt">Discount</th>
         <th class="rt">Discount<br>Percent</th>
@@ -65,6 +67,8 @@
         <td>{{item.productName}}</td>
         <td class="rt">{{item.quantity}}</td>
         <td class="rt">{{item.price | number:'1.2-2'}}</td>
+        <td class="rt">{{item.cost | number:'1.2-2'}}</td>
+        <td (click)="showStockHistory(item)" style="cursor:pointer;">&#x021C4;</td>
         <td class="rt">{{item.orderSubtotal | number:'1.2-2'}}</td>
         <td class="rt">{{item.discount | number:'1.2-2'}}</td>
         <td class="rt">{{item.discountPercent | number:'1.2-2'}}</td>
