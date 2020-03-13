@@ -183,7 +183,7 @@ export class EcommSkuComponent implements OnInit {
                         item.cost = event.cost * event.quantity;
                     }
                 } else {
-                    if (event.invoiceId === item.sourceId) {
+                    if (+event.invoiceId === +item.sourceId) {
                         item.cost = event.cost * event.quantity;
                     }
                     return;
