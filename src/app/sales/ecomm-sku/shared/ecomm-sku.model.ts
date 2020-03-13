@@ -26,4 +26,6 @@ export class EcommSku {
     shippingStreet: string = null;
     shippingRegion: string = null;
     shippingZipCode: string = null;
+    licenseReceived: number = null;
+    licenseDate: string = null;
 }
