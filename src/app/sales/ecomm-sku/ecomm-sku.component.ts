@@ -58,8 +58,8 @@ export class EcommSkuComponent implements OnInit {
                 discount: item.discount ? item.discount : '',
                 discountPercent: item.discountPercent ? item.discountPercent : '',
                 couponCode: item.couponCode ? item.couponCode : '',
-                size: item.size ? item.size : '',
-                strength: item.strength ? item.strength : '',
+                size: item.size !== null ? item.size : '',
+                strength: item.strength !== null ? item.strength : '',
                 productGroup: item.productGroup ? item.productGroup : '',
                 manufacturer: item.manufacturer ? item.manufacturer : '',
                 customerGroup: item.customerGroup,
@@ -67,7 +67,9 @@ export class EcommSkuComponent implements OnInit {
                 shipTo: item.shipTo,
                 street: item.shippingStreet,
                 state: item.shippingRegion,
-                zipCode: item.shippingZipCode
+                zipCode: item.shippingZipCode,
+                licenseReceived: item.licenseReceived,
+                licenseDate: item.licenseDate
             });
         });
         const exportToCsv = new ExportToCsv({
