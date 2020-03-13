@@ -33,7 +33,7 @@ export class EcommSkuService {
                         item.strength = +strengthMatch[1];
 
                     // Must have both
-                    if (!item.strength || !item.size) {
+                    if (typeof item.strength === 'undefined' || typeof item.size === 'undefined' || item.productGroup === 'Botanicals') {
                         item.strength = null;
                         item.size = null;
                     }
