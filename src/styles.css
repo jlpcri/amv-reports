@@ -11,8 +11,28 @@ body {
     color: #e51f4a;
 }
 
+.ptr {
+    cursor: pointer;
+}
+
 .rt {
     text-align: right;
+}
+.lt {
+    text-align: left;
+}
+
+.col-80 {
+    display: inline-block;
+    width: 80%;
+}
+.col-60 {
+    display: inline-block;
+    width: 60%;
+}
+.col-20 {
+    display: inline-block;
+    width: 20%;
 }
 
 .dark {
@@ -42,7 +62,6 @@ body {
     left: 200px;
     right: 0;
     border-bottom: 1px solid #777;
-    min-height: 200px;
     background: #343a40;
     padding: 10px;
 }
@@ -59,6 +78,7 @@ td,th {
 .mono {
     font-family: monospace;
 }
-tr:nth-child(even) {
+
+.table-striped tr:nth-child(even) {
     background: #242a30;
 }

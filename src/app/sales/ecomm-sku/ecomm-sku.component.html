@@ -13,14 +13,15 @@
             <b>Stock History/COGS: &nbsp;</b>
             <span *ngIf="warehouseCogs" class="green">Ready</span>
             <span *ngIf="!warehouseCogs" class="blink red">Loading...</span>
+            <br>
         </div>
     </div>
     <div class="row align-items-end">
         <div class="col">
-            DatePicker (IN PROGRESS)
+            <app-date-picker></app-date-picker>
         </div>
         <div class="col-auto text-right">
-            <button class="btn btn-outline-info" (click)="exportCsv()">Export CSV</button>
+            <button class="amv-btn" (click)="exportCsv()">Export CSV</button>
         </div>
     </div>
 </div>

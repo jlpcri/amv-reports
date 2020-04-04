@@ -3,6 +3,8 @@ import {EcommSkuService} from "./shared/ecomm-sku.service";
 import {EcommSku} from "./shared/ecomm-sku.model";
 import {ExportToCsv} from "export-to-csv";
 import {Cogs, StockCost} from "./shared/cogs.model";
+import {OptionService} from "../../shared/option.service";
+import {DateRange} from "../../shared/date-range.model";
 
 @Component({
   selector: 'app-ecomm-sku',
@@ -11,18 +13,26 @@ import {Cogs, StockCost} from "./shared/cogs.model";
 })
 export class EcommSkuComponent implements OnInit {
 
-    ecommSkus: EcommSku[];
-    warehouseCogs: Cogs[];
+    ecommSkus: EcommSku[] = [];
+    warehouseCogs: Cogs[] = [];
     skuStockHistory: { [sku: string]: Cogs[] } = {};
     WC_ORDER = /^\D/;
 
-    constructor(private ecommSkuService: EcommSkuService) { }
+    constructor(private ecommSkuService: EcommSkuService, private optionService: OptionService) { }
 
     ngOnInit() {
-        this.ecommSkuService.getEcommSkus('2020-02-01 05:00:00', '2020-03-01 05:00:00').subscribe(
+        this.optionService.dateRangeSubject.subscribe(dateRange => {
+            this.updateData(dateRange);
+        });
+    }
+
+    updateData(dateRange: DateRange) {
+        this.ecommSkus = null;
+        this.warehouseCogs = null;
+        this.ecommSkuService.getEcommSkus(dateRange.formatStartDate(), dateRange.formatStopDate()).subscribe(
             skus => {
                 this.ecommSkus = skus;
-                this.ecommSkuService.getWarehouseCogs('2020-02-01 05:00:00', '2020-03-01 05:00:00').subscribe(
+                this.ecommSkuService.getWarehouseCogs(dateRange.formatStartDate(), dateRange.formatStopDate()).subscribe(
                     cogs => {
                         this.warehouseCogs = cogs;
                         cogs.forEach(item => {

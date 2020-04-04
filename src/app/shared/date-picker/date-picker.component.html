@@ -1,1 +1,66 @@
-<p>date-picker works!</p>
+<div class="row">
+    <div class="col-auto">
+        <div><b>{{optionService.selectedDateRange.format()}}</b></div>
+    </div>
+</div>
+<div class="row">
+    <div>
+        <div class="col-auto amv-btn-grp">
+        <button *ngFor="let dateRange of dateRanges"
+                class="amv-btn"
+                [ngClass]="{selected: isSelected(dateRange)}"
+                (click)="selectRange(dateRange)"
+        >
+            {{shortName(dateRange)}}
+        </button>
+        </div>
+    </div>
+    <div class="col-auto">
+        <button *ngIf="!showCustomPicker" class="amv-btn"
+                (click)="toggleCustomPicker()" [ngClass]="{selected: isCustomRange()}" >
+            Custom
+        </button>
+        <div *ngIf="showCustomPicker" class="custom-date-picker">
+            <div class="custom-date-picker-header">
+                <div class="col-80 lt">{{format()}}</div>
+                <div class="col-20 rt"><span class="ptr" style="font-size: 20px" (click)="toggleCustomPicker()">&times;</span>&nbsp;</div>
+            </div>
+            <div class="month-nav">
+                <b><span class="ptr" (click)="previousMonth()">&lt;</span></b>
+            </div>
+            <div class="calendar" *ngFor="let month of visibleMonths">
+                <div class="month-header">{{month.month.format('MMMM YYYY')}}</div>
+                <table class="calendar-table">
+                    <thead>
+                    <tr>
+                        <th>S</th>
+                        <th>M</th>
+                        <th>T</th>
+                        <th>W</th>
+                        <th>T</th>
+                        <th>F</th>
+                        <th>S</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr *ngFor="let week of weeks; let w = index;">
+                        <td *ngFor="let day of days; let d = index;"
+                            (click)="chooseDate(month.days[w][d])"
+                            (mouseover)="moveRange(month.days[w][d])"
+                            [ngClass]="{'start-date': isStartDate(month, w, d), 'stop-date': isStopDate(month, w, d), 'between-date': isBetween(month, w, d)}"
+                            [innerHTML]="month.date(w, d)"
+                        >
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="month-nav">
+                <b><span class="ptr" (click)="nextMonth()">&gt;</span></b>
+            </div>
+            <div class="footer rt">
+                <button class="amv-btn" (click)="applySelection()">Okay</button>
+            </div>
+        </div>
+    </div>
+</div>
