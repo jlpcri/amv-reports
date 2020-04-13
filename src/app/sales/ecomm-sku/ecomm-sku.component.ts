@@ -110,6 +110,10 @@ export class EcommSkuComponent implements OnInit {
             for (let i=0; i < skuHistory.length; ++i) {
                 let current = skuHistory[i];
                 if ( current.orderType === 'PURCHASE_ORDER') {
+                    if (current.price === null) {
+                        current.priceEach = latestCost;
+                        current.price = latestCost * current.quantity;
+                    }
                     latestCost = current.price / current.quantity;
                     current.cost = latestCost;
                     balance += current.quantity;
@@ -129,7 +133,6 @@ export class EcommSkuComponent implements OnInit {
                     current.cost = this.removeStock(stock, current.quantity, latestCost);
                     balance -= current.quantity;
                     current.balance = balance;
-                    current.cost = this.removeStock(stock, current.quantity, latestCost);
                 }
                 current.averageCost = this.calcAverage(stock, latestCost);
             }
@@ -189,18 +192,24 @@ export class EcommSkuComponent implements OnInit {
             if (!this.skuStockHistory[item.sku])
                 return;
             let stockHistory = this.skuStockHistory[item.sku];
-            stockHistory.forEach(event => {
+            let event;
+            for (let i = 0; i < stockHistory.length; ++i) {
+                event = stockHistory[i];
                 if (item.invoiceId.match(this.WC_ORDER)) {
                     if (event.invoiceId === item.invoiceId) {
                         item.cost = event.cost * event.quantity;
+                        break;
                     }
                 } else {
                     if (+event.invoiceId === +item.sourceId) {
                         item.cost = event.cost * event.quantity;
+                        break
                     }
-                    return;
                 }
-            })
+            }
+            if (!item.cost) {
+                item.cost = item.quantity * event.averageCost;
+            }
         });
     }
 }
