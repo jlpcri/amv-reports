@@ -1,0 +1,31 @@
+export class EcommSku {
+    createdAt: string = null;
+    id: number = null;
+    source: string = null;
+    sourceId: string = null;
+    sourceName: string = null;
+    invoiceId: string = null;
+    status: string = null;
+    sku: string = null;
+    productName: string = null;
+    quantity: number = null;
+    price: number = null;
+    cost: number = null;
+    orderSubtotal: number = null;
+    discount: number = null;
+    discountPercent: number = null;
+    orderDiscount: number = null;
+    couponCode: string = null;
+    size?: number = null;
+    strength?: number = null;
+    productGroup: string = null;
+    manufacturer: string = null;
+    customerGroup: string = null;
+    billTo: string = null;
+    shipTo: string = null;
+    shippingStreet: string = null;
+    shippingRegion: string = null;
+    shippingZipCode: string = null;
+    licenseReceived: number = null;
+    licenseDate: string = null;
+}

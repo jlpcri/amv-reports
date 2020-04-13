@@ -1,0 +1,47 @@
+server:
+  tomcat:
+    use-relative-redirects: true
+    internal-proxies: .*
+    protocol-header: x-forwarded-proto
+    remote-ip-header: x-forwarded-for
+  port: 8989
+  servlet:
+    session:
+      timeout: 8h
+    context-path: /amv-reports
+
+zuul:
+  routes:
+    amv-reports:
+      sensitiveHeaders: Cookie,Set-Cookie
+      path: /api/**
+      url: http://${REPORTS_API_SERVICE_HOST}:${REPORTS_API_SERVICE_PORT}/reports-api
+  host:
+    socket-timeout-millis: 60000
+
+logging:
+  level:
+    org:
+      springframework:
+        cloud:
+          netflix: trace
+
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          azure:
+            client-id: 8e5abaa2-5404-4860-ab07-0c60175abefb
+            client-secret: UFquspE9YfFnLwwmbSLfi398xc4XzfotR1Z5GOd09f0=
+
+azure:
+  activedirectory:
+    tenant-id: ffaac3fb-7eb5-4ccd-bd2d-9f03b3f8db3d
+    active-directory-groups: GROUP - Alohma Admin, GROUP - Corporate Office
+    app-id-uri: https://madvapes.com/56809657-5c90-4b2c-a304-7822ab043d10
+
+amv-reports:
+  reports-api-username: rptapi
+  reports-api-password: password
+

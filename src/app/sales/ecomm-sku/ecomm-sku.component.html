@@ -1,0 +1,93 @@
+<div class="filter-section">
+    <div class="row align-items-start">
+        <div class="col">
+            <b>eCommerce SKUs by Order Date</b><br><br>
+        </div>
+    </div>
+    <div class="row align-items-start">
+        <div class="col">
+            <b>SKU Sales: &nbsp;</b>
+            <span *ngIf="ecommSkus" class="green">Ready</span>
+            <span *ngIf="!ecommSkus" class="blink red">Loading...</span>
+            <br>
+            <b>Stock History/COGS: &nbsp;</b>
+            <span *ngIf="warehouseCogs" class="green">Ready</span>
+            <span *ngIf="!warehouseCogs" class="blink red">Loading...</span>
+            <br>
+        </div>
+    </div>
+    <div class="row align-items-end">
+        <div class="col">
+            <app-date-picker></app-date-picker>
+        </div>
+        <div class="col-auto text-right">
+            <button class="amv-btn" (click)="exportCsv()">Export CSV</button>
+        </div>
+    </div>
+</div>
+<table>
+    <thead>
+    <tr>
+        <th>Order Date</th>
+        <th>AMV ID</th>
+        <th>Source</th>
+        <th>Order Id</th>
+        <th>Invoice Id</th>
+        <th>Status</th>
+        <th>SKU</th>
+        <th>Product</th>
+        <th class="rt">Quantity</th>
+        <th class="rt">Price</th>
+        <th class="rt">Cost</th>
+        <th></th>
+        <th class="rt">Order<br>Subtotal</th>
+        <th class="rt">Discount</th>
+        <th class="rt">Discount<br>Percent</th>
+        <th>Coupon<br>Code</th>
+        <th class="rt">Size</th>
+        <th class="rt">Strength</th>
+        <th>Product<br>Group</th>
+        <th>Manufacturer</th>
+        <th>Customer<br>Group</th>
+        <th>Bill To</th>
+        <th>Ship To</th>
+        <th>Street</th>
+        <th>State</th>
+        <th>Zip</th>
+        <th>License<br>Received</th>
+        <th>License<br>Date</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let item of ecommSkus">
+        <td class="mono">{{item.createdAt | date:'yyyy-MM-dd' }}</td>
+        <td>{{item.id}}</td>
+        <td>{{item.source}}</td>
+        <td>{{item.sourceId}}</td>
+        <td>{{item.invoiceId}}</td>
+        <td>{{item.status}}</td>
+        <td>{{item.sku}}</td>
+        <td>{{item.productName}}</td>
+        <td class="rt">{{item.quantity}}</td>
+        <td class="rt">{{item.price | number:'1.2-2'}}</td>
+        <td class="rt">{{item.cost | number:'1.2-2'}}</td>
+        <td (click)="showStockHistory(item)" style="cursor:pointer;">&#x021C4;</td>
+        <td class="rt">{{item.orderSubtotal | number:'1.2-2'}}</td>
+        <td class="rt">{{item.discount | number:'1.2-2'}}</td>
+        <td class="rt">{{item.discountPercent | number:'1.2-2'}}</td>
+        <td>{{item.couponCode}}</td>
+        <td class="rt">{{item.size}}</td>
+        <td class="rt">{{item.strength}}</td>
+        <td>{{item.productGroup}}</td>
+        <td>{{item.manufacturer}}</td>
+        <td>{{item.customerGroup}}</td>
+        <td>{{item.billTo}}</td>
+        <td>{{item.shipTo}}</td>
+        <td>{{item.shippingStreet}}</td>
+        <td>{{item.shippingRegion}}</td>
+        <td>{{item.shippingZipCode}}</td>
+        <td>{{item.licenseReceived}}</td>
+        <td>{{item.licenseDate}}</td>
+    </tr>
+    </tbody>
+</table>

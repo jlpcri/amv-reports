@@ -1,0 +1,10 @@
+.side-menu-item {
+  text-transform: uppercase;
+  letter-spacing: 3px;
+}
+
+.side-menu {
+    width: 200px;
+    border-right: 1px solid #777;
+    height: 100%;
+}
