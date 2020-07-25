@@ -1,9 +1,11 @@
 .custom-date-picker {
     position: absolute;
+    /* background: #323232; */
     background: #323232;
     width: max-content;
     border-radius: var(--amv-btn-radius);
     padding: 10px;
+    z-index: 50;
 }
 
 .custom-date-picker-header {

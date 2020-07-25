@@ -1,0 +1,25 @@
+<div class="filter-section">
+    <div class="row align-items-start">
+        <div class="col">
+            <b>ID Scans by Register</b><br><br>
+        </div>
+    </div>
+    <div class="row align-items-end">
+        <div class="col">
+            <app-date-picker></app-date-picker>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <br>
+            <b>ID Scans: &nbsp;</b>
+            <span *ngIf="idScans" class="green">Ready ({{idScans.length | number}})</span>
+            <span *ngIf="loading && !idScans" class="blink red">Loading...</span>
+            <br>
+            <b>Transactions: &nbsp;</b>
+            <span *ngIf="invoices" class="green">Ready ({{invoices.length | number}})</span>
+            <span *ngIf="loading && !invoices" class="blink red">Loading...</span>
+        </div>
+    </div>
+</div>
+<pageable-table [columns]="transactionColumns" [rows]="transactions" tableName="id-transactions"></pageable-table>

@@ -13,6 +13,10 @@ import {HttpClientModule} from "@angular/common/http";
 import { PageableTableComponent } from './shared/pageable-table/pageable-table.component';
 import { PagerComponent } from './shared/pager/pager.component';
 import { DatePickerComponent } from './shared/date-picker/date-picker.component';
+import { IdScansComponent } from './retail/id-scans/id-scans.component';
+import {FormsModule} from "@angular/forms";
+import { IdTransactionsComponent } from './retail/id-transactions/id-transactions.component';
+import { InvoicesComponent } from './sales/invoices/invoices.component';
 
 @NgModule({
   declarations: [
@@ -25,13 +29,17 @@ import { DatePickerComponent } from './shared/date-picker/date-picker.component'
     EcommSkuComponent,
     PageableTableComponent,
     PagerComponent,
-    DatePickerComponent
+    DatePickerComponent,
+    IdScansComponent,
+    IdTransactionsComponent,
+    InvoicesComponent
   ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule,
-      HttpClientModule
-  ],
+    imports: [
+        BrowserModule,
+        AppRoutingModule,
+        HttpClientModule,
+        FormsModule
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

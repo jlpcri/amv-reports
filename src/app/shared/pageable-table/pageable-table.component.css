@@ -1,0 +1,53 @@
+.left {
+    text-align: left;
+}
+.right {
+    text-align: right;
+}
+.fixed {
+    font-family: Consolas, monospace;
+}
+
+.pageable-content {
+    overflow: auto;
+    position: absolute;
+    margin-top: 50px;
+    padding: 12px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: #343a40;
+    z-index: 1;
+}
+
+.page-number {
+    display: inline-block;
+    font-size: 12px;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-align: center;
+    cursor: pointer;
+}
+
+.page-status {
+    display: inline-block;
+    padding-left: 20px;
+    padding-right: 5px;
+}
+
+select {
+    border-radius: 5px;
+}
+
+table {
+    margin-top: 12px;
+}
+table td{
+    white-space: nowrap;  /** added **/
+}
+table td:last-child{
+    width:100%;
+}
+table th:last-child{
+    width:100%;
+}
