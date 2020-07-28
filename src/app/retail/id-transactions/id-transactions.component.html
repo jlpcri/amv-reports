@@ -13,12 +13,10 @@
         <div class="col">
             <br>
             <b>ID Scans: &nbsp;</b>
-            <span *ngIf="idScans" class="green">Ready ({{idScans.length | number}})</span>
-            <span *ngIf="loading && !idScans" class="blink red">Loading...</span>
+            <span *ngIf="idScans">{{idScans.length | number}}</span>
             <br>
             <b>Transactions: &nbsp;</b>
-            <span *ngIf="invoices" class="green">Ready ({{invoices.length | number}})</span>
-            <span *ngIf="loading && !invoices" class="blink red">Loading...</span>
+            <span *ngIf="invoices">{{invoices.length | number}}</span>
         </div>
     </div>
 </div>

@@ -54,7 +54,14 @@ export class IdTransaction {
     get posName() {
         if (this.invoice) {
             if (this.invoice.customerAddresses.length) {
-                return this.invoice.customerAddresses[0].firstName + ' ' + this.invoice.customerAddresses[0].lastName;
+                let name = "";
+                if (this.invoice.customerAddresses[0].firstName) {
+                    name += this.invoice.customerAddresses[0].firstName + ' ';
+                }
+                if (this.invoice.customerAddresses[0].lastName) {
+                    name += this.invoice.customerAddresses[0].lastName;
+                }
+                return name;
             }
         }
         return "";

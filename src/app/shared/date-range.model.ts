@@ -6,7 +6,7 @@ export class DateRange {
     startDate: Moment;
     stopDate: Moment;
     units: StartOf;
-    formatString: 'YYYY-MM-DD HH:mm:ss';
+    formatString: string = 'YYYY-MM-DD HH:mm:ss';
     constructor(units?: StartOf, startDate?: Moment, stopDate?: Moment) {
         this.units = units ? units : "month";
         this.startDate = startDate ? startDate : moment().startOf(this.units);
@@ -18,7 +18,7 @@ export class DateRange {
     previous() {
         let newStopDate = moment(this.startDate).startOf(this.units).subtract(1, "day");
         let newStartDate = moment(newStopDate).startOf(this.units);
-        return new DateRange(this.units, newStartDate, newStopDate);
+        return new DateRange(this.units, newStartDate, moment(newStartDate).endOf(this.units));
     }
     next() {
         let newStartDate = moment(this.startDate).endOf(this.units).add(1, "day");

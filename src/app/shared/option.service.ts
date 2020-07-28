@@ -10,6 +10,7 @@ export class OptionService {
 
     private _selectedDateRange: DateRange = new DateRange();
     public dateRangeSubject: Subject<DateRange> = new Subject();
+    public loading: boolean = false;
 
     constructor() {
     }

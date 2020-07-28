@@ -4,3 +4,6 @@ nav {
 .navbar-brand {
     color: #e51f4a;
 }
+.header {
+    z-index: 0;
+}

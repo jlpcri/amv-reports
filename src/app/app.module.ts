@@ -17,6 +17,7 @@ import { IdScansComponent } from './retail/id-scans/id-scans.component';
 import {FormsModule} from "@angular/forms";
 import { IdTransactionsComponent } from './retail/id-transactions/id-transactions.component';
 import { InvoicesComponent } from './sales/invoices/invoices.component';
+import { ProgressBarComponent } from './shared/progress-bar/progress-bar.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { InvoicesComponent } from './sales/invoices/invoices.component';
     DatePickerComponent,
     IdScansComponent,
     IdTransactionsComponent,
-    InvoicesComponent
+    InvoicesComponent,
+    ProgressBarComponent
   ],
     imports: [
         BrowserModule,
