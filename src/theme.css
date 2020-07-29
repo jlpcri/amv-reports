@@ -58,3 +58,7 @@
         opacity: 0;
     }
 }
+
+.focused {
+    color: white;
+}

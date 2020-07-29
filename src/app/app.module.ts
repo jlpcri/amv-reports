@@ -18,6 +18,7 @@ import {FormsModule} from "@angular/forms";
 import { IdTransactionsComponent } from './retail/id-transactions/id-transactions.component';
 import { InvoicesComponent } from './sales/invoices/invoices.component';
 import { ProgressBarComponent } from './shared/progress-bar/progress-bar.component';
+import {IconsModule} from "./shared/icons/icons.module";
 
 @NgModule({
   declarations: [
@@ -40,7 +41,8 @@ import { ProgressBarComponent } from './shared/progress-bar/progress-bar.compone
         BrowserModule,
         AppRoutingModule,
         HttpClientModule,
-        FormsModule
+        FormsModule,
+        IconsModule
     ],
   providers: [],
   bootstrap: [AppComponent]

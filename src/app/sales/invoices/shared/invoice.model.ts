@@ -13,6 +13,7 @@ export class Invoice {
     shippingAmount: number;
     taxAmount: number;
     register: string;
+    employee: string;
     customerId: number;
     shippingAddress: Address;
     billingAddress: Address;

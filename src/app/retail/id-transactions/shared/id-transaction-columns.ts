@@ -17,6 +17,13 @@ export class IdTransactionColumns {
             style: 'left fixed'
         },
         {
+            name: 'transactionDelay',
+            label: 'Seconds',
+            description: 'Delay between id-scan and transaction',
+            type: 'number',
+            style: 'right fixed'
+        },
+        {
             name: 'register',
             label: 'Register',
             description: 'Register',
@@ -59,9 +66,16 @@ export class IdTransactionColumns {
             style: 'right fixed'
         },
         {
-            name: 'birthDate',
-            label: 'Birth Date',
-            description: 'Birth Date',
+            name: 'posBirthDate',
+            label: 'POS Birth Date',
+            description: 'POS Birth Date',
+            type: 'string',
+            style: 'left fixed'
+        },
+        {
+            name: 'scannedBirthDate',
+            label: 'Scanned Birth Date',
+            description: 'Scanned Birth Date',
             type: 'string',
             style: 'left fixed'
         },

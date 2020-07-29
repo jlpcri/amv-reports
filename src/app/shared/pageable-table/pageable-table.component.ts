@@ -71,10 +71,19 @@ export class PageableTableComponent implements OnInit {
 
     selectPage(page: number) {
         this.offset = (page - 1) * this.maxRows;
-        console.log(this.offset);
         this.selectedPage = page;
         this.setVisibleRows();
         this.updatePages();
+    }
+
+    nextPage() {
+        if (this.selectedPage < this.pages - 1)
+            this.selectPage(this.selectedPage + 1)
+    }
+
+    previousPage() {
+        if (this.selectedPage > 1)
+            this.selectPage(this.selectedPage - 1)
     }
 
     get rows() {

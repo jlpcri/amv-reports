@@ -9,6 +9,7 @@ import {InvoiceService} from "../../sales/invoices/shared/invoice.service";
 import {Invoice} from "../../sales/invoices/shared/invoice.model";
 import {IdTransaction} from "./shared/id-transaction.model";
 import {IdTransactionColumns} from "./shared/id-transaction-columns";
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-id-transactions',
@@ -22,8 +23,13 @@ export class IdTransactionsComponent implements OnInit,OnDestroy {
     idScans: IdScan[];
     invoices: Invoice[];
     transactions: IdTransaction[];
+    allTransactions: IdTransaction[];
     transactionColumns: PageableTableColumn[] = IdTransactionColumns.COLUMNS;
     dateRangeSubscription: Subscription;
+    showAllScans: boolean = false;
+    onlyMinors: boolean = false;
+    onlyUnknown: boolean = false;
+    missingScans: boolean = false;
 
     constructor(private idScanService: IdScanService, private optionService: OptionService, private invoiceService: InvoiceService) { }
 
@@ -49,15 +55,43 @@ export class IdTransactionsComponent implements OnInit,OnDestroy {
                     invoices => {
                         this.invoices = invoices;
                         this.loading = false;
-                        this.processIdScans()
+                        this.allTransactions = this.processIdScans();
+                        this.filterIdTransactions();
                     }
                 )
             }
         );
     }
 
+    filterIdTransactions() {
+        this.transactions = [];
+        let result = [];
+        this.allTransactions.forEach(idTransaction => {
+            if (!this.showAllScans && !idTransaction.invoice) {
+                return;
+            }
+            if (this.missingScans) {
+                if (idTransaction.invoice && idTransaction.idScan)
+                    return;
+            }
+            if (this.onlyMinors) {
+                if (idTransaction.result !== 'minor')
+                    return;
+            }
+            if (this.onlyUnknown) {
+                if (idTransaction.idScan) {
+                    if (idTransaction.idScan.result !== 'bypass' && idTransaction.idScan.result !== 'error')
+                        return;
+                }
+            }
+            result.push(idTransaction)
+        });
+        this.transactions = result;
+    }
+
     processIdScans() {
         let registers = {};
+        let idTransactions = [];
         this.idScans.forEach( scan => {
             if (!registers[scan.register]) {
                 registers[scan.register] = [];
@@ -95,9 +129,12 @@ export class IdTransactionsComponent implements OnInit,OnDestroy {
                 } else {
                     idTransaction.invoice = event;
                     idTransaction.idScan = idScan;
+                    idScan = undefined;
                 }
-                this.transactions.push(idTransaction);
+                idTransactions.push(idTransaction);
             });
         }
+
+        return idTransactions;
     }
 }

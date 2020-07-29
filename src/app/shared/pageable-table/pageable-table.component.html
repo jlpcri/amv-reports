@@ -8,13 +8,19 @@
     </select>
     </div>
     <div class="col left">
-        <div class="page-number" *ngFor="let page of firstPages" (click)="selectPage(page)">
+        <double-left-angle-icon (click)="selectPage(1)"></double-left-angle-icon>
+        <left-angle-icon (click)="previousPage()"></left-angle-icon>
+        <div class="page-number" *ngFor="let page of firstPages" (click)="selectPage(page)"
+             [ngClass]="{focused: selectedPage===page}">
             {{page}}
         </div>
         <b> . . . </b>
-        <div class="page-number" *ngFor="let page of lastPages" (click)="selectPage(page)">
+        <div class="page-number" *ngFor="let page of lastPages" (click)="selectPage(page)"
+             [ngClass]="{focused: selectedPage===page}">
             {{page | number}}
         </div>
+        <right-angle-icon (click)="nextPage()"></right-angle-icon>
+        <double-right-angle-icon (click)="selectPage(pages - 1)"></double-right-angle-icon>
         <div *ngIf=rows class="page-status">
             {{offset + 1}} - {{+offset + visibleRows.length}} of {{rows.length | number}}
         </div>

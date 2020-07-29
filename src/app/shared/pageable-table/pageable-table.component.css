@@ -9,7 +9,7 @@
 }
 
 .pageable-content {
-    overflow: auto;
+    overflow: scroll;
     position: absolute;
     margin-top: 50px;
     padding: 12px;
@@ -22,11 +22,15 @@
 
 .page-number {
     display: inline-block;
-    font-size: 12px;
     margin-left: 5px;
     margin-right: 5px;
     text-align: center;
     cursor: pointer;
+    line-height: 18px;
+    vertical-align: middle;
+}
+.page-number:hover {
+    color: white;
 }
 
 .page-status {
@@ -44,6 +48,9 @@ table {
 }
 table td{
     white-space: nowrap;  /** added **/
+    overflow: hidden;
+    max-width: 200px;
+    text-overflow: ellipsis;
 }
 table td:last-child{
     width:100%;

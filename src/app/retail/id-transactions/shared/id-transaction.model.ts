@@ -1,5 +1,6 @@
 import {Invoice} from "../../../sales/invoices/shared/invoice.model";
 import {IdScan} from "../../id-scans/shared/id-scan.model";
+import * as moment from 'moment';
 
 export class IdTransaction {
     invoice: Invoice;
@@ -18,29 +19,53 @@ export class IdTransaction {
     }
 
     get associate() {
-        return this.idScan ? this.idScan.associate : "";
+        if (this.idScan)
+            return this.idScan.associate;
+        if (this.invoice)
+            return this.invoice.employee;
+        return "";
     }
 
     get result() {
-        return this.idScan ? this.idScan.result : "";
+        if (this.idScan) {
+            if (isNaN(this.idScan.age))
+                return "";
+            return this.idScan.result;
+        }
+        let age = this.age;
+        if (age < 1)
+            return "";
+        if (age) {
+            return age < 21 ? "minor" : "21+";
+        }
+        return "";
     }
 
     get age() {
-        return this.idScan ? this.idScan.age : "";
+        if (this.idScan)
+            return this.idScan.age;
+        if (this.posBirthDate) {
+            let birthDate = moment(this.posBirthDate);
+            if (birthDate.isValid()) {
+                return moment(this.invoice.paymentDate).diff(birthDate, 'years')
+            }
+        }
+        return ""
     }
 
     get state() {
         return this.idScan ? this.idScan.state : "";
     }
 
-    get birthDate() {
-        if (this.invoice) {
-            if (this.invoice.customerAddresses.length) {
+    get posBirthDate() {
+        if (this.invoice && this.invoice.customerAddresses.length > 0) {
                 return this.invoice.customerAddresses[0].birthDate;
-            }
-        } else {
-            return this.idScan.birthDate;
         }
+    }
+
+    get scannedBirthDate() {
+        if (this.idScan)
+            return this.idScan.birthDate;
     }
 
     get invoiceId() {
@@ -69,5 +94,11 @@ export class IdTransaction {
 
     get bypassReason() {
         return this.idScan ? this.idScan.bypassReason : "";
+    }
+
+    get transactionDelay() {
+        if (this.invoice && this.idScan) {
+            return moment(this.invoice.paymentDate).diff(moment(this.idScan.eventTimestamp),'second')
+        }
     }
 }

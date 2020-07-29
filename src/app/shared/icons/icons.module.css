@@ -1,0 +1,10 @@
+.amv-icon {
+  display: inline-block;
+  width: 18px;
+  height: 18px;
+  stroke: #BBB;
+  cursor: pointer;
+}
+.amv-icon:hover {
+  stroke: #FFF;
+}

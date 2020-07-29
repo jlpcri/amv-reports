@@ -10,13 +10,25 @@
         </div>
     </div>
     <div class="row">
-        <div class="col">
+        <div class="col-2">
             <br>
             <b>ID Scans: &nbsp;</b>
             <span *ngIf="idScans">{{idScans.length | number}}</span>
             <br>
             <b>Transactions: &nbsp;</b>
             <span *ngIf="invoices">{{invoices.length | number}}</span>
+        </div>
+        <div class="col-auto">
+            <br>
+            <input [(ngModel)]="showAllScans" type="checkbox" (change)="filterIdTransactions()"> All Scans
+            <br>
+            <input [(ngModel)]="onlyMinors" type="checkbox" (change)="filterIdTransactions()"> Only Minors
+        </div>
+        <div class="col-auto">
+            <br>
+            <input [(ngModel)]="onlyUnknown" type="checkbox" (change)="filterIdTransactions()"> Only Unknown
+            <br>
+            <input [(ngModel)]="missingScans" type="checkbox" (change)="filterIdTransactions()"> Missing ID Scans
         </div>
     </div>
 </div>
