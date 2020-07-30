@@ -1,29 +1,34 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {EcommSkuService} from "./shared/ecomm-sku.service";
 import {EcommSku} from "./shared/ecomm-sku.model";
 import {ExportToCsv} from "export-to-csv";
 import {Cogs, StockCost} from "./shared/cogs.model";
 import {OptionService} from "../../shared/option.service";
 import {DateRange} from "../../shared/date-range.model";
+import {Observable, Subject, Subscription} from "rxjs";
 
 @Component({
   selector: 'app-ecomm-sku',
   templateUrl: './ecomm-sku.component.html',
   styleUrls: ['./ecomm-sku.component.css']
 })
-export class EcommSkuComponent implements OnInit {
+export class EcommSkuComponent implements OnInit, OnDestroy {
 
     ecommSkus: EcommSku[] = [];
     warehouseCogs: Cogs[] = [];
     skuStockHistory: { [sku: string]: Cogs[] } = {};
     WC_ORDER = /^\D/;
+    dateRangeSubscription: Subscription;
 
     constructor(private ecommSkuService: EcommSkuService, private optionService: OptionService) { }
 
     ngOnInit() {
-        this.optionService.dateRangeSubject.subscribe(dateRange => {
+        this.dateRangeSubscription = this.optionService.dateRangeSubject.subscribe(dateRange => {
             this.updateData(dateRange);
         });
+    }
+    ngOnDestroy(): void {
+        this.dateRangeSubscription.unsubscribe();
     }
 
     updateData(dateRange: DateRange) {

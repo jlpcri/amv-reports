@@ -10,7 +10,6 @@ import org.springframework.context.annotation.ComponentScan;
 @SpringBootApplication
 public class Main {
     public static void main(String[] args) {
-        // System.setProperty("javax.net.ssl.keyStorePassword","changeit");
         SpringApplication.run(Main.class, args);
     }
 }

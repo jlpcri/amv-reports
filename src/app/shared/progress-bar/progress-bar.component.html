@@ -1,0 +1,10 @@
+<div class="progress-bar" *ngIf="progressService.loading">
+    <div class="progress-bar-content">
+        <div class="progress-status">
+            {{progressService.progressMessage}}
+            <br>
+            <div class="lds-spinner"><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div><div></div></div>
+            <br>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,24 @@
+.progress-bar {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    z-index: 1000;
+    background-color: #343a40;
+    opacity: 0.8;
+    vertical-align: middle;
+    text-align: center;
+}
+
+.progress-bar-content {
+    text-align: center;
+}
+
+.progress-status {
+    display: inline-block;
+    color: white;
+    text-align: center;
+    width: fit-content;
+    line-height: 3rem;
+}

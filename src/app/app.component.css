@@ -5,5 +5,5 @@
     padding: 12px;
     bottom: 0;
     right: 0;
-    overflow: scroll;
+    z-index: 1;
 }

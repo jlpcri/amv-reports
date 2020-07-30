@@ -1,0 +1,60 @@
+.left {
+    text-align: left;
+}
+.right {
+    text-align: right;
+}
+.fixed {
+    font-family: Consolas, monospace;
+}
+
+.pageable-content {
+    overflow: scroll;
+    position: absolute;
+    margin-top: 50px;
+    padding: 12px;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    background: #343a40;
+    z-index: 1;
+}
+
+.page-number {
+    display: inline-block;
+    margin-left: 5px;
+    margin-right: 5px;
+    text-align: center;
+    cursor: pointer;
+    line-height: 18px;
+    vertical-align: middle;
+}
+.page-number:hover {
+    color: white;
+}
+
+.page-status {
+    display: inline-block;
+    padding-left: 20px;
+    padding-right: 5px;
+}
+
+select {
+    border-radius: 5px;
+}
+
+table {
+    margin-top: 12px;
+}
+table td{
+    white-space: nowrap;  /** added **/
+    overflow: hidden;
+    max-width: 200px;
+    text-overflow: ellipsis;
+}
+table td:last-child{
+    width:100%;
+}
+table th:last-child{
+    width:100%;
+}
