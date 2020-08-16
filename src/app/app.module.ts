@@ -19,6 +19,8 @@ import { IdTransactionsComponent } from './retail/id-transactions/id-transaction
 import { InvoicesComponent } from './sales/invoices/invoices.component';
 import { ProgressBarComponent } from './shared/progress-bar/progress-bar.component';
 import {IconsModule} from "./shared/icons/icons.module";
+import { MessageModalComponent } from './shared/message-modal/message-modal.component';
+import { AgeCategoriesComponent } from './retail/age-categories/age-categories.component';
 
 @NgModule({
   declarations: [
@@ -35,7 +37,9 @@ import {IconsModule} from "./shared/icons/icons.module";
     IdScansComponent,
     IdTransactionsComponent,
     InvoicesComponent,
-    ProgressBarComponent
+    ProgressBarComponent,
+    MessageModalComponent,
+    AgeCategoriesComponent
   ],
     imports: [
         BrowserModule,

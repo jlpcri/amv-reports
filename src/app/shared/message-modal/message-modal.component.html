@@ -1,0 +1,12 @@
+<div *ngIf="message != null" class="message-modal" (click)="close()">
+    <div class="message-modal-content" (click)="nothing();$event.stopPropagation()">
+        <div class="message-modal-title"
+             [ngClass]="{error: message.level === 3, warning: message.level === 2, info: message.level === 1}"
+        >
+            {{message.text}}
+        </div>
+        <div class="message-modal-detail">
+            {{message.detail}}
+        </div>
+    </div>
+</div>

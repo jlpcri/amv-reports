@@ -9,7 +9,7 @@ import {InvoiceService} from "../../sales/invoices/shared/invoice.service";
 import {Invoice} from "../../sales/invoices/shared/invoice.model";
 import {IdTransaction} from "./shared/id-transaction.model";
 import {IdTransactionColumns} from "./shared/id-transaction-columns";
-import * as moment from 'moment';
+import {ProgressService} from "../../shared/progress-bar/shared/progress.service";
 
 @Component({
   selector: 'app-id-transactions',
@@ -31,7 +31,12 @@ export class IdTransactionsComponent implements OnInit,OnDestroy {
     onlyUnknown: boolean = false;
     missingScans: boolean = false;
 
-    constructor(private idScanService: IdScanService, private optionService: OptionService, private invoiceService: InvoiceService) { }
+    constructor(
+        private idScanService: IdScanService,
+        private optionService: OptionService,
+        private invoiceService: InvoiceService,
+        private progressService: ProgressService
+    ) { }
 
     ngOnInit() {
         this.dateRangeSubscription = this.optionService.dateRangeSubject.subscribe(dateRange => {
@@ -47,20 +52,29 @@ export class IdTransactionsComponent implements OnInit,OnDestroy {
     updateData(dateRange: DateRange) {
         this.idScans = null;
         this.invoices = null;
+        this.progressService.loading = true;
         this.loading = true;
-        this.idScanService.getIdScans(dateRange.formatStartDate(), dateRange.formatStopDate()).subscribe(
-            idScans => {
+        this.progressService.progressMessage = 'Loading ID Scans...';
+        this.idScanService.retrieve(dateRange.formatStartDate(), dateRange.formatStopDate()).subscribe(
+            (idScans) => {
                 this.idScans = idScans;
-                this.invoiceService.getInvoicesByChannel(dateRange.formatStartDate(), dateRange.formatStopDate(), 'retail').subscribe(
+                this.progressService.progressMessage = 'Loading Invoices...';
+                this.invoiceService.retrieve(dateRange.formatStartDate(), dateRange.formatStopDate()).subscribe(
                     invoices => {
                         this.invoices = invoices;
                         this.loading = false;
                         this.allTransactions = this.processIdScans();
                         this.filterIdTransactions();
-                    }
-                )
-            }
-        );
+                        this.progressService.loading = false;
+                        this.loading = false;
+                    }, error => {
+                        this.progressService.loading = false;
+                        this.loading = false;
+                    });
+            }, error => {
+                this.progressService.loading = false;
+                this.loading = false;
+            });
     }
 
     filterIdTransactions() {
