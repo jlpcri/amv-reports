@@ -10,3 +10,43 @@
         </div>
     </div>
 </div>
+<div *ngIf="guestAges">
+    <table>
+        <thead>
+        <tr>
+            <th>Age Range</th>
+            <th class="rt">Accounts</th>
+            <th class="rt">IDs</th>
+            <th class="rt">Transactions</th>
+            <th style="width:100%;"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>All</td>
+            <td class="rt mono">{{guestAges.all.customerIds.length | number}}</td>
+            <td class="rt mono">{{guestAges.all.idGuests.length | number}}</td>
+            <td class="rt mono">{{guestAges.all.orderIds.length | number}}</td>
+            <td></td>
+        </tr>
+        <tr>
+            <td>Unknown</td>
+            <td class="rt mono">{{guestAges.unknown.customerIds.length | number}}</td>
+            <td class="rt mono">{{guestAges.unknown.idGuests.length | number}}</td>
+            <td class="rt mono">{{guestAges.unknown.orderIds.length | number}}</td>
+            <td></td>
+        </tr>
+        <tr *ngFor="let category of guestAges.ageCategories">
+            <td>
+                {{category.startAge}}
+                <span *ngIf="category.stopAge">-</span>
+                <span *ngIf="category.startAge && !category.stopAge">+</span>
+                {{category.stopAge}}</td>
+            <td class="rt mono">{{category.customerIds.length | number}}</td>
+            <td class="rt mono">{{category.idGuests.length | number}}</td>
+            <td class="rt mono">{{category.orderIds.length | number}}</td>
+            <td></td>
+        </tr>
+        </tbody>
+    </table>
+</div>
