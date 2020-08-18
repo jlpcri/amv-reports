@@ -4,6 +4,8 @@ export class AgeCategory {
     idGuests: string[];
     startAge: number;
     stopAge: number;
-    scanCount: number;
+    confirmedCount: number;
+    scannedCount: number;
     histCount: number;
+    posCount: number;
 }
