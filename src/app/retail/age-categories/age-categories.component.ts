@@ -4,6 +4,10 @@ import {OptionService} from "../../shared/option.service";
 import {DateRange} from "../../shared/date-range.model";
 import {GuestAges} from "./shared/guest-ages.model";
 import {Subscription} from "rxjs";
+import {AgeCategoryTransaction} from "./shared/age-category-transaction.model";
+import {PageableTableColumn} from "../../shared/pageable-table/shared/pageable-table-column.model";
+import {IdScanColumns} from "../id-scans/shared/id-scan-columns";
+import {AgeTransactionColumns} from "./shared/age-transaction-columns";
 
 @Component({
   selector: 'app-age-categories',
@@ -12,9 +16,11 @@ import {Subscription} from "rxjs";
 })
 export class AgeCategoriesComponent implements OnInit, OnDestroy {
 
-    private ages = '-20,-24,25-,21-24,25-34,35-44,45-54,55-64,65-';
+    private ages = '-20,21-24,25-34,35-44,45-54,55-64,65-';
     guestAges: GuestAges = null;
     dateRangeSubscription: Subscription;
+    ageTransactionColumns: PageableTableColumn[] = AgeTransactionColumns.COLUMNS;
+    categoryTransactions: AgeCategoryTransaction[];
 
     constructor(private optionService: OptionService, private ageCategoriesService: AgeCategoriesService) { }
 
@@ -37,4 +43,7 @@ export class AgeCategoriesComponent implements OnInit, OnDestroy {
         );
     }
 
+    setCategoryTransactions(transactions: AgeCategoryTransaction[]) {
+        this.categoryTransactions = transactions;
+    }
 }
