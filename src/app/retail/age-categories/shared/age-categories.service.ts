@@ -20,7 +20,7 @@ export class AgeCategoriesService {
                 .set('ages', ages)
         };
         this.progressService.loading = true;
-        this.progressService.progressMessage = 'Loading Guest Age Distribution';
+        this.progressService.progressMessage = 'Loading Guest Age Categories';
         this.http.get<GuestAges>('/amv-reports/api/v1/guest-ages', options).subscribe(
             resp => {
                 this.progressService.loading = false;
