@@ -1,14 +1,7 @@
-<div class="filter-section">
-    <div class="row align-items-start">
-        <div class="col">
-            <b>Age Categories</b><br><br>
-        </div>
-    </div>
-    <div class="row align-items-end">
-        <div class="col">
-            <app-date-picker></app-date-picker>
-        </div>
-    </div>
+<div class="main-content-title">
+     Age Categories
+</div>
+<app-date-picker></app-date-picker>
 <div *ngIf="guestAges">
     <table class="table-age-categories table-striped">
         <thead>
@@ -65,5 +58,4 @@
         </tbody>
     </table>
 </div>
-</div>
-<pageable-table [columns]="ageTransactionColumns" [rows]="categoryTransactions"></pageable-table>
+<pageable-table *ngIf="guestAges" [columns]="ageTransactionColumns" [rows]="categoryTransactions"></pageable-table>

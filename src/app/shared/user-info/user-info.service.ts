@@ -12,7 +12,7 @@ export class UserInfoService {
     constructor(private reportsApiService: ReportsApiService ) { }
 
     getUserInfo(): Observable<UserInfo> {
-        let url = '/user/user-info';
+        const url = '/user/user-info';
         this.reportsApiService.get<UserInfo>(url).subscribe(
             userInfo => {
                 userInfo.firstName = userInfo.name.replace(/\s.*/,'');

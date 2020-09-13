@@ -1,13 +1,12 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {AgeCategoriesService} from "./shared/age-categories.service";
-import {OptionService} from "../../shared/option.service";
-import {DateRange} from "../../shared/date-range.model";
-import {GuestAges} from "./shared/guest-ages.model";
-import {Subscription} from "rxjs";
-import {AgeCategoryTransaction} from "./shared/age-category-transaction.model";
-import {PageableTableColumn} from "../../shared/pageable-table/shared/pageable-table-column.model";
-import {IdScanColumns} from "../id-scans/shared/id-scan-columns";
-import {AgeTransactionColumns} from "./shared/age-transaction-columns";
+import {AgeCategoriesService} from './shared/age-categories.service';
+import {OptionService} from '../../shared/option.service';
+import {DateRange} from '../../shared/date-range.model';
+import {GuestAges} from './shared/guest-ages.model';
+import {Subscription} from 'rxjs';
+import {AgeCategoryTransaction} from './shared/age-category-transaction.model';
+import {PageableTableColumn} from '../../shared/pageable-table/shared/pageable-table-column.model';
+import {AgeTransactionColumns} from './shared/age-transaction-columns';
 
 @Component({
   selector: 'app-age-categories',
@@ -39,11 +38,13 @@ export class AgeCategoriesComponent implements OnInit, OnDestroy {
         this.ageCategoriesService.retrieve(dateRange.formatStartDate(), dateRange.formatStopDate(), this.ages).subscribe(
             guestAges => {
                 this.guestAges = guestAges;
+                console.log(guestAges.ageCategories[0]);
             }
         );
     }
 
     setCategoryTransactions(transactions: AgeCategoryTransaction[]) {
+        console.log(transactions);
         this.categoryTransactions = transactions;
     }
 }

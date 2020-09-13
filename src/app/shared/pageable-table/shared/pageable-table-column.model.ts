@@ -4,4 +4,6 @@ export class PageableTableColumn {
     description: string;
     type: string;
     style: string;
+    sortOrder?: number;
+    showSortOrder?: number;
 }

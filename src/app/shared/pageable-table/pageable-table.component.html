@@ -1,50 +1,65 @@
-<div class="row">
-    <div class="col-auto">
-    Items / Page
-    <select [(ngModel)]="maxRows" (change)="changeMaxRows()">
-        <option value="25">25</option>
-        <option value="50">50</option>
-        <option value="100">100</option>
-    </select>
-    </div>
-    <div class="col left">
-        <double-left-angle-icon (click)="selectPage(1)"></double-left-angle-icon>
-        <left-angle-icon (click)="previousPage()"></left-angle-icon>
-        <div class="page-number" *ngFor="let page of firstPages" (click)="selectPage(page)"
-             [ngClass]="{focused: selectedPage===page}">
-            {{page}}
+<div class="pageable-table">
+    <div class="pageable-options row">
+        <div class="pageable-option">
+            Items / Page
+            <select [(ngModel)]="maxRows" (change)="changeMaxRows()">
+                <option value="25">25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+            </select>
         </div>
-        <b> . . . </b>
-        <div class="page-number" *ngFor="let page of lastPages" (click)="selectPage(page)"
-             [ngClass]="{focused: selectedPage===page}">
-            {{page | number}}
+        <div class="pageable-option">
+            <double-left-angle-icon (click)="selectPage(1)"></double-left-angle-icon>
+            <left-angle-icon (click)="previousPage()"></left-angle-icon>
+            <div class="page-number" *ngFor="let page of firstPages" (click)="selectPage(page)"
+                 [ngClass]="{focused: selectedPage===page}">
+                {{page}}
+            </div>
+            <b> . . . </b>
+            <div class="page-number" *ngFor="let page of lastPages" (click)="selectPage(page)"
+                 [ngClass]="{focused: selectedPage===page}">
+                {{page | number}}
+            </div>
+            <right-angle-icon (click)="nextPage()"></right-angle-icon>
+            <double-right-angle-icon (click)="selectPage(pages - 1)"></double-right-angle-icon>
         </div>
-        <right-angle-icon (click)="nextPage()"></right-angle-icon>
-        <double-right-angle-icon (click)="selectPage(pages - 1)"></double-right-angle-icon>
-        <div *ngIf=rows class="page-status">
+        <div class="pageable-option" *ngIf=rows>
             {{offset + 1}} - {{+offset + visibleRows.length}} of {{rows.length | number}}
         </div>
+        <div class="pageable-option search">
+            <input type="text" width="25" [(ngModel)]="filterValue" (input)="searchRows()">
+        </div>
+        <div class="pageable-option search-icon">
+            <search-icon></search-icon>
+        </div>
+        <div class="pageable-option">
+            <button class="amv-btn" (click)="exportCsv()">Export CSV</button>
+        </div>
     </div>
-    <div class="col-auto">
-        <button class="amv-btn" (click)="exportCsv()">Export CSV</button>
-    </div>
-</div>
-<div class="pageable-content">
+<div #pageableContentDiv class="pageable-content">
     <table>
         <thead>
         <tr>
-            <th *ngFor="let column of columns"
-                [innerHTML]="column.label"
-                [class]="headerStyle(column.style)"
-            ></th>
+            <ng-template ngFor let-column [ngForOf]="columns">
+                <th
+                        [innerHTML]="column.label"
+                        [class]="headerStyle(column.style)"
+                ></th>
+                <th (click)="sort(column.name)" class="th-icon">
+                    <sort-none-icon *ngIf="column.sortOrder !== 0 && column.sortOrder !== 1"></sort-none-icon>
+                    <sort-asc-icon *ngIf="column.sortOrder === 1"></sort-asc-icon>
+                    <sort-desc-icon *ngIf="column.sortOrder === 0"></sort-desc-icon>
+                </th>
+            </ng-template>
             <th></th>
         </tr>
         </thead>
-        <tbody>
+        <tbody #pageableTbody>
         <tr *ngFor="let row of visibleRows">
             <td *ngFor="let col of columns; let c = index"
                 [title]="columns[c].description"
                 [class]="columns[c].style"
+                colspan="2"
             >
                 {{row[columns[c].name]}}
             </td>
@@ -52,4 +67,5 @@
         </tr>
         </tbody>
     </table>
+</div>
 </div>

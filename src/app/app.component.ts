@@ -1,19 +1,23 @@
-import {Component, OnInit} from '@angular/core';
-import {IndexedDatabaseService} from "./shared/indexed-database.service";
-import {ProgressService} from "./shared/progress-bar/shared/progress.service";
+import {AfterViewChecked, AfterViewInit, Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {LayoutService} from './shared/layout.service';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+export class AppComponent implements OnInit, AfterViewChecked {
   title = 'amv-reports';
+  @ViewChild('mainContent') mainContentDiv: ElementRef;
 
-  constructor(private indexedDatabaseService: IndexedDatabaseService) {
+  constructor(private layout: LayoutService) {
   }
 
   ngOnInit(): void {
-      this.indexedDatabaseService.init();
+  }
+
+  ngAfterViewChecked() {
+      this.mainContentDiv.nativeElement.style.left = this.layout.sidebarWidth + 'px';
+      this.mainContentDiv.nativeElement.style.top = this.layout.headerHeight + 'px';
   }
 }

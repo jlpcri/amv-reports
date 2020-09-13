@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import {BehaviorSubject, ReplaySubject, Subject} from "rxjs";
-import {Message} from "./message.model";
+import {ReplaySubject} from 'rxjs';
+import {Message} from './message.model';
 
 @Injectable({
   providedIn: 'root'
@@ -9,12 +9,10 @@ export class MessageService {
 
     public messageSubject: ReplaySubject<Message> =  new ReplaySubject<Message>();
 
-    constructor() {
-        console.log("message service ready");
-    }
+    constructor() {}
 
     error(text: string, detail: string) {
-        let message = new Message(Message.ERROR, text, detail);
+        const message = new Message(Message.ERROR, text, detail);
         this.messageSubject.next(message);
     }
 

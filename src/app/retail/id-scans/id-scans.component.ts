@@ -1,13 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {IdScanService} from "./shared/id-scan.service";
-import {OptionService} from "../../shared/option.service";
-import {DateRange} from "../../shared/date-range.model";
-import {IdScan} from "./shared/id-scan.model";
-import {Subscription} from "rxjs";
-import {IdScanColumns} from "./shared/id-scan-columns";
-import {PageableTableColumn} from "../../shared/pageable-table/shared/pageable-table-column.model";
-import {ProgressService} from "../../shared/progress-bar/shared/progress.service";
-import _ from 'lodash'
+import {IdScanService} from './shared/id-scan.service';
+import {OptionService} from '../../shared/option.service';
+import {DateRange} from '../../shared/date-range.model';
+import {IdScan} from './shared/id-scan.model';
+import {Subscription} from 'rxjs';
+import {IdScanColumns} from './shared/id-scan-columns';
+import {PageableTableColumn} from '../../shared/pageable-table/shared/pageable-table-column.model';
+import {ProgressService} from '../../shared/progress-bar/shared/progress.service';
+import _ from 'lodash';
 
 @Component({
   selector: 'app-id-scans',

@@ -1,14 +1,7 @@
-<div class="filter-section">
-    <div class="row align-items-start">
-        <div class="col">
+<div class="main-content-title">
             <b>Transactions with ID Scans</b><br><br>
-        </div>
-    </div>
-    <div class="row align-items-end">
-        <div class="col">
-            <app-date-picker></app-date-picker>
-        </div>
-    </div>
+</div>
+<app-date-picker></app-date-picker>
     <div class="row">
         <div class="col-2">
             <br>
@@ -31,5 +24,4 @@
             <input [(ngModel)]="missingScans" type="checkbox" (change)="filterIdTransactions()"> Missing ID Scans
         </div>
     </div>
-</div>
 <pageable-table [columns]="transactionColumns" [rows]="transactions" tableName="id-transactions"></pageable-table>
