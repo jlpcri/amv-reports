@@ -1,8 +1,9 @@
 import {AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {PageableTableColumn} from './shared/pageable-table-column.model';
 import {ExportToCsv} from 'export-to-csv';
-import * as _ from 'lodash';
 import {ProgressService} from '../progress-bar/shared/progress.service';
+import * as _ from 'lodash';
+import * as moment from 'moment';
 
 @Component({
   selector: 'pageable-table',
@@ -10,6 +11,8 @@ import {ProgressService} from '../progress-bar/shared/progress.service';
   styleUrls: ['./pageable-table.component.css']
 })
 export class PageableTableComponent implements OnInit, AfterViewChecked {
+
+    static DATE_FORMAT = 'YYYY-MM-DD hh:mm:ss';
 
     private allColumns: PageableTableColumn[];
     private allRows = [];
@@ -73,8 +76,27 @@ export class PageableTableComponent implements OnInit, AfterViewChecked {
             if (max > this.filteredRows.length) {
                 max = this.filteredRows.length;
             }
-            this.visibleRows = this.filteredRows.slice(this.offset, max);
+            this.visibleRows = this.formatCells(this.filteredRows.slice(this.offset, max));
         }
+    }
+
+    formatCells(rows) {
+        const numberFormat = new Intl.NumberFormat('en-US',
+            { minimumFractionDigits: 2, maximumFractionDigits: 2 }
+            );
+        const result = [];
+        for (const row of rows) {
+            const resultRow = {};
+            for (const column of this.columns) {
+                let cellValue = row[column.name];
+                if (column.type === 'number') {
+                    cellValue = numberFormat.format(cellValue);
+                }
+                resultRow[column.name] = cellValue;
+            }
+            result.push(resultRow);
+        }
+        return result;
     }
 
     updatePages() {
@@ -140,7 +162,7 @@ export class PageableTableComponent implements OnInit, AfterViewChecked {
         if (value === null || typeof value === 'undefined') {
             return '';
         } else {
-            return value.toUpperCase();
+            return (value + '').toUpperCase();
         }
     }
 
@@ -174,7 +196,6 @@ export class PageableTableComponent implements OnInit, AfterViewChecked {
             return;
         }
         this.progressService.progressMessage = 'Filtering...';
-        console.log(this.allRows.length);
         this.progressService.loading = true;
         const val = this.filterValue.toLowerCase();
         const result = [];
@@ -187,12 +208,16 @@ export class PageableTableComponent implements OnInit, AfterViewChecked {
                 }
             }
         }
-        console.log('result rows: ' + result.length);
         this.filteredRows = result;
         this.progressService.loading = false;
         this.offset = 0;
         this.changeMaxRows();
     }
 
+    emptyFunction() {}
+
+    clickFunction(column: PageableTableColumn) {
+        return column.click ? column.click : this.emptyFunction;
+    }
 
 }

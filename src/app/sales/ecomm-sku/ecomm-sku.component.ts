@@ -1,11 +1,13 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {EcommSkuService} from "./shared/ecomm-sku.service";
-import {EcommSku} from "./shared/ecomm-sku.model";
-import {ExportToCsv} from "export-to-csv";
-import {Cogs, StockCost} from "./shared/cogs.model";
-import {OptionService} from "../../shared/option.service";
-import {DateRange} from "../../shared/date-range.model";
-import {Observable, Subject, Subscription} from "rxjs";
+import {EcommSkuService} from './shared/ecomm-sku.service';
+import {EcommSku} from './shared/ecomm-sku.model';
+import {ExportToCsv} from 'export-to-csv';
+import {Cogs, StockCost} from './shared/cogs.model';
+import {OptionService} from '../../shared/option.service';
+import {DateRange} from '../../shared/date-range.model';
+import {Subscription} from 'rxjs';
+import {PageableTableColumn} from '../../shared/pageable-table/shared/pageable-table-column.model';
+import {EcommSkuColumns} from './shared/ecomm-sku-columns';
 
 @Component({
   selector: 'app-ecomm-sku',
@@ -14,13 +16,20 @@ import {Observable, Subject, Subscription} from "rxjs";
 })
 export class EcommSkuComponent implements OnInit, OnDestroy {
 
+    ecommSkuColumns: PageableTableColumn[] = EcommSkuColumns.COLUMNS;
     ecommSkus: EcommSku[] = [];
     warehouseCogs: Cogs[] = [];
     skuStockHistory: { [sku: string]: Cogs[] } = {};
     WC_ORDER = /^\D/;
     dateRangeSubscription: Subscription;
 
-    constructor(private ecommSkuService: EcommSkuService, private optionService: OptionService) { }
+    constructor(private ecommSkuService: EcommSkuService, private optionService: OptionService) {
+        for (const col of this.ecommSkuColumns) {
+            if (col.name === 'cost') {
+                col.click = this.showStockHistory;
+            }
+        }
+    }
 
     ngOnInit() {
         this.dateRangeSubscription = this.optionService.dateRangeSubject.subscribe(dateRange => {
@@ -36,9 +45,9 @@ export class EcommSkuComponent implements OnInit, OnDestroy {
         this.warehouseCogs = null;
         this.ecommSkuService.getEcommSkus(dateRange.formatStartDate(), dateRange.formatStopDate()).subscribe(
             skus => {
-                this.ecommSkus = skus;
                 this.ecommSkuService.getWarehouseCogs(dateRange.formatStartDate(), dateRange.formatStopDate()).subscribe(
                     cogs => {
+                        this.ecommSkus = skus;
                         this.warehouseCogs = cogs;
                         cogs.forEach(item => {
                             if (typeof this.skuStockHistory[item.sku] === 'undefined') {
@@ -55,7 +64,7 @@ export class EcommSkuComponent implements OnInit, OnDestroy {
     }
 
     exportCsv() {
-        let csvRows = [];
+        const csvRows = [];
         this.ecommSkus.forEach(item => {
             csvRows.push({
                 orderDate: item.createdAt,

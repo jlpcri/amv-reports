@@ -56,12 +56,13 @@
         </thead>
         <tbody #pageableTbody>
         <tr *ngFor="let row of visibleRows">
-            <td *ngFor="let col of columns; let c = index"
-                [title]="columns[c].description"
-                [class]="columns[c].style"
+            <td *ngFor="let col of columns"
+                [title]="col.description"
+                [class]="col.style"
+                (click)="clickFunction(col)(row, col)"
                 colspan="2"
             >
-                {{row[columns[c].name]}}
+                {{row[col.name]}}
             </td>
             <td></td>
         </tr>
