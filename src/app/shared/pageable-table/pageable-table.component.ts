@@ -104,7 +104,7 @@ export class PageableTableComponent implements OnInit {
             csvRows.push(csvRow);
         });
         const exportToCsv = new ExportToCsv({
-            filename: this.tableName,
+            filename: this.tableName ? this.tableName : 'amv-report',
             useKeysAsHeaders: true
         });
         exportToCsv.generateCsv(csvRows);

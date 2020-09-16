@@ -28,4 +28,6 @@ export class EcommSku {
     shippingZipCode: string = null;
     licenseReceived: number = null;
     licenseDate: string = null;
+    bottleSize?: string = null;
+    nicStrength?: string = null;
 }

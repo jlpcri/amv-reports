@@ -1,15 +1,15 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {IdScan} from "../id-scans/shared/id-scan.model";
-import {PageableTableColumn} from "../../shared/pageable-table/shared/pageable-table-column.model";
-import {Subscription} from "rxjs";
-import {IdScanService} from "../id-scans/shared/id-scan.service";
-import {OptionService} from "../../shared/option.service";
-import {DateRange} from "../../shared/date-range.model";
-import {InvoiceService} from "../../sales/invoices/shared/invoice.service";
-import {Invoice} from "../../sales/invoices/shared/invoice.model";
-import {IdTransaction} from "./shared/id-transaction.model";
-import {IdTransactionColumns} from "./shared/id-transaction-columns";
-import {ProgressService} from "../../shared/progress-bar/shared/progress.service";
+import {IdScan} from '../id-scans/shared/id-scan.model';
+import {PageableTableColumn} from '../../shared/pageable-table/shared/pageable-table-column.model';
+import {Subscription} from 'rxjs';
+import {IdScanService} from '../id-scans/shared/id-scan.service';
+import {OptionService} from '../../shared/option.service';
+import {DateRange} from '../../shared/date-range.model';
+import {InvoiceService} from '../../sales/invoices/shared/invoice.service';
+import {Invoice} from '../../sales/invoices/shared/invoice.model';
+import {IdTransaction} from './shared/id-transaction.model';
+import {IdTransactionColumns} from './shared/id-transaction-columns';
+import {ProgressService} from '../../shared/progress-bar/shared/progress.service';
 
 @Component({
   selector: 'app-id-transactions',
@@ -62,6 +62,7 @@ export class IdTransactionsComponent implements OnInit,OnDestroy {
                 this.invoiceService.retrieve(dateRange.formatStartDate(), dateRange.formatStopDate()).subscribe(
                     invoices => {
                         this.invoices = invoices;
+                        console.log('found ' + invoices.length + ' invoices');
                         this.loading = false;
                         this.allTransactions = this.processIdScans();
                         this.filterIdTransactions();
@@ -89,13 +90,15 @@ export class IdTransactionsComponent implements OnInit,OnDestroy {
                     return;
             }
             if (this.onlyMinors) {
-                if (idTransaction.result !== 'minor')
+                if (idTransaction.result !== 'minor') {
                     return;
+                }
             }
             if (this.onlyUnknown) {
                 if (idTransaction.idScan) {
-                    if (idTransaction.idScan.result !== 'bypass' && idTransaction.idScan.result !== 'error')
+                    if (idTransaction.idScan.result !== 'bypass' && idTransaction.idScan.result !== 'error') {
                         return;
+                    }
                 }
             }
             result.push(idTransaction)
@@ -104,8 +107,8 @@ export class IdTransactionsComponent implements OnInit,OnDestroy {
     }
 
     processIdScans() {
-        let registers = {};
-        let idTransactions = [];
+        const registers = {};
+        const idTransactions = [];
         this.idScans.forEach( scan => {
             if (!registers[scan.register]) {
                 registers[scan.register] = [];
@@ -120,13 +123,13 @@ export class IdTransactionsComponent implements OnInit,OnDestroy {
         });
 
         this.transactions = [];
-        for (let registerName of Object.keys(registers)) {
-            let registerEvents = registers[registerName];
+        for (const registerName of Object.keys(registers)) {
+            const registerEvents = registers[registerName];
             registerEvents.sort((a, b) => {
                 let ts1: string;
                 let ts2: string;
-                ts1 = typeof a.eventTimestamp === "undefined" ? a.paymentDate : a.eventTimestamp;
-                ts2 = typeof b.eventTimestamp === "undefined" ? b.paymentDate : b.eventTimestamp;
+                ts1 = typeof a.eventTimestamp === 'undefined' ? a.paymentDate : a.eventTimestamp;
+                ts2 = typeof b.eventTimestamp === 'undefined' ? b.paymentDate : b.eventTimestamp;
                 if (ts1 < ts2)
                     return -1;
                 if (ts1 > ts2)
@@ -136,7 +139,7 @@ export class IdTransactionsComponent implements OnInit,OnDestroy {
 
             let idScan;
             registerEvents.forEach(event => {
-                let idTransaction = new IdTransaction();
+                const idTransaction = new IdTransaction();
                 if (typeof event.eventTimestamp !== 'undefined') {
                     idScan = event;
                     idTransaction.idScan = event;
