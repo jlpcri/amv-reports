@@ -1,29 +1,22 @@
-<div class="row">
-    <div class="col-auto">
-        <div><b>{{optionService.selectedDateRange.format()}}</b></div>
-    </div>
+<div>
+<div class="date-range"><b>{{optionService.selectedDateRange.format()}}</b></div>
+<div class="amv-btn-grp">
+    <button *ngFor="let dateRange of dateRanges"
+            class="amv-btn"
+            [ngClass]="{selected: isSelected(dateRange)}"
+            (click)="selectRange(dateRange)"
+    >
+        {{shortName(dateRange)}}
+    </button>
+    <button class="amv-btn" (click)="toggleCustomPicker()" [ngClass]="{selected: isCustomRange()}">
+        Custom
+    </button>
 </div>
-<div class="row">
-    <div>
-        <div class="col-auto amv-btn-grp">
-        <button *ngFor="let dateRange of dateRanges"
-                class="amv-btn"
-                [ngClass]="{selected: isSelected(dateRange)}"
-                (click)="selectRange(dateRange)"
-        >
-            {{shortName(dateRange)}}
-        </button>
-        </div>
-    </div>
-    <div class="col-auto">
-        <button *ngIf="!showCustomPicker" class="amv-btn"
-                (click)="toggleCustomPicker()" [ngClass]="{selected: isCustomRange()}" >
-            Custom
-        </button>
+    <div *ngIf="showCustomPicker" class="custom-date-picker-modal">
         <div *ngIf="showCustomPicker" class="custom-date-picker">
             <div class="custom-date-picker-header">
-                <div class="col-80 lt">{{format()}}</div>
-                <div class="col-20 rt"><span class="ptr" style="font-size: 20px" (click)="toggleCustomPicker()">&times;</span>&nbsp;</div>
+                <div class="lt">{{format()}}</div>
+                <div class="rt"><span class="ptr" style="font-size: 20px" (click)="toggleCustomPicker()">&times;</span>&nbsp;</div>
             </div>
             <div class="month-nav">
                 <b><span class="ptr" (click)="previousMonth()">&lt;</span></b>
@@ -62,5 +55,6 @@
                 <button class="amv-btn" (click)="applySelection()">Okay</button>
             </div>
         </div>
+
     </div>
 </div>

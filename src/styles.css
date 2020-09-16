@@ -1,84 +1,127 @@
 /* You can add global styles to this file, and also import other style files */
-html, body { height: 100%; width: 100%; overflow: hidden; }
-body {
-  padding-top: 65px;
+:root {
+    --panel-bg: #121212;
+    --menu-bg: #1e1e1e;
+    --btn-bg: #505050;
+    --border-color: #383838;
+    --text-color: #c4c4c4;
+    --btn-radius: 5px;
+    --amv-blue: #125ccb;
 }
 
-.green {
-    color: aquamarine;
-}
-.red {
-    color: #e51f4a;
+html, body {
+    height: 100%;
+    width: 100%;
+    margin: 0;
+    color: var(--text-color);
+    font-family: arial, helvetica, sans-serif;
+    background-color: var(--panel-bg);
+    overflow: hidden;
 }
 
+.main-content-title {
+    font-size: 1.2rem;
+    padding-bottom: 12px;
+}
+
+.main-content-filter {
+
+}
+
+.amv-btn-grp {
+    display: inline-block;
+}
+
+.amv-btn-grp .amv-btn:first-child {
+    border-top-left-radius: var(--btn-radius);
+    border-bottom-left-radius: var(--btn-radius);
+}
+
+.amv-btn-grp .amv-btn:last-child {
+    border-top-right-radius: var(--btn-radius);
+    border-bottom-right-radius: var(--btn-radius);
+}
+
+.amv-btn {
+    background-color: #6c6c6c;
+    color: var(--text-color);
+    border-top: 1px solid #848484;
+    border-left: 1px solid #848484;
+    border-bottom: 1px solid #323232;
+    border-right: 1px solid #323232;
+    border-radius: var(--btn-radius);
+    outline: none !important;
+    padding: 1px 16px;
+    font-size: 10pt;
+}
+
+.amv-btn-grp > .amv-btn {
+    border-radius: 0;
+    border-left: none;
+}
+
+.amv-btn:hover {
+    background-color: #8c8c8c;
+}
+
+.amv-btn:active {
+    background-color: #b4b4b4;
+    color: #3b3b3b;
+}
+
+.amv-btn.selected {
+    background-color: #b4b4b4;
+    color: #3b3b3b;
+}
+
+.lt {
+    text-align: left;
+}
+.rt {
+    text-align: right;
+}
 .ptr {
     cursor: pointer;
 }
 
-.rt {
-    text-align: right;
-}
-.lt {
-    text-align: left;
+.blink {
+    animation: blinker 1s linear infinite;
 }
 
-.col-80 {
+@keyframes blinker {
+    50% {
+        opacity: 0;
+    }
+}
+
+.focused {
+    color: white;
+}
+
+.row {
+    display: flex;
+    flex-flow: row nowrap;
+    align-items: stretch;
+}
+.col {
+    display: flex;
+}
+
+.col-2 {
+    width: 16.6%;
+    padding: 8px 16px;
+}
+
+.col-auto {
     display: inline-block;
-    width: 80%;
-}
-.col-60 {
-    display: inline-block;
-    width: 60%;
-}
-.col-20 {
-    display: inline-block;
-    width: 20%;
+    padding: 8px 16px;
 }
 
-.dark {
-  background: #343a40;
-  color: rgba(255,255,255,.7);
-}
-
-.nav-link.active {
-  color: #FFF;
-}
-.nav-link.active:hover {
-  color: #FFF;
-}
-.nav-item {
-  cursor: pointer;
-}
-.nav-link {
-  color: rgba(255,255,255,.5);
-}
-.nav-link:hover {
-  color: rgba(255,255,255,.75);
-}
-
-.filter-section {
-    position: fixed;
-    top: 65px;
-    left: 200px;
-    right: 0;
-    background: #343a40;
-    padding: 10px;
-    z-index: 3;
-}
-
-table {
-    font-size: 10pt;
-    width: 100%;
-}
-td,th {
-    padding: 0 6px 0 6px;
-    white-space: nowrap;
-    vertical-align: bottom;
-}
-.mono {
-    font-family: monospace;
-}
-
-.table-striped tr:nth-child(even) {
-    background: #242a30;
+input[type=text] {
+    border-radius: var(--btn-radius);
+    border: 1px solid var(--border-color);
+    background-color: var(--menu-bg);
+    color: var(--text-color);
+    padding: 2px 8px;
+    outline: none;
 }

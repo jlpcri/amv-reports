@@ -64,6 +64,20 @@ export class AgeTransactionColumns {
             description: 'Account ID',
             type: 'string',
             style: 'left'
+        },
+        {
+            name: 'idScanResult',
+            label: 'Scan Result',
+            description: 'ID Scan Result',
+            type: 'string',
+            style: 'left'
+        },
+        {
+            name: 'bypassReason',
+            label: 'Bypass Reason',
+            description: 'Bypass Reason',
+            type: 'string',
+            style: 'left'
         }
     ];
 }

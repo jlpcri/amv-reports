@@ -6,17 +6,20 @@
     right: 0;
     z-index: 1000;
     background-color: rgba(52,58,64,.6);
-    vertical-align: middle;
     text-align: center;
 }
 
 .progress-bar-content {
+    position: absolute;
+    top: 25%;
+    left: 50%;
     text-align: center;
+    transform: translateX(-50%);
 }
 
 .progress-status {
     display: inline-block;
-    color: var(--amv-fg-color);
+    color: var(--text-color);
     text-align: center;
     width: fit-content;
     line-height: 3rem;

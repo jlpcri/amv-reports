@@ -21,7 +21,7 @@ export class DatePickerComponent implements OnInit {
     stopDate: Moment;
     visibleMonths: DatePickerMonth[];
 
-    constructor(private optionService: OptionService) { }
+    constructor(public optionService: OptionService) { }
 
     ngOnInit() {
         let currentDateRange = new DateRange(this.optionService.selectedDateRange.units);

@@ -1,11 +1,29 @@
+.date-range {
+    padding-bottom: 6px;
+}
+
+.custom-date-picker-modal {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 50;
+    margin: auto;
+    background-color: rgba(40, 40, 40, .5);
+    text-align: center;
+}
+
 .custom-date-picker {
     position: absolute;
+    top: 25%;
+    transform: translateX(-50%);
+    display: inline-block;
     /* background: #323232; */
     background: #323232;
     width: max-content;
-    border-radius: var(--amv-btn-radius);
+    border-radius: var(--btn-radius);
     padding: 10px;
-    z-index: 50;
 }
 
 .custom-date-picker-header {
