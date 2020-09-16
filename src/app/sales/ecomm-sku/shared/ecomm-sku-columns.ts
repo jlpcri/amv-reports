@@ -112,14 +112,14 @@ export class EcommSkuColumns {
             name: 'size',
             label: 'Size',
             description: 'Size',
-            type: 'number',
+            type: 'integer',
             style: 'right'
         },
         {
             name: 'strength',
             label: 'Strength',
             description: 'Strength',
-            type: 'number',
+            type: 'integer',
             style: 'right'
         },
         {

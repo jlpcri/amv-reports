@@ -7,12 +7,12 @@ import {Observable, Subject} from 'rxjs';
 })
 export class ReportsApiService {
 
-    private baseUrl = '/amv-reports';
+    private baseUrl = '/amv-reports/api/v1';
     constructor(private http: HttpClient) { }
 
-    get<T>(url: string): Observable<T> {
+    get<T>(url: string, options?: {}): Observable<T> {
         const respSubject: Subject<T> = new Subject<T>();
-        this.http.get<T>(this.baseUrl + url).subscribe(
+        this.http.get<T>(this.baseUrl + url, options).subscribe(
             resp => respSubject.next(resp),
             error => {
                 if (error.url.endsWith('/login.html')) {

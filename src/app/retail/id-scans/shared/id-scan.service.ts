@@ -6,6 +6,7 @@ import {ProgressService} from "../../../shared/progress-bar/shared/progress.serv
 import {IndexedDatabaseService} from "../../../shared/indexed-database.service";
 import * as moment from 'moment';
 import {Duration, Moment} from "moment";
+import {ReportsApiService} from '../../../shared/reports-api/reports-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -16,7 +17,7 @@ export class IdScanService {
     MIN_ID_SCAN_DATE = "2019-04-01 04:00:00";
     DATE_FORMAT = 'YYYY-MM-DD hh:mm:ss';
 
-    constructor(private http: HttpClient,
+    constructor(private reportsApiService: ReportsApiService,
                 private progressService: ProgressService,
                 private idb: IndexedDatabaseService
     ) { }
@@ -63,7 +64,7 @@ export class IdScanService {
         let options = {
             params: new HttpParams().set('startDate', startDate).set('stopDate', stopDate)
         };
-        this.http.get<IdScan[]>('/amv-reports/api/v1/idscans', options).subscribe(
+        this.reportsApiService.get<IdScan[]>('/idscans', options).subscribe(
             resp => {
                 resp.forEach( scan => {
                     if (scan.age === 0)

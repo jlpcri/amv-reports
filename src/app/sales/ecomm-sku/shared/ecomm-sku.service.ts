@@ -4,6 +4,7 @@ import {Observable, Subject} from 'rxjs';
 import {EcommSku} from './ecomm-sku.model';
 import {Cogs} from './cogs.model';
 import {ProgressService} from '../../../shared/progress-bar/shared/progress.service';
+import {ReportsApiService} from '../../../shared/reports-api/reports-api.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +13,7 @@ export class EcommSkuService {
 
     private sizeRegex = /([\d]+)\s*ml/i;
     private strengthRegex = /([\d]+)\s*mg/i;
-    constructor(private http: HttpClient, private progressService: ProgressService) { }
+    constructor(private reportsApiService: ReportsApiService, private progressService: ProgressService) { }
 
     getEcommSkus(startDate: string, stopDate: string): Observable<EcommSku[]> {
         const ecommSkus: Subject<EcommSku[]> = new Subject<EcommSku[]>();
@@ -22,15 +23,15 @@ export class EcommSkuService {
 
         this.progressService.progressMessage = 'Loading e-Commerce Sales...';
         this.progressService.loading = true;
-        this.http.get<EcommSku[]>('/amv-reports/api/v1/sales/ecomm-sku', options).subscribe(
+        this.reportsApiService.get<EcommSku[]>('/sales/ecomm-sku', options).subscribe(
             resp => {
                 for (const item of resp) {
-                    const sizeMatch = item.productName.match(this.sizeRegex);
+                    const sizeMatch = item.bottleSize ? item.bottleSize.match(this.sizeRegex) : null;
                     if (sizeMatch && sizeMatch.length === 2) {
                         item.size = +sizeMatch[1];
                     }
 
-                    const strengthMatch = item.productName.match(this.strengthRegex);
+                    const strengthMatch = item.nicStrength ? item.nicStrength.match(this.strengthRegex) : null;
                     if (strengthMatch && strengthMatch.length === 2) {
                         item.strength = +strengthMatch[1];
                     }
@@ -81,7 +82,7 @@ export class EcommSkuService {
 
         this.progressService.progressMessage = 'Loading Warehouse COGS...';
         this.progressService.loading = true;
-        this.http.get<Cogs[]>('/amv-reports/api/v1/warehouse-cogs', options).subscribe(
+        this.reportsApiService.get<Cogs[]>('/warehouse-cogs', options).subscribe(
             resp => {
                 cogsSubject.next(resp);
                 this.progressService.loading = false;
