@@ -9,4 +9,6 @@ export class AgeCategoryTransaction {
     posFirstName: string;
     posLastName: string;
     posAccount: string;
+    idScanResult: string;
+    bypassReason: string;
 }

@@ -58,17 +58,14 @@ export class IdTransactionsComponent implements OnInit,OnDestroy {
         this.idScanService.retrieve(dateRange.formatStartDate(), dateRange.formatStopDate()).subscribe(
             (idScans) => {
                 this.idScans = idScans;
-                this.progressService.progressMessage = 'Loading Invoices...';
-                this.invoiceService.retrieve(dateRange.formatStartDate(), dateRange.formatStopDate()).subscribe(
+                this.invoiceService.retrieveAll(dateRange.formatStartDate(), dateRange.formatStopDate()).subscribe(
                     invoices => {
                         this.invoices = invoices;
                         this.loading = false;
                         this.allTransactions = this.processIdScans();
                         this.filterIdTransactions();
-                        this.progressService.loading = false;
                         this.loading = false;
                     }, error => {
-                        this.progressService.loading = false;
                         this.loading = false;
                     });
             }, error => {
@@ -79,7 +76,7 @@ export class IdTransactionsComponent implements OnInit,OnDestroy {
 
     filterIdTransactions() {
         this.transactions = [];
-        let result = [];
+        const result = [];
         this.allTransactions.forEach(idTransaction => {
             if (!this.showAllScans && !idTransaction.invoice) {
                 return;

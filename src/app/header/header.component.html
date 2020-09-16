@@ -1,24 +1,13 @@
-<nav class="navbar navbar-expand fixed-top navbar-dark bg-dark header">
-    <a class="navbar-brand">AMV Reporting</a>
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav">
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="'sales'" [ngClass]="{'active': base === 'sales'}">Sales</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="'retail'" [ngClass]="{'active': base === 'retail'}">Retail</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="'guests'" [ngClass]="{'active': base === 'guests'}">Guests</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" [routerLink]="'inventory'" [ngClass]="{'active': base === 'inventory'}">Inventory</a>
-            </li>
-        </ul>
-        <ul class="navbar-nav ml-auto">
-            <li class="nav-item">
-                <a *ngIf="userInfo" class="nav-link">{{userInfo.firstName}}</a>
-            </li>
-        </ul>
+<div class="header" #headerDiv>
+    <div class="brand">AMV Reporting</div>
+    <div class="header-item"
+         *ngFor="let path of paths"
+         [ngClass]="{active: path === base}"
+         (click)="setRoute(path)"
+    >
+        {{path}}
     </div>
-</nav>
+    <div class="userinfo" *ngIf="userInfo">
+        {{userInfo.firstName}}
+    </div>
+</div>
