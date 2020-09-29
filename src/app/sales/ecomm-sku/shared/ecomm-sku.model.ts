@@ -4,6 +4,7 @@ export class EcommSku {
     source: string = null;
     sourceId: string = null;
     sourceName: string = null;
+    sourceType: string = null;
     invoiceId: string = null;
     status: string = null;
     sku: string = null;

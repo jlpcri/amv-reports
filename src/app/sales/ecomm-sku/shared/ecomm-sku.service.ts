@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpParams} from '@angular/common/http';
 import {Observable, Subject} from 'rxjs';
 import {EcommSku} from './ecomm-sku.model';
 import {Cogs} from './cogs.model';
@@ -46,6 +46,9 @@ export class EcommSkuService {
                         item.discountPercent = item.price / item.orderSubtotal;
                         item.discount = item.orderDiscount * item.discountPercent;
                         item.discountPercent *= 100;
+                        if (item.sourceType === 'prestashop') {
+                            item.price += item.discount;
+                        }
                     } else {
                         item.discountPercent = null;
                         item.discount = null;

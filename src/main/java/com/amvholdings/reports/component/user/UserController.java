@@ -1,5 +1,6 @@
 package com.amvholdings.reports.component.user;
 
+import org.springframework.http.MediaType;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -10,7 +11,7 @@ import java.util.stream.Collectors;
 @RestController
 public class UserController {
 
-    @GetMapping("/user/user-info")
+    @GetMapping(value = "/user/user-info", produces = MediaType.APPLICATION_JSON_VALUE)
     UserModel getUserInfo(Authentication auth)  {
         List<String> roles = auth.getAuthorities().stream()
                 .map(Object::toString)
