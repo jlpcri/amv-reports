@@ -1,6 +1,0 @@
-projectKey=amv-reports
-serverUrl=https://amvtest.amvholdings.com/sonarqube
-serverVersion=7.9.4.35981
-dashboardUrl=https://amvtest.amvholdings.com/sonarqube/dashboard?id=amv-reports
-ceTaskId=AXTZ6PJE4zslw2eFOf-Y
-ceTaskUrl=https://amvtest.amvholdings.com/sonarqube/api/ce/task?id=AXTZ6PJE4zslw2eFOf-Y
