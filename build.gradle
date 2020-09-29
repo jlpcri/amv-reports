@@ -27,6 +27,10 @@ dependencies {
     implementation 'org.springframework.security:spring-security-oauth2-jose'
     implementation 'org.springframework.cloud:spring-cloud-starter-netflix-zuul:2.2+'
     annotationProcessor 'org.springframework.boot:spring-boot-configuration-processor'
+    testCompile 'org.springframework.boot:spring-boot-starter-test'
+    testCompile 'org.spockframework:spock-core:1.2-groovy-2.4'
+    testCompile 'cglib:cglib:3.2+'
+    testCompile 'org.objenesis:objenesis:3.0+'
 }
 
 node {

@@ -3,7 +3,6 @@ import {PageableTableColumn} from './shared/pageable-table-column.model';
 import {ExportToCsv} from 'export-to-csv';
 import {ProgressService} from '../progress-bar/shared/progress.service';
 import * as _ from 'lodash';
-import * as moment from 'moment';
 
 @Component({
   selector: 'pageable-table',
@@ -19,7 +18,7 @@ export class PageableTableComponent implements OnInit, AfterViewChecked {
     private filteredRows = [];
 
     filterValue = '';
-    visibleRows: any[];
+    visibleRows = [];
     offset = 0;
     maxRows = 50;
     pages: number;

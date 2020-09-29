@@ -4,7 +4,6 @@ import {HttpParams} from '@angular/common/http';
 import {Invoice} from './invoice.model';
 import {ProgressService} from '../../../shared/progress-bar/shared/progress.service';
 import {Moment} from 'moment';
-import {InvoiceList} from './invoice-list.model';
 import {ReportsApiService} from '../../../shared/reports-api/reports-api.service';
 
 @Injectable({
