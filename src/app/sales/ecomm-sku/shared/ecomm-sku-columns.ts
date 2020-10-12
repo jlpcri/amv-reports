@@ -1,5 +1,4 @@
 import {PageableTableColumn} from '../../../shared/pageable-table/shared/pageable-table-column.model';
-import {EcommSkuComponent} from '../ecomm-sku.component';
 
 export class EcommSkuColumns {
     static COLUMNS: PageableTableColumn[] = [

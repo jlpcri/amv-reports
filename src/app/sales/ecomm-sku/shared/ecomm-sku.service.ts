@@ -42,17 +42,8 @@ export class EcommSkuService {
                         item.size = null;
                     }
 
-                    if (item.orderDiscount) {
-                        item.discountPercent = item.price / item.orderSubtotal;
-                        item.discount = item.orderDiscount * item.discountPercent;
-                        item.discountPercent *= 100;
-                        if (item.sourceType === 'prestashop') {
-                            item.price += item.discount;
-                        }
-                    } else {
-                        item.discountPercent = null;
-                        item.discount = null;
-                        item.orderDiscount = null;
+                    if (item.sourceType === 'prestashop') {
+                        item.price += item.discount;
                     }
                 }
 
