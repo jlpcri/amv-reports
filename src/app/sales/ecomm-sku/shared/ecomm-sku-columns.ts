@@ -67,8 +67,15 @@ export class EcommSkuColumns {
         },
         {
             name: 'price',
-            label: 'Price',
+            label: 'Base Price',
             description: 'Price',
+            type: 'number',
+            style: 'right'
+        },
+        {
+            name: 'netPrice',
+            label: 'Net Price',
+            description: 'Net Price',
             type: 'number',
             style: 'right'
         },

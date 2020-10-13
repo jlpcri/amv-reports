@@ -11,6 +11,7 @@ export class EcommSku {
     productName: string = null;
     quantity: number = null;
     price: number = null;
+    netPrice: number = null;
     cost: number = null;
     orderSubtotal: number = null;
     discount: number = null;
