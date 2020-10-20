@@ -31,11 +31,25 @@ export class IdTransactionColumns {
             style: 'left'
         },
         {
+            name: 'location',
+            label: 'Location',
+            description: 'Location',
+            type: 'string',
+            style: 'left'
+        },
+        {
             name: 'invoiceId',
             label: 'Invoice ID',
             description: 'Invoice ID',
             type: 'string',
             style: 'left fixed'
+        },
+        {
+            name: 'grandTotal',
+            label: 'Grand Total',
+            description: 'Grand Total',
+            type: 'number',
+            style: 'right fixed'
         },
         {
             name: 'associate',

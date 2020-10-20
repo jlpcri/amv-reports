@@ -1,5 +1,5 @@
-import {Invoice} from "../../../sales/invoices/shared/invoice.model";
-import {IdScan} from "../../id-scans/shared/id-scan.model";
+import {Invoice} from '../../../sales/invoices/shared/invoice.model';
+import {IdScan} from '../../id-scans/shared/id-scan.model';
 import * as moment from 'moment';
 
 export class IdTransaction {
@@ -7,11 +7,11 @@ export class IdTransaction {
     idScan: IdScan;
 
     get scanTimestamp() {
-        return this.idScan ? this.idScan.eventTimestamp : "";
+        return this.idScan ? this.idScan.eventTimestamp : '';
     }
 
     get orderTimestamp() {
-        return this.invoice ? this.invoice.paymentDate : "";
+        return this.invoice ? this.invoice.paymentDate : '';
     }
 
     get register() {
@@ -89,7 +89,7 @@ export class IdTransaction {
                 return name;
             }
         }
-        return "";
+        return '';
     }
 
     get bypassReason() {
@@ -100,5 +100,13 @@ export class IdTransaction {
         if (this.invoice && this.idScan) {
             return moment(this.invoice.paymentDate).diff(moment(this.idScan.eventTimestamp),'second')
         }
+    }
+
+    get grandTotal() {
+        return this.invoice ? this.invoice.grandTotal : 0.0;
+    }
+
+    get location() {
+        return this.invoice ? this.invoice.location : '';
     }
 }
