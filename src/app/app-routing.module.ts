@@ -1,12 +1,14 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import {SalesSummaryComponent} from "./sales/sales-summary/sales-summary.component";
-import {GuestSummaryComponent} from "./guests/guest-summary/guest-summary.component";
-import {StockSummaryComponent} from "./inventory/stock-summary/stock-summary.component";
-import {EcommSkuComponent} from "./sales/ecomm-sku/ecomm-sku.component";
-import {IdScansComponent} from "./retail/id-scans/id-scans.component";
-import {IdTransactionsComponent} from "./retail/id-transactions/id-transactions.component";
-import {AgeCategoriesComponent} from "./retail/age-categories/age-categories.component";
+import {SalesSummaryComponent} from './sales/sales-summary/sales-summary.component';
+import {GuestSummaryComponent} from './guests/guest-summary/guest-summary.component';
+import {StockSummaryComponent} from './inventory/stock-summary/stock-summary.component';
+import {EcommSkuComponent} from './sales/ecomm-sku/ecomm-sku.component';
+import {IdScansComponent} from './retail/id-scans/id-scans.component';
+import {IdTransactionsComponent} from './retail/id-transactions/id-transactions.component';
+import {AgeCategoriesComponent} from './retail/age-categories/age-categories.component';
+import {ProductsComponent} from './inventory/products/products.component';
+import {RetailGuestComponent} from './retail/retail-guest/retail-guest.component';
 
 
 const routes: Routes = [
@@ -30,7 +32,8 @@ const routes: Routes = [
             {path: '', redirectTo: 'id-scans', pathMatch: 'full'},
             {path: 'id-scans', component: IdScansComponent},
             {path: 'transactions', component: IdTransactionsComponent},
-            {path: 'age-categories', component: AgeCategoriesComponent}
+            {path: 'age-categories', component: AgeCategoriesComponent},
+            {path: 'guests', component: RetailGuestComponent}
         ]
     },
     {
@@ -45,8 +48,9 @@ const routes: Routes = [
         path: 'inventory',
         children: [
             { path: '', redirectTo: 'summary', pathMatch: 'full' },
-            { path: 'summary', component: StockSummaryComponent },
-            { path: 'warehouse', component: StockSummaryComponent },
+          { path: 'summary', component: StockSummaryComponent },
+          { path: 'products', component: ProductsComponent },
+          { path: 'warehouse', component: StockSummaryComponent },
         ]
     },
 ];

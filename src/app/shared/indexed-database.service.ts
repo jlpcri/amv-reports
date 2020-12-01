@@ -1,47 +1,66 @@
 import { Injectable } from '@angular/core';
-import {MessageService} from "./message-modal/shared/message.service";
-import {Observable, Subject} from "rxjs";
+import {MessageService} from './message-modal/shared/message.service';
+import {Observable, Subject, of } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 
 export class IndexedDatabaseService {
 
-    public db;
+    private db = null;
     private version = 1;
 
     constructor(private messageService: MessageService) { }
 
-    init() {
-        let request = indexedDB.open("AmvReportsDatabase", this.version);
-        request.onerror = (event: any) => {
-            this.messageService.error("Could not open browser database",
-                JSON.stringify(event,null,2));
-        };
-        request.onsuccess = (event: any) => {
-            this.db = event.target.result;
-            this.db.onerror = (event: any) => {
-                this.messageService.error("Database Error", JSON.stringify(event,null,2));
-            }
-        };
-        request.onupgradeneeded = (event: any) => {
-            let db = event.target.result;
-            let objectStore = db.createObjectStore("id-scan", {keyPath: "id"});
-            objectStore.createIndex("event-timestamp", "eventTimestamp", { unique: false });
-
-            objectStore = db.createObjectStore("order", {keyPath: "id"});
-            objectStore.createIndex('payment-date', 'paymentDate', {unique: false});
-
-            db.createObjectStore("customer-id-scan", {keyPath: "customerId"});
-            db.createObjectStore("product", {keyPath: "id"});
-            this.db = db;
+    getDb(): Observable<IDBOpenDBRequest> {
+        if (this.db === null) {
+            return this.init();
+        } else {
+            return of(this.db);
         }
     }
 
+    init(): Observable<IDBOpenDBRequest> {
+        const requestSubject = new Subject<IDBOpenDBRequest>();
+        const request = indexedDB.open('AmvReportsDatabase', this.version);
+        request.onerror = (event: any) => {
+            this.messageService.error('Could not open browser database',
+                JSON.stringify(event, null, 2));
+            requestSubject.next(this.db);
+        };
+        request.onsuccess = (event: any) => {
+            this.db = event.target.result;
+
+            // Handle any future database errors
+            this.db.onerror = (error: any) => {
+                this.messageService.error('Database Error', JSON.stringify(error, null, 2));
+            };
+            requestSubject.next(this.db);
+        };
+        request.onupgradeneeded = (event: any) => {
+            this.db = event.target.result;
+
+            // Handle any future database errors
+            this.db.onerror = (error: any) => {
+                this.messageService.error('Database Error', JSON.stringify(error, null, 2));
+            };
+
+            this.upgradeDatabase();
+
+            requestSubject.next(this.db);
+        };
+        return requestSubject;
+    }
+
+    upgradeDatabase() {
+        const productStore = this.db.createObjectStore('product', {keyPath: 'id'});
+        productStore.createIndex('sku', 'sku', { unique: false });
+    }
+
     maxValue(storeName: string, indexName: string, field: string): Observable<any> {
-        let subject = new Subject<any>();
-        let cursor = this.db
+        const subject = new Subject<any>();
+        const cursor = this.db
             .transaction(storeName, 'readonly')
             .objectStore(storeName)
             .index(indexName)

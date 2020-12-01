@@ -31,7 +31,7 @@ export class PageableTableComponent implements OnInit, AfterViewChecked {
     @ViewChild('pageableTbody') pageableTbody: ElementRef;
 
     @Input()
-    tableName;
+    tableName: string;
 
     constructor(private progressService: ProgressService) { }
 
@@ -157,32 +157,43 @@ export class PageableTableComponent implements OnInit, AfterViewChecked {
     }
 
 
-    private sortValue(value: any): any {
+    private sortValue(col: PageableTableColumn, value: any): any {
+        if (col.type === 'number' || col.type === 'integer') {
+            return isNaN(value) ? null : value;
+        }
         if (value === null || typeof value === 'undefined') {
             return '';
         } else {
-            return (value + '').toUpperCase();
+            return value.toUpperCase();
         }
     }
 
-    private sortRows(col: string, sortOrder: number): void {
+    private sortRows(col: PageableTableColumn, sortOrder: number): void {
         this.filteredRows.sort((a, b) => {
-            const aVal = this.sortValue(a[col]);
-            const bVal = this.sortValue(b[col]);
+            const aVal = this.sortValue(col, a[col.name]);
+            const bVal = this.sortValue(col, b[col.name]);
             if (sortOrder === 0) {
-                return bVal.localeCompare(aVal);
+                if (col.type === 'number' || col.type === 'integer') {
+                    return bVal - aVal;
+                } else {
+                    return bVal.localeCompare(aVal);
+                }
             } else {
-                return aVal.localeCompare(bVal);
+                if (col.type === 'number' || col.type === 'integer') {
+                    return aVal - bVal;
+                } else {
+                    return aVal.localeCompare(bVal);
+                }
             }
         });
         this.offset = 0;
         this.changeMaxRows();
     }
 
-    sort(col: string): void {
+    sort(col: PageableTableColumn): void {
         for (const column of this.columns) {
-            if (column.name === col) {
-                column.sortOrder = column.sortOrder ? 0 : 1;
+            if (column.name === col.name) {
+                column.sortOrder = col.sortOrder ? 0 : 1;
                 this.sortRows(col, column.sortOrder);
                 continue;
             }

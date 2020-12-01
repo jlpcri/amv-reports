@@ -1,22 +1,22 @@
 {
-  "/amv-reports/api": {
-    "target": "http://localhost:8989",
-    "secure": false,
-    "changeOrigin": false
-  },
-  "/amv-reports/user": {
-    "target": "http://localhost:8989",
-    "secure": false,
-    "changeOrigin": false
-  },
-  "/amv-reports/oauth2": {
-    "target": "http://localhost:8989",
-    "secure": false,
-    "changeOrigin": false
-  },
-  "/amv-reports/login": {
-    "target": "http://localhost:8989",
-    "secure": false,
-    "changeOrigin": false
-  }
+    "/amv-reports/api": {
+        "target": "http://localhost:8989",
+        "secure": false,
+        "changeOrigin": false
+    },
+    "/amv-reports/user": {
+        "target": "http://localhost:8989",
+        "secure": false,
+        "changeOrigin": false
+    },
+    "/amv-reports/oauth2": {
+        "target": "http://localhost:8989",
+        "secure": false,
+        "changeOrigin": false
+    },
+    "/amv-reports/login": {
+        "target": "http://localhost:8989",
+        "secure": false,
+        "changeOrigin": false
+    }
 }

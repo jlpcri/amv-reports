@@ -6,6 +6,7 @@
     "start": "ng serve --proxy-config proxy.conf.json",
     "build": "ng build --base-href=/amv-reports/",
     "test": "ng test --code-coverage",
+    "test-gcp": "ng test --browsers ChromeHeadlessNoSandbox --code-coverage --watch=false",
     "lint": "ng lint",
     "e2e": "ng e2e"
   },

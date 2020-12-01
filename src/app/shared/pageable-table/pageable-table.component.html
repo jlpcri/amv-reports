@@ -45,7 +45,7 @@
                         [innerHTML]="column.label"
                         [class]="headerStyle(column.style)"
                 ></th>
-                <th (click)="sort(column.name)" class="th-icon">
+                <th (click)="sort(column)" class="th-icon">
                     <sort-none-icon *ngIf="column.sortOrder !== 0 && column.sortOrder !== 1"></sort-none-icon>
                     <sort-asc-icon *ngIf="column.sortOrder === 1"></sort-asc-icon>
                     <sort-desc-icon *ngIf="column.sortOrder === 0"></sort-desc-icon>

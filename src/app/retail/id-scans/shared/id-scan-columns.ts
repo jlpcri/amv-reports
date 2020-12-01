@@ -34,7 +34,7 @@ export class IdScanColumns {
             name: 'age',
             label: 'Age',
             description: 'Calculated Age',
-            type: 'number',
+            type: 'integer',
             style: 'right'
         },
         {

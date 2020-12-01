@@ -21,6 +21,8 @@ import { ProgressBarComponent } from './shared/progress-bar/progress-bar.compone
 import {IconsModule} from './shared/icons/icons.module';
 import { MessageModalComponent } from './shared/message-modal/message-modal.component';
 import { AgeCategoriesComponent } from './retail/age-categories/age-categories.component';
+import { ProductsComponent } from './inventory/products/products.component';
+import { RetailGuestComponent } from './retail/retail-guest/retail-guest.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { AgeCategoriesComponent } from './retail/age-categories/age-categories.c
     ProgressBarComponent,
     MessageModalComponent,
     AgeCategoriesComponent,
+    ProductsComponent,
+    RetailGuestComponent,
   ],
     imports: [
         BrowserModule,

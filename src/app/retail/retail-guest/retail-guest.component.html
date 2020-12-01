@@ -1,0 +1,7 @@
+<div class="main-content-title">
+    <b>All Retail Guests</b>
+</div>
+<div>
+    <refresh-icon (click)="updateData(true)"></refresh-icon>
+</div>
+<pageable-table [columns]="retailGuestColumns" [rows]="retailGuests"></pageable-table>
