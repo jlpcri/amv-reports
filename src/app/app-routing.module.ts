@@ -7,6 +7,7 @@ import {EcommSkuComponent} from "./sales/ecomm-sku/ecomm-sku.component";
 import {IdScansComponent} from "./retail/id-scans/id-scans.component";
 import {IdTransactionsComponent} from "./retail/id-transactions/id-transactions.component";
 import {AgeCategoriesComponent} from "./retail/age-categories/age-categories.component";
+import {InvoicesComponent} from './sales/invoices/invoices.component';
 
 
 const routes: Routes = [
@@ -20,7 +21,7 @@ const routes: Routes = [
         children: [
             { path: '', redirectTo: 'summary', pathMatch: 'full' },
             { path: 'summary', component: SalesSummaryComponent },
-            { path: 'invoices', component: SalesSummaryComponent },
+            { path: 'invoices', component: InvoicesComponent },
             { path: 'ecomm-sku', component: EcommSkuComponent },
         ]
     },

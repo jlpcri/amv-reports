@@ -1,7 +1,6 @@
 import { TestBed } from '@angular/core/testing';
-
 import { InvoiceService } from './invoice.service';
-import {ReportsApiService} from '../../../shared/reports-api/reports-api.service';
+import { ReportsApiService } from '../../shared/reports-api/reports-api.service';
 
 describe('InvoiceServiceService', () => {
   beforeEach(() => {

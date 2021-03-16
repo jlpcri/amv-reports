@@ -1,5 +1,5 @@
 <div>
-<div class="date-range"><b>{{optionService.selectedDateRange.format()}}</b></div>
+<div class="date-range"><strong>{{optionService.selectedDateRange.format()}}</strong></div>
 <div class="amv-btn-grp">
     <button *ngFor="let dateRange of dateRanges"
             class="amv-btn"
@@ -19,7 +19,7 @@
                 <div class="rt"><span class="ptr" style="font-size: 20px" (click)="toggleCustomPicker()">&times;</span>&nbsp;</div>
             </div>
             <div class="month-nav">
-                <b><span class="ptr" (click)="previousMonth()">&lt;</span></b>
+                <strong><span class="ptr" (click)="previousMonth()">&lt;</span></strong>
             </div>
             <div class="calendar" *ngFor="let month of visibleMonths">
                 <div class="month-header">{{month.month.format('MMMM YYYY')}}</div>
@@ -49,7 +49,7 @@
                 </table>
             </div>
             <div class="month-nav">
-                <b><span class="ptr" (click)="nextMonth()">&gt;</span></b>
+                <strong><span class="ptr" (click)="nextMonth()">&gt;</span></strong>
             </div>
             <div class="footer rt">
                 <button class="amv-btn" (click)="applySelection()">Okay</button>
