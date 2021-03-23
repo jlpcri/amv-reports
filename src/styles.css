@@ -14,9 +14,8 @@ html, body {
     width: 100%;
     margin: 0;
     color: var(--text-color);
-    font-family: arial, helvetica, sans-serif;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
     background-color: var(--panel-bg);
-    overflow: hidden;
 }
 
 .main-content-title {

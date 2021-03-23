@@ -1,0 +1,23 @@
+.monthly-date-header {
+    display: flex;
+    align-items: center;
+    padding: 0.5em;
+    justify-content: space-between;
+    height: 2rem;
+}
+
+.year-label {
+    flex: 0 0 auto;
+    line-height: 2rem;
+    font-weight: 500;
+    font-size: 18px;
+    margin: 0;
+}
+
+.double-arrow {
+    flex: 0 0 auto;
+}
+
+.double-arrow .mat-icon {
+    margin: -22%;
+}

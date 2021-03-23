@@ -5,8 +5,7 @@ import {Subscription} from 'rxjs';
 import {IdScanService} from '../id-scans/shared/id-scan.service';
 import {OptionService} from '../../shared/option.service';
 import {DateRange} from '../../shared/date-range.model';
-import {InvoiceService} from '../../sales/invoices/shared/invoice.service';
-import {Invoice} from '../../sales/invoices/shared/invoice.model';
+import {Invoice} from '../../shared/types/invoice';
 import {IdTransaction} from './shared/id-transaction.model';
 import {IdTransactionColumns} from './shared/id-transaction-columns';
 import {ProgressService} from '../../shared/progress-bar/shared/progress.service';
@@ -34,7 +33,6 @@ export class IdTransactionsComponent implements OnInit,OnDestroy {
     constructor(
         private idScanService: IdScanService,
         private optionService: OptionService,
-        private invoiceService: InvoiceService,
         private progressService: ProgressService
     ) { }
 
@@ -58,7 +56,7 @@ export class IdTransactionsComponent implements OnInit,OnDestroy {
         this.idScanService.retrieve(dateRange.formatStartDate(), dateRange.formatStopDate()).subscribe(
             (idScans) => {
                 this.idScans = idScans;
-                this.invoiceService.retrieveAll(dateRange.formatStartDate(), dateRange.formatStopDate()).subscribe(
+                this.idScanService.retrieveInvoices(dateRange.formatStartDate(), dateRange.formatStopDate()).subscribe(
                     invoices => {
                         this.invoices = invoices;
                         console.log('found ' + invoices.length + ' invoices');

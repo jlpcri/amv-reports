@@ -7,7 +7,8 @@
     "build": "ng build --base-href=/amv-reports/",
     "test": "ng test --code-coverage",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+      "sonar": "sonar-scanner"
   },
   "private": true,
   "dependencies": {
@@ -17,6 +18,8 @@
     "@angular/compiler": "~10.0.12",
     "@angular/core": "~10.0.12",
     "@angular/forms": "~10.0.12",
+    "@angular/material": "^10.2.0",
+    "@angular/material-moment-adapter": "^10.2.7",
     "@angular/platform-browser": "~10.0.12",
     "@angular/platform-browser-dynamic": "~10.0.12",
     "@angular/router": "~10.0.12",
@@ -51,6 +54,7 @@
     "karma-jasmine": "~3.3.0",
     "karma-jasmine-html-reporter": "^1.5.4",
     "protractor": "~7.0.0",
+    "sonar-scanner": "^3.1.0",
     "ts-node": "~7.0.0",
     "tslint": "~6.1.0",
     "typescript": "~3.9.7"

@@ -1,0 +1,11 @@
+<div class="monthly-date-header">
+    <button mat-icon-button class="double-arrow" (click)="previousClicked()" [disabled]="!isPreviousValid">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+        <mat-icon>keyboard_arrow_left</mat-icon>
+    </button>
+    <p class="year-label">{{yearLabel}}</p>
+    <button mat-icon-button class="double-arrow" (click)="nextClicked()" [disabled]="!isNextValid">
+        <mat-icon>keyboard_arrow_right</mat-icon>
+        <mat-icon>keyboard_arrow_right</mat-icon>
+    </button>
+</div>

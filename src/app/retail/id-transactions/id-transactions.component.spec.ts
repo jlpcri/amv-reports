@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { IdTransactionsComponent } from './id-transactions.component';
 import {IdScanService} from '../id-scans/shared/id-scan.service';
-import {InvoiceService} from '../../sales/invoices/shared/invoice.service';
+import {InvoiceService} from '../../sales/invoices/invoice.service';
 import {OptionService} from '../../shared/option.service';
 import {ProgressService} from '../../shared/progress-bar/shared/progress.service';
 
