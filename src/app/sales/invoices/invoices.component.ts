@@ -7,7 +7,7 @@ import {Invoice} from '../../shared/types/invoice';
 import {Subject} from 'rxjs';
 import {ProgressService} from '../../shared/progress-bar/shared/progress.service';
 import {InvoiceService} from './invoice.service';
-import {get as getPath} from 'lodash';
+import getPath from 'lodash-es/get';
 import * as moment from 'moment';
 
 @Component({

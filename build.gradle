@@ -38,7 +38,7 @@ node {
 }
 
 task npmBuild(type: NpmTask) {
-    args = ['run', 'build', '--production', '--base-href=/amv-reports/']
+    args = ['run', 'build', '--', '--prod']
 }
 
 compileJava.dependsOn(npmBuild)
