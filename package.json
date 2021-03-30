@@ -8,7 +8,7 @@
     "test": "ng test --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e",
-      "sonar": "sonar-scanner"
+    "sonar": "sonar-scanner"
   },
   "private": true,
   "dependencies": {
@@ -28,7 +28,7 @@
     "bootstrap": "^4.5.2",
     "chart.js": "^2.9.3",
     "export-to-csv": "^0.2.1",
-    "lodash": "^4.17.20",
+    "lodash-es": "^4.17.21",
     "moment": "^2.27.0",
     "moment-duration-format": "^2.3.2",
     "primeicons": "^4.0.0",
