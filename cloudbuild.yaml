@@ -7,6 +7,7 @@ steps:
 
   - name: 'gcr.io/cloud-builders/gradle'
     args: ['-i','-g','./gradle_cache','--no-daemon','--stacktrace', 'build']
+    timeout: 900s
 
   - name: gcr.io/cloud-builders/gsutil
     args: ['-m', 'rsync', '-d', '-r', './gradle_cache', 'gs://${PROJECT_ID}_cloudbuild/${_APP_NAME}/gradle_cache']
@@ -21,3 +22,4 @@ images:
   - 'gcr.io/$PROJECT_ID/${_APP_NAME}:${TAG_NAME}'
   - 'gcr.io/$PROJECT_ID/${_APP_NAME}:latest'
 
+timeout: 1200s
