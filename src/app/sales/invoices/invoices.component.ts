@@ -47,7 +47,7 @@ export class InvoicesComponent implements AfterViewInit, OnInit {
         this.invoiceService.stores$.subscribe({
             next: stores => {
                 this.stores = stores;
-                this.selectedStores$.next(stores.map(store => store.id));
+                this.selectedStores$.next([stores[0].id]);
             }
         });
 
