@@ -26,9 +26,13 @@ export class InvoicesComponent implements AfterViewInit, OnInit {
 
     displayedColumns: string[];
 
-    selectedStores: number[] = [];
-    selectedStores$ = new Subject<number[]>();
-    stores: any[] = [];
+    selectedSites: number[] = [];
+    selectedSites$ = new Subject<number[]>();
+    sites: any[] = [];
+
+    selectedRegion = 'All';
+    selectedRegion$ = new Subject<string>();
+    regions: any[] = [];
 
     getPath = getPath;
 
@@ -37,6 +41,7 @@ export class InvoicesComponent implements AfterViewInit, OnInit {
     ngOnInit() {
         this.dataSource = new InvoiceDataSource();
         this.displayedColumns = this.dataSource.columns.map(col => col.field);
+
         this.invoiceService.invoices$.subscribe(
             invoices => {
                 this.dataSource.data$.next(invoices);
@@ -44,21 +49,41 @@ export class InvoicesComponent implements AfterViewInit, OnInit {
                 console.error(error);
             });
 
-        this.invoiceService.stores$.subscribe({
-            next: stores => {
-                this.stores = stores;
-                this.selectedStores$.next([stores[0].id]);
+        this.invoiceService.sites$.subscribe({
+            next: sites => {
+                this.sites = sites;
+                if (sites.length > 0) {
+                    this.selectedSites$.next([sites[0].id]);
+                }
+
             }
         });
 
-        this.selectedStores$.subscribe({
-            next: stores => {
-                this.selectedStores = stores;
-                this.invoiceService.selectedStores$.next(stores);
+        this.selectedSites$.subscribe({
+            next: sites => {
+                this.selectedSites = sites;
+                this.invoiceService.selectedSites$.next(sites);
             }
         });
+
+        this.invoiceService.regions$.subscribe({
+            next: regions => {
+                this.regions = regions;
+                this.selectedRegion$.next('All');
+            }
+        });
+
+        this.selectedRegion$.subscribe({
+            next: region => {
+                this.selectedRegion = region;
+                this.invoiceService.selectedRegion$.next(region);
+            }
+        });
+
         // reset date on component init to load fresh after app routing
         this.invoiceService.date$.next(moment());
+
+        this.invoiceService.getRegions();
         this.progressService.loading = true;
     }
 

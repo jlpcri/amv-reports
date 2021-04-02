@@ -18,6 +18,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MonthlyDateHeaderComponent } from './date-picker/monthly-date-header.component';
 import { DatePickerComponent } from './date-picker/date-picker.component';
 import { MatChipsModule } from '@angular/material/chips';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
     declarations: [InvoicesComponent, MonthlyDateHeaderComponent, DatePickerComponent],
@@ -39,6 +40,7 @@ import { MatChipsModule } from '@angular/material/chips';
         MatButtonModule,
         MatIconModule,
         MatChipsModule,
+        MatSnackBarModule
     ],
 })
 export class InvoicesModule { }

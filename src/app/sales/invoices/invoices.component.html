@@ -1,17 +1,24 @@
 <div class="temp-background mat-elevation-z8">
-
     <div class="mat-elevation-z7 report-header">
         <h2>Invoice Report</h2>
 
         <app-date-picker></app-date-picker>
 
         <mat-form-field appearance="fill">
-            <mat-label>Company</mat-label>
-            <mat-select multiple [ngModel]="selectedStores$ | async" (ngModelChange)="selectedStores$.next($event)">
-                <mat-option *ngFor="let store of stores" [value]="store.id">{{store.description}}</mat-option>
+            <mat-label>Site</mat-label>
+            <mat-select multiple [ngModel]="selectedSites$ | async" (ngModelChange)="selectedSites$.next($event)">
+                <mat-option *ngFor="let site of sites" [value]="site.id">{{site.description}}</mat-option>
             </mat-select>
         </mat-form-field>
 
+        <mat-form-field appearance="fill">
+            <mat-label>Region</mat-label>
+            <mat-select [ngModel]="selectedRegion$ | async" (ngModelChange)="selectedRegion$.next($event)">
+                <mat-option value="All">All</mat-option>
+                <mat-option *ngFor="let region of regions" [value]="region.id">{{region.name}}</mat-option>
+                <mat-option value="Other">Other</mat-option>
+            </mat-select>
+        </mat-form-field>
 
         <mat-form-field appearance="fill">
             <mat-label>Show/Hide Fields</mat-label>
@@ -19,41 +26,43 @@
                 <mat-option *ngFor="let column of dataSource.columns" [value]="column.field">{{column.label}}</mat-option>
             </mat-select>
         </mat-form-field>
-
     </div>
-    <mat-divider></mat-divider>
+
     <div class="scroll-container mat-elevation-z7">
         <table mat-table class="report-table" matSort aria-label="Invoice Table">
             <ng-container *ngFor="let column of dataSource.columns">
                 <ng-container [matColumnDef]="column.field">
                     <th
                         mat-header-cell *matHeaderCellDef
-                        [ngClass]="{'invoice-justify-right': column.justify === 'right' }"
+                        [ngClass]="{'col-justify-right': column.justify === 'right' }"
                         [innerHTML]="column.html">
                     </th>
                     <td mat-cell *matCellDef="let row"
                         [title]="getTitle(row, column)"
                         [ngClass]="{
-                            'invoice-justify-right': column.justify === 'right',
-                            'invoice-cell-limit': column.limit
+                            'col-justify-right': column.justify === 'right',
+                            'cell-limit': column.limit
                         }">
                         {{getPath(row, column.field)}}
                     </td>
                 </ng-container>
             </ng-container>
 
-
             <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-            <tr mat-row *matRowDef="let row; let stripe = even; columns: displayedColumns;" [class.invoice-stripe-row]="stripe"></tr>
+
+            <tr mat-row *matRowDef="let row; let stripe = even; columns: displayedColumns;" [class.stripe-row]="stripe"></tr>
+            <tr class="mat-row" *matNoDataRow>
+                <td class="mat-cell" colspan="9999">
+                    No matching invoices.
+                </td>
+            </tr>
         </table>
-
-
     </div>
+
     <mat-paginator #paginator
                    [length]="dataSource?.data.length"
                    [pageIndex]="0"
-                   [pageSize]="25"
-                   [pageSizeOptions]="[25, 50, 100]">
+                   [pageSize]="10"
+                   [pageSizeOptions]="[10, 25, 100]">
     </mat-paginator>
-
 </div>

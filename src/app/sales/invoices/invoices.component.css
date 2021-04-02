@@ -13,34 +13,19 @@ app-invoices .report-table {
 
 app-invoices .scroll-container {
     overflow-x: scroll;
-    margin-top: 1rem;
 }
 
 app-invoices .temp-background {
     /* while the parent layout is still not yet on Material */
-    background-color: white;
-    color: black;
     padding: 1rem;
     height: auto;
 }
 
 app-invoices .report-header {
-    padding: 1rem;
+    padding-bottom: 1rem;
 }
 
-/*app-invoices .invoice-month-picker .mat-calendar-period-button {*/
-/*    pointer-events: none;*/
-/*}*/
-
-/*app-invoices .invoice-month-picker .mat-calendar-arrow {*/
-/*    display: none;*/
-/*}*/
-
-/*app-invoices .invoice-month-picker .mat-calendar-body-label {*/
-/*    display: none;*/
-/*}*/
-
-app-invoices .invoice-header .mat-form-field {
+app-invoices .report-header .mat-form-field {
     margin-right: 1rem;
 }
 
@@ -50,7 +35,7 @@ app-invoices .mat-header-row {
 
 app-invoices tr th.mat-header-cell {
     font-size: 14px;
-    color: black;
+    color: var(--accent-lighter-color);
     padding: 0.5rem 1rem;
     min-width: 4rem;
 }
@@ -59,7 +44,7 @@ app-invoices tr td.mat-cell {
     padding: 0.5rem 1rem;
 }
 
-app-invoices .invoice-justify-right {
+app-invoices .col-justify-right {
     text-align: right !important;
 }
 
@@ -67,14 +52,18 @@ app-invoices div.mat-sort-header-content {
     text-align: inherit;
 }
 
-app-invoices .invoice-stripe-row {
-    background-color: #eeeeee;
+app-invoices .stripe-row {
+    background-color: rgba(119, 119, 119, 0.25);
 }
 
 
-app-invoices .invoice-cell-limit {
+app-invoices .cell-limit {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     max-width: 8rem;
+}
+
+app-invoices h2 {
+    color: var(--primary-lighter-color);
 }
