@@ -26,6 +26,8 @@
                 <mat-option *ngFor="let column of dataSource.columns" [value]="column.field">{{column.label}}</mat-option>
             </mat-select>
         </mat-form-field>
+
+        <button mat-flat-button color="accent" (click)="dataSource.export()" [disabled]="dataSource.data.length === 0">CSV Export</button>
     </div>
 
     <div class="scroll-container mat-elevation-z7">
@@ -60,7 +62,7 @@
     </div>
 
     <mat-paginator #paginator
-                   [length]="dataSource?.data.length"
+                   [length]="dataSource.data.length"
                    [pageIndex]="0"
                    [pageSize]="10"
                    [pageSizeOptions]="[10, 25, 100]">

@@ -6,6 +6,8 @@ import { Observable, merge, Subject } from 'rxjs';
 import { COLUMNS, ColumnDef } from './invoices.columns';
 import * as moment from 'moment';
 import { Invoice } from '../../shared/types/invoice';
+import getPath from 'lodash-es/get';
+import {ExportToCsv} from 'export-to-csv';
 
 export class InvoiceDataSource extends DataSource<Invoice> {
     data: Invoice[] = [];
@@ -53,6 +55,21 @@ export class InvoiceDataSource extends DataSource<Invoice> {
             // When the data, paginator, or sorting changes, get fresh data
             return this.getPagedData([...this.data]);
         }));
+    }
+
+    export() {
+        const exportRows = this.data.map(row => {
+            const newRow = {};
+            this.columns.forEach(col => {
+                newRow[col.field] = getPath(row, col.field);
+            });
+            return newRow;
+        });
+        const exportToCsv = new ExportToCsv({
+            filename: 'invoice-report',
+            useKeysAsHeaders: true
+        });
+        exportToCsv.generateCsv(exportRows);
     }
 
     // placeholder for anything that may need cleaned up on destroy
