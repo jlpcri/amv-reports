@@ -1,11 +1,4 @@
-export interface ColumnDef {
-    field: string;
-    html: string;
-    label: string;
-    type?: string;
-    justify?: string;
-    limit?: boolean;
-}
+import {ColumnDef} from '../../shared/types/columnDef';
 
 export const COLUMNS: ColumnDef[] = [
     {

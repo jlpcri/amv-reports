@@ -1,13 +1,18 @@
 import { TestBed } from '@angular/core/testing';
 import { InvoiceService } from './invoice.service';
 import { ReportsApiService } from '../../shared/reports-api/reports-api.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {ProgressService} from '../../shared/progress-bar/shared/progress.service';
 
-describe('InvoiceServiceService', () => {
+describe('InvoiceService', () => {
   beforeEach(() => {
       const reportsApiSpy = jasmine.createSpyObj('ReportsApiService', ['get']);
+      const snackbarSpy = jasmine.createSpyObj('MatSnackBar', ['open']);
       TestBed.configureTestingModule({
           providers: [
-              { provide: ReportsApiService, useValue: reportsApiSpy }
+              { provide: ReportsApiService, useValue: reportsApiSpy },
+              {provide: MatSnackBar, useValue: snackbarSpy},
+              ProgressService
           ]
       });
   });

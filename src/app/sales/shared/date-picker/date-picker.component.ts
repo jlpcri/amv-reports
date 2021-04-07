@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import {ChangeDetectionStrategy, Component, EventEmitter, OnInit, Output, ViewEncapsulation} from '@angular/core';
 import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material/core';
 import { MAT_MOMENT_DATE_ADAPTER_OPTIONS, MomentDateAdapter } from '@angular/material-moment-adapter';
 import { MonthlyDateHeaderComponent } from './monthly-date-header.component';
@@ -6,10 +6,6 @@ import { FormControl } from '@angular/forms';
 import * as moment from 'moment';
 import { Moment } from 'moment';
 import { MatDatepicker } from '@angular/material/datepicker';
-import { InvoiceService } from '../invoice.service';
-
-// TODO: This should be made generic and refactored out to a shared component
-//  once the other date picker is no longer necessary
 
 export const DATE_FORMATS = {
     parse: {
@@ -44,7 +40,10 @@ export class DatePickerComponent implements OnInit {
     minDate: Moment;
     monthlyDateHeader = MonthlyDateHeaderComponent;
 
-    constructor(private invoiceService: InvoiceService) { }
+    @Output()
+    dateChanged: EventEmitter<Moment> = new EventEmitter<Moment>();
+
+    constructor() { }
 
     ngOnInit(): void {
         // Prevent unexpected behavior from selecting future/far past dates
@@ -57,14 +56,14 @@ export class DatePickerComponent implements OnInit {
         formValue.year(dateInput.year());
         formValue.month(dateInput.month());
         this.date.setValue(formValue);
-        this.invoiceService.date$.next(dateInput);
+        this.dateChanged.emit(dateInput);
     }
 
     monthHandler(dateInput: Moment, datepicker: MatDatepicker<any>) {
         const formValue = this.date.value;
         formValue.month(dateInput.month());
         this.date.setValue(formValue);
-        this.invoiceService.date$.next(dateInput);
+        this.dateChanged.emit(dateInput);
         datepicker.close();
     }
 }

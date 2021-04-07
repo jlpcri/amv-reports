@@ -1,69 +1,18 @@
-/*
-View encapsulation is disabled to allow overriding Material styles.
-This means almost everything here needs a prefix to prevent it from
-overriding styles outside of this component by accident.
 
-Some of these will need to be moved when the rest of the app starts using
-Material.
- */
-
-app-invoices .report-table {
-    width: 100%;
-}
-
-app-invoices .scroll-container {
-    overflow-x: scroll;
-}
-
-app-invoices .temp-background {
+.temp-background {
     /* while the parent layout is still not yet on Material */
     padding: 1rem;
     height: auto;
 }
 
-app-invoices .report-header {
+.report-header {
     padding-bottom: 1rem;
 }
 
-app-invoices .report-header .mat-form-field {
+.report-header mat-form-field, .report-header app-date-picker {
     margin-right: 1rem;
 }
 
-app-invoices .mat-header-row {
-    vertical-align: bottom;
-}
-
-app-invoices tr th.mat-header-cell {
-    font-size: 14px;
-    color: var(--accent-lighter-color);
-    padding: 0.5rem 1rem;
-    min-width: 4rem;
-}
-
-app-invoices tr td.mat-cell {
-    padding: 0.5rem 1rem;
-}
-
-app-invoices .col-justify-right {
-    text-align: right !important;
-}
-
-app-invoices div.mat-sort-header-content {
-    text-align: inherit;
-}
-
-app-invoices .stripe-row {
-    background-color: rgba(119, 119, 119, 0.25);
-}
-
-
-app-invoices .cell-limit {
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
-    max-width: 8rem;
-}
-
-app-invoices h2 {
+h2 {
     color: var(--primary-lighter-color);
 }

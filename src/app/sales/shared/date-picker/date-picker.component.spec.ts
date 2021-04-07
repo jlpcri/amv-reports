@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DatePickerComponent } from './date-picker.component';
-import { InvoiceService } from '../invoice.service';
+import { InvoiceService } from '../../invoices/invoice.service';
 
 describe('DatePickerComponent', () => {
     let component: DatePickerComponent;

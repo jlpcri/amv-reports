@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
-import { SalesSummaryComponent } from './sales/sales-summary/sales-summary.component';
 import { GuestSummaryComponent } from './guests/guest-summary/guest-summary.component';
 import { SidemenuComponent } from './sidemenu/sidemenu.component';
 import { StockSummaryComponent } from './inventory/stock-summary/stock-summary.component';
@@ -20,13 +19,12 @@ import { ProgressBarComponent } from './shared/progress-bar/progress-bar.compone
 import { IconsModule } from './shared/icons/icons.module';
 import { MessageModalComponent } from './shared/message-modal/message-modal.component';
 import { AgeCategoriesComponent } from './retail/age-categories/age-categories.component';
-import { InvoicesModule } from './sales/invoices/invoices.module';
+import { SalesModule} from './sales/sales.module';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
-    SalesSummaryComponent,
     GuestSummaryComponent,
     SidemenuComponent,
     StockSummaryComponent,
@@ -46,7 +44,7 @@ import { InvoicesModule } from './sales/invoices/invoices.module';
         HttpClientModule,
         FormsModule,
         IconsModule,
-        InvoicesModule
+        SalesModule
     ],
   providers: [],
   bootstrap: [AppComponent]

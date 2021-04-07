@@ -1,30 +1,23 @@
-import {AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTable} from '@angular/material/table';
-import {InvoiceDataSource} from './invoices.datasource';
+import {Component, OnInit} from '@angular/core';
 import {Invoice} from '../../shared/types/invoice';
 import {Subject} from 'rxjs';
 import {ProgressService} from '../../shared/progress-bar/shared/progress.service';
 import {InvoiceService} from './invoice.service';
-import getPath from 'lodash-es/get';
 import * as moment from 'moment';
+import {TableDataSource} from '../shared/data-table/tableDataSource';
+import {COLUMNS} from './invoices.columns';
 
 @Component({
     selector: 'app-invoices',
     templateUrl: './invoices.component.html',
     styleUrls: ['./invoices.component.css'],
-    encapsulation: ViewEncapsulation.None
 })
-export class InvoicesComponent implements AfterViewInit, OnInit {
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild(MatTable) table: MatTable<Invoice>;
-    dataSource: InvoiceDataSource;
+export class InvoicesComponent implements OnInit {
+    dataSource: TableDataSource<Invoice>;
 
     invoices: Invoice[] = [];
 
-    displayedColumns: string[];
+    displayedColumns$ = new Subject<string[]>();
 
     selectedSites: number[] = [];
     selectedSites$ = new Subject<number[]>();
@@ -34,20 +27,24 @@ export class InvoicesComponent implements AfterViewInit, OnInit {
     selectedRegion$ = new Subject<string>();
     regions: any[] = [];
 
-    getPath = getPath;
-
-    constructor(private progressService: ProgressService, private invoiceService: InvoiceService) {}
+    constructor(private progressService: ProgressService, public invoiceService: InvoiceService) {}
 
     ngOnInit() {
-        this.dataSource = new InvoiceDataSource();
-        this.displayedColumns = this.dataSource.columns.map(col => col.field);
+        this.dataSource = new TableDataSource<Invoice>(COLUMNS, 'Invoice Report');
 
-        this.invoiceService.invoices$.subscribe(
-            invoices => {
+        this.displayedColumns$.subscribe({
+            next: columns => {
+                this.dataSource.displayedColumns$.next(columns);
+            }
+        });
+
+        this.displayedColumns$.next(this.dataSource.columns.map(col => col.field));
+
+        this.invoiceService.invoices$.subscribe({
+            next: invoices => {
                 this.dataSource.data$.next(invoices);
-            }, error => {
-                console.error(error);
-            });
+            }
+        });
 
         this.invoiceService.sites$.subscribe({
             next: sites => {
@@ -85,15 +82,6 @@ export class InvoicesComponent implements AfterViewInit, OnInit {
 
         this.invoiceService.getRegions();
         this.progressService.loading = true;
-    }
 
-    ngAfterViewInit() {
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.table.dataSource = this.dataSource;
-    }
-
-    getTitle(row, column) {
-        return column.limit ? getPath(row, column.field) : '';
     }
 }
