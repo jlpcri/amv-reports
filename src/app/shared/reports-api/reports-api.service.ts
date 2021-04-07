@@ -18,7 +18,8 @@ export class ReportsApiService {
                 if (error.url.endsWith('/login.html')) {
                     window.location = error.url;
                 } else {
-                    console.log(error);
+                    console.error(error);
+                    respSubject.error(error);
                 }
             }
         );

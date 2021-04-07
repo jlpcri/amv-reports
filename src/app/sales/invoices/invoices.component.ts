@@ -1,74 +1,87 @@
-import {AfterViewInit, Component, OnInit, ViewChild, ViewEncapsulation} from '@angular/core';
-import {MatPaginator} from '@angular/material/paginator';
-import {MatSort} from '@angular/material/sort';
-import {MatTable} from '@angular/material/table';
-import {InvoiceDataSource} from './invoices.datasource';
+import {Component, OnInit} from '@angular/core';
 import {Invoice} from '../../shared/types/invoice';
 import {Subject} from 'rxjs';
 import {ProgressService} from '../../shared/progress-bar/shared/progress.service';
 import {InvoiceService} from './invoice.service';
-import getPath from 'lodash-es/get';
 import * as moment from 'moment';
+import {TableDataSource} from '../shared/data-table/tableDataSource';
+import {COLUMNS} from './invoices.columns';
 
 @Component({
     selector: 'app-invoices',
     templateUrl: './invoices.component.html',
     styleUrls: ['./invoices.component.css'],
-    encapsulation: ViewEncapsulation.None
 })
-export class InvoicesComponent implements AfterViewInit, OnInit {
-    @ViewChild(MatPaginator) paginator: MatPaginator;
-    @ViewChild(MatSort) sort: MatSort;
-    @ViewChild(MatTable) table: MatTable<Invoice>;
-    dataSource: InvoiceDataSource;
+export class InvoicesComponent implements OnInit {
+    dataSource: TableDataSource<Invoice>;
 
     invoices: Invoice[] = [];
 
-    displayedColumns: string[];
+    displayedColumns$ = new Subject<string[]>();
 
-    selectedStores: number[] = [];
-    selectedStores$ = new Subject<number[]>();
-    stores: any[] = [];
+    selectedSites: number[] = [];
+    selectedSites$ = new Subject<number[]>();
+    sites: any[] = [];
 
-    getPath = getPath;
+    selectedRegion = 'All';
+    selectedRegion$ = new Subject<string>();
+    regions: any[] = [];
 
-    constructor(private progressService: ProgressService, private invoiceService: InvoiceService) {}
+    constructor(private progressService: ProgressService, public invoiceService: InvoiceService) {}
 
     ngOnInit() {
-        this.dataSource = new InvoiceDataSource();
-        this.displayedColumns = this.dataSource.columns.map(col => col.field);
-        this.invoiceService.invoices$.subscribe(
-            invoices => {
+        this.dataSource = new TableDataSource<Invoice>(COLUMNS, 'Invoice Report');
+
+        this.displayedColumns$.subscribe({
+            next: columns => {
+                this.dataSource.displayedColumns$.next(columns);
+            }
+        });
+
+        this.displayedColumns$.next(this.dataSource.columns.map(col => col.field));
+
+        this.invoiceService.invoices$.subscribe({
+            next: invoices => {
                 this.dataSource.data$.next(invoices);
-            }, error => {
-                console.error(error);
-            });
-
-        this.invoiceService.stores$.subscribe({
-            next: stores => {
-                this.stores = stores;
-                this.selectedStores$.next([stores[0].id]);
             }
         });
 
-        this.selectedStores$.subscribe({
-            next: stores => {
-                this.selectedStores = stores;
-                this.invoiceService.selectedStores$.next(stores);
+        this.invoiceService.sites$.subscribe({
+            next: sites => {
+                this.sites = sites;
+                if (sites.length > 0) {
+                    this.selectedSites$.next([sites[0].id]);
+                }
+
             }
         });
+
+        this.selectedSites$.subscribe({
+            next: sites => {
+                this.selectedSites = sites;
+                this.invoiceService.selectedSites$.next(sites);
+            }
+        });
+
+        this.invoiceService.regions$.subscribe({
+            next: regions => {
+                this.regions = regions;
+                this.selectedRegion$.next('All');
+            }
+        });
+
+        this.selectedRegion$.subscribe({
+            next: region => {
+                this.selectedRegion = region;
+                this.invoiceService.selectedRegion$.next(region);
+            }
+        });
+
         // reset date on component init to load fresh after app routing
         this.invoiceService.date$.next(moment());
+
+        this.invoiceService.getRegions();
         this.progressService.loading = true;
-    }
 
-    ngAfterViewInit() {
-        this.dataSource.sort = this.sort;
-        this.dataSource.paginator = this.paginator;
-        this.table.dataSource = this.dataSource;
-    }
-
-    getTitle(row, column) {
-        return column.limit ? getPath(row, column.field) : '';
     }
 }

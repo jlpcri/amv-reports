@@ -7,6 +7,9 @@ import { MatTableModule } from '@angular/material/table';
 import { InvoicesComponent } from './invoices.component';
 import { InvoiceService } from './invoice.service';
 import { Subject } from 'rxjs';
+import {MatFormFieldModule} from '@angular/material/form-field';
+import {MatSelectModule} from '@angular/material/select';
+import {SalesModule} from '../sales.module';
 
 describe('InvoicesComponent', () => {
     let component: InvoicesComponent;
@@ -15,9 +18,12 @@ describe('InvoicesComponent', () => {
     beforeEach(async(() => {
         const mockInvoiceService = {
             invoices$: new Subject(),
-            stores$: new Subject(),
-            selectedStores$: new Subject(),
-            date$: new Subject()
+            sites$: new Subject(),
+            selectedSites$: new Subject(),
+            date$: new Subject(),
+            regions$: new Subject(),
+            getRegions: () => {},
+            selectedRegions$: new Subject()
         };
 
         TestBed.configureTestingModule({
@@ -27,9 +33,12 @@ describe('InvoicesComponent', () => {
                 MatPaginatorModule,
                 MatSortModule,
                 MatTableModule,
+                MatFormFieldModule,
+                MatSelectModule,
+                SalesModule
             ],
             providers: [
-                {provide: InvoiceService, useValue: mockInvoiceService}
+                {provide: InvoiceService, useValue: mockInvoiceService},
             ]
         }).compileComponents();
     }));
