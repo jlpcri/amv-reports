@@ -20,9 +20,10 @@ import { DatePickerComponent } from './shared/date-picker/date-picker.component'
 import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DataTableComponent } from './shared/data-table/data-table.component';
+import {EcommSkusComponent} from './ecomm-skus/ecomm-skus.component';
 
 @NgModule({
-    declarations: [InvoicesComponent, MonthlyDateHeaderComponent, DatePickerComponent, DataTableComponent],
+    declarations: [InvoicesComponent, MonthlyDateHeaderComponent, DatePickerComponent, DataTableComponent, EcommSkusComponent],
     imports: [
         CommonModule,
         FormsModule,

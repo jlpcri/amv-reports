@@ -26,7 +26,7 @@ export class EcommSkuComponent implements OnInit, OnDestroy {
     constructor(private ecommSkuService: EcommSkuService, private optionService: OptionService) {
         for (const col of this.ecommSkuColumns) {
             if (col.name === 'cost') {
-                col.click = this.showStockHistory;
+                col.click = this.showStockHistory.bind(this);
             }
         }
     }
