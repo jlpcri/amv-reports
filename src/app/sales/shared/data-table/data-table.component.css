@@ -10,7 +10,7 @@ app-data-table .mat-header-row {
 
 app-data-table tr th.mat-header-cell {
     font-size: 14px;
-    color: var(--accent-lighter-color);
+    color: var(--primary-lighter-color);
     padding: 0.5rem 1rem;
     min-width: 4rem;
 }

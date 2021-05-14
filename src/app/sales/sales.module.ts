@@ -21,9 +21,10 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { DataTableComponent } from './shared/data-table/data-table.component';
 import {EcommSkusComponent} from './ecomm-skus/ecomm-skus.component';
+import { ShippedComponent } from './shipped/shipped.component';
 
 @NgModule({
-    declarations: [InvoicesComponent, MonthlyDateHeaderComponent, DatePickerComponent, DataTableComponent, EcommSkusComponent],
+    declarations: [InvoicesComponent, MonthlyDateHeaderComponent, DatePickerComponent, DataTableComponent, EcommSkusComponent, ShippedComponent],
     imports: [
         CommonModule,
         FormsModule,

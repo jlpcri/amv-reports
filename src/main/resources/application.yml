@@ -17,7 +17,7 @@ zuul:
       path: /api/**
       url: http://${REPORTS_API_SERVICE_HOST:localhost}:${REPORTS_API_SERVICE_PORT:8980}/reports-api
   host:
-    socket-timeout-millis: 60000
+    socket-timeout-millis: 600000
 
 logging:
   level:

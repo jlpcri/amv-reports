@@ -5,7 +5,6 @@ import {EcommSku} from '../ecomm-sku/shared/ecomm-sku.model';
 import {ProgressService} from '../../shared/progress-bar/shared/progress.service';
 import {EcommSkusService} from './ecomm-skus.service';
 import * as moment from 'moment';
-import {Invoice} from '../../shared/types/invoice';
 import {Subject} from 'rxjs';
 
 @Component({
@@ -34,6 +33,7 @@ export class EcommSkusComponent implements OnInit {
   ngOnInit(): void {
       this.dataSource = new TableDataSource<EcommSku>(COLUMNS, 'Ecomms-SKU Report');
 
+
       this.displayedColumns$.subscribe({
           next: columns => {
               this.dataSource.displayedColumns$.next(columns);
@@ -51,11 +51,8 @@ export class EcommSkusComponent implements OnInit {
       this.ecommSkusService.sites$.subscribe({
           next: sites => {
               this.sites = sites;
-              if (sites.length > 0) {
-                  this.selectedSites$.next([sites[0].id]);
-              }
-
-          }
+              this.selectedSites$.next([]);
+        }
       });
 
       this.selectedSites$.subscribe({
@@ -83,6 +80,7 @@ export class EcommSkusComponent implements OnInit {
       this.ecommSkusService.date$.next(moment());
 
       this.ecommSkusService.getRegions();
+
       this.progressService.loading = true;
   }
 
