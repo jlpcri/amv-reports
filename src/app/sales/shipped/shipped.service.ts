@@ -1,20 +1,20 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs';
-import { HttpParams } from '@angular/common/http';
-import { ProgressService } from '../../shared/progress-bar/shared/progress.service';
-import { Moment } from 'moment';
-import { ReportsApiService} from '../../shared/reports-api/reports-api.service';
-import { Invoice } from '../../shared/types/invoice';
-import { Region } from '../../shared/types/region';
-import { Site } from '../../shared/types/site';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import {Subject} from 'rxjs';
+import {Moment} from 'moment';
+import {ShippedItem} from '../../shared/types/shippedItem';
+import {Region} from '../../shared/types/region';
+import {Site} from '../../shared/types/site';
+import {ReportsApiService} from '../../shared/reports-api/reports-api.service';
+import {ProgressService} from '../../shared/progress-bar/shared/progress.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
+import {HttpParams} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
-export class InvoiceService {
+export class ShippedService {
     date$ = new Subject<Moment>();
-    invoices$ = new Subject<Invoice[]>();
+    shippedItems$ = new Subject<ShippedItem[]>();
     regions$ = new Subject<Region[]>();
     selectedRegion$ = new Subject<string>();
     selectedRegion: string;
@@ -22,8 +22,8 @@ export class InvoiceService {
     stopDate: string;
     sites$ = new Subject<Site[]>();
     sites: Site[] = [];
-    selectedSites$ = new Subject<number[]>();
-    selectedSites: number[] = [];
+    selectedSite$ = new Subject<number>();
+    selectedSite: number;
 
     constructor(private reportsApiService: ReportsApiService, private progressService: ProgressService, private snackBar: MatSnackBar) {
         this.date$.subscribe({
@@ -34,37 +34,35 @@ export class InvoiceService {
                 this.getSites();
             }
         });
-        this.selectedSites$.subscribe({
-            // when selected sites are updated in form, refresh invoices
-            next: sites => {
-                this.selectedSites = sites;
-                if (this.selectedSites.length > 0) {
-                    this.getInvoices();
+        this.selectedSite$.subscribe({
+            // when selected sites are updated in form, refresh shippedItems
+            next: site => {
+                this.selectedSite = site;
+                if (site) {
+                    this.getShippedItemsReport();
                 } else {
-                    this.invoices$.next([]);
+                    this.shippedItems$.next([]);
                 }
             }
         });
         this.selectedRegion$.subscribe({
             next: region => {
-                if (region === 'All') { region = undefined; }
                 this.selectedRegion = region;
-                if (this.selectedSites.length > 0) {
-                    this.getInvoices();
+                if (this.selectedSite && this.selectedRegion) {
+                    this.getShippedItemsReport();
                 }
             }
         });
     }
 
     getSites() {
-        this.progressService.progressMessage = 'Loading Sites...';
-        // gets a list of sites that have invoices in the provided period
+        this.progressService.progressMessage = 'Loading sites...';
+        // gets a list of sites that have shippedItems in the provided period
         const params = new HttpParams()
             .set('startDate', this.startDate)
-            .set('stopDate', this.stopDate)
-            .set('channel', 'ecomm');
+            .set('stopDate', this.stopDate);
 
-        this.reportsApiService.get<Site[]>('/invoice-sites', {params}).subscribe(
+        this.reportsApiService.get<Site[]>('/shipped-sites', {params}).subscribe(
             sites => {
                 this.sites$.next(sites);
                 this.progressService.loading = false;
@@ -76,37 +74,33 @@ export class InvoiceService {
         );
     }
 
-    getInvoices() {
-        // actually gets the invoices for the main invoice report
-        this.progressService.progressMessage = 'Loading Invoices...';
+    getShippedItemsReport() {
+        this.progressService.progressMessage = 'Loading shipped items...';
         this.progressService.loading = true;
 
-        let params = new HttpParams()
+        const params = new HttpParams()
             .set('startDate', this.startDate)
             .set('stopDate', this.stopDate)
-            .set('channel', 'ecomm')
-            .set('sites', this.selectedSites.toString());
+            .set('site', this.selectedSite.toString())
+            .set('region', this.selectedRegion);
 
-        if (this.selectedRegion) {
-            params = params.set('region', this.selectedRegion);
-        }
 
-        this.reportsApiService.get<Invoice[]>('/invoices', {params}).subscribe(
-            invoices => {
-                this.invoices$.next(invoices);
+        this.reportsApiService.get<ShippedItem[]>('/shipped-items', {params}).subscribe(
+            shippedItems => {
+                this.shippedItems$.next(shippedItems);
                 this.progressService.loading = false;
             },
             error => {
-                this.invoices$.next([]);
+                this.shippedItems$.next([]);
                 this.progressService.loading = false;
-                this.displayError('Error loading invoices.');
+                this.displayError('Error loading shipped items.');
             }
         );
     }
 
     getRegions() {
         // gets regions, currently just US states
-        this.progressService.progressMessage = 'Loading Regions...';
+        this.progressService.progressMessage = 'Loading regions...';
         this.progressService.loading = true;
 
         this.reportsApiService.get<Region[]>('/regions', {}).subscribe(

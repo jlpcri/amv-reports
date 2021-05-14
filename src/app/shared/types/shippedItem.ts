@@ -1,0 +1,23 @@
+export interface ShippedItem {
+    firstName: string;
+    lastName: string;
+    line1: string;
+    line2: string;
+    city: string;
+    state: string;
+    postalCode: string;
+    productName: string;
+    sku: string;
+    price: number;
+    quantityInvoiced: number;
+    paymentDate: string;
+    sourceId: string;
+    shipmentDate: string;
+    sourceSystem: string;
+    weight: number;
+    groupName: string;
+    cost: number;
+    bottleSize: string;
+    nicStrength: string;
+    deviceType: string;
+};

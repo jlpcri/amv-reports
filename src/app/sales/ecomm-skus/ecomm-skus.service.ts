@@ -16,7 +16,7 @@ import {Cogs, StockCost} from '../ecomm-sku/shared/cogs.model';
 export class EcommSkusService {
     date$ = new Subject<Moment>();
     skus$ = new Subject<EcommSku[]>();
-    ecommSkus: EcommSku[];
+    ecommSkus: EcommSku[] = [];
     cogs$ = new Subject<Cogs[]>();
     cogs: Cogs[];
     regions$ = new Subject<Region[]>();
@@ -46,14 +46,20 @@ export class EcommSkusService {
             // when selected sites are updated in form, refresh skus
             next: sites => {
                 this.selectedSites = sites;
-                this.getSkus();
+                if (this.selectedSites.length > 0) {
+                    this.getSkus();
+                } else {
+                    this.skus$.next([]);
+                }
             }
         });
         this.selectedRegion$.subscribe({
             next: region => {
                 if (region === 'All') { region = undefined; }
                 this.selectedRegion = region;
-                this.getSkus();
+                if (this.selectedSites.length > 0) {
+                    this.getSkus();
+                }
             }
         });
         this.cogs$.subscribe({
@@ -68,7 +74,7 @@ export class EcommSkusService {
                 this.processCogs();
                 this.updateSkuCost();
             }
-        })
+        });
     }
 
     getSites() {

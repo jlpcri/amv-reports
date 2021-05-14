@@ -15,8 +15,6 @@ import {COLUMNS} from './invoices.columns';
 export class InvoicesComponent implements OnInit {
     dataSource: TableDataSource<Invoice>;
 
-    invoices: Invoice[] = [];
-
     displayedColumns$ = new Subject<string[]>();
 
     selectedSites: number[] = [];
@@ -49,10 +47,7 @@ export class InvoicesComponent implements OnInit {
         this.invoiceService.sites$.subscribe({
             next: sites => {
                 this.sites = sites;
-                if (sites.length > 0) {
-                    this.selectedSites$.next([sites[0].id]);
-                }
-
+                this.selectedSites$.next([]);
             }
         });
 
