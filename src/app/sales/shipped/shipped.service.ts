@@ -47,6 +47,7 @@ export class ShippedService {
         });
         this.selectedRegion$.subscribe({
             next: region => {
+                if (region === 'All') { region = undefined; }
                 this.selectedRegion = region;
                 if (this.selectedSite && this.selectedRegion) {
                     this.getShippedItemsReport();
@@ -78,12 +79,14 @@ export class ShippedService {
         this.progressService.progressMessage = 'Loading shipped items...';
         this.progressService.loading = true;
 
-        const params = new HttpParams()
+        let params = new HttpParams()
             .set('startDate', this.startDate)
             .set('stopDate', this.stopDate)
-            .set('site', this.selectedSite.toString())
-            .set('region', this.selectedRegion);
+            .set('site', this.selectedSite.toString());
 
+        if (this.selectedRegion) {
+            params = params.set('region', this.selectedRegion);
+        }
 
         this.reportsApiService.get<ShippedItem[]>('/shipped-items', {params}).subscribe(
             shippedItems => {
