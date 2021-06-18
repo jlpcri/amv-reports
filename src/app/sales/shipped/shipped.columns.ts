@@ -21,6 +21,10 @@ export const COLUMNS: ColumnDef[] = [
         label: 'Line 2'
     },
     {
+        field: 'city',
+        label: 'City'
+    },
+    {
         field: 'state',
         label: 'State'
     },

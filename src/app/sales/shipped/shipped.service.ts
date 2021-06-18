@@ -76,26 +76,25 @@ export class ShippedService {
     }
 
     getShippedItemsReport() {
+        this.progressService.cancel$.next(); // cancel anything currently going
         this.progressService.progressMessage = 'Loading shipped items...';
         this.progressService.loading = true;
 
         let params = new HttpParams()
-            .set('startDate', this.startDate)
-            .set('stopDate', this.stopDate)
+            // .set('startDate', this.startDate)
+            // .set('stopDate', this.stopDate)
             .set('site', this.selectedSite.toString());
 
         if (this.selectedRegion) {
             params = params.set('region', this.selectedRegion);
         }
 
-        this.reportsApiService.get<ShippedItem[]>('/shipped-items', {params}).subscribe(
+        this.reportsApiService.getDateRange<ShippedItem[]>('/shipped-items', this.startDate, this.stopDate, {params}).subscribe(
             shippedItems => {
                 this.shippedItems$.next(shippedItems);
-                this.progressService.loading = false;
             },
             error => {
-                this.shippedItems$.next([]);
-                this.progressService.loading = false;
+                // Progress will already be cancelled.
                 this.displayError('Error loading shipped items.');
             }
         );

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { DataTableComponent } from './data-table.component';
-import { Invoice} from '../../../shared/types/invoice';
+import { Invoice} from '../types/invoice';
 import {TableDataSource} from './tableDataSource';
 
 describe('DataTableComponent', () => {

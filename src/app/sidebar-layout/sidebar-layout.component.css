@@ -1,0 +1,70 @@
+:host {
+    --toolbar-height: 3rem;
+    background-color: var(--panel-bg);
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    min-height: 100%;
+}
+
+mat-sidenav-container {
+    flex: 1 1 auto;
+}
+
+mat-sidenav-content {
+    padding: 1.5rem;
+}
+
+mat-toolbar {
+    flex: 0 0 var(--toolbar-height);
+}
+
+mat-toolbar-row {
+    display: flex;
+    align-items: center;
+    height: var(--toolbar-height);
+}
+
+mat-toolbar .mat-list-item {
+    text-transform: capitalize;
+    font-size: 110%;
+    margin-right: 1rem;
+    flex: 0 1 auto;
+    width: auto;
+}
+
+mat-sidenav {
+    min-width: 10rem;
+}
+
+mat-sidenav .mat-list-item {
+    text-transform: uppercase;
+    letter-spacing: 3px;
+}
+
+.mat-list-item.active {
+    color: var(--primary-lighter-color);
+}
+
+.brand {
+    flex: 0 0 auto;
+    font-weight: bold;
+    color: #ff335f;
+    font-size: 120%;
+    margin-right: 2rem;
+}
+
+mat-toolbar-row mat-nav-list {
+    flex: 1 1 auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+}
+
+.userinfo {
+    flex: 0 0 auto;
+}
+
+mat-toolbar .mat-list-base {
+    padding-top: 0;
+}
