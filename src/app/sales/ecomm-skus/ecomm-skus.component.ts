@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {TableDataSource} from '../shared/data-table/tableDataSource';
+import {TableDataSource} from '../../shared/data-table/tableDataSource';
 import {COLUMNS} from './ecomm-skus.columns';
 import {EcommSku} from '../ecomm-sku/shared/ecomm-sku.model';
 import {ProgressService} from '../../shared/progress-bar/shared/progress.service';

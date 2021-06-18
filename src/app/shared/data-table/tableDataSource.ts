@@ -3,7 +3,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { map } from 'rxjs/operators';
 import { Observable, merge, Subject } from 'rxjs';
-import {ColumnDef} from '../../../shared/types/columnDef';
+import {ColumnDef} from '../types/columnDef';
 import * as moment from 'moment';
 import getPath from 'lodash-es/get';
 import {ExportToCsv} from 'export-to-csv';

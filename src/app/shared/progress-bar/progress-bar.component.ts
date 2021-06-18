@@ -13,4 +13,14 @@ export class ProgressBarComponent implements OnInit {
   ngOnInit() {
   }
 
+  get progressType() {
+      if (!this.progressService.totalCount) {
+          return 'indeterminate';
+      } else if (!this.progressService.currentCount) {
+          return 'query';
+      } else {
+          return 'determinate';
+      }
+  }
+
 }

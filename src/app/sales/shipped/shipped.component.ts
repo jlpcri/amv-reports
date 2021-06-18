@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {TableDataSource} from '../shared/data-table/tableDataSource';
+import {TableDataSource} from '../../shared/data-table/tableDataSource';
 import {ShippedItem} from '../../shared/types/shippedItem';
 import {Subject} from 'rxjs';
 import {ProgressService} from '../../shared/progress-bar/shared/progress.service';
@@ -40,9 +40,13 @@ export class ShippedComponent implements OnInit {
 
         this.shippedService.shippedItems$.subscribe({
             next: shippedItems => {
-                this.dataSource.data$.next(shippedItems);
+                this.dataSource.data$.next([...this.dataSource.data, ...shippedItems]);
             }
         });
+
+        this.progressService.cancel$.subscribe(() => {
+            this.dataSource.data$.next([]);
+        })
 
         this.shippedService.sites$.subscribe({
             next: sites => {

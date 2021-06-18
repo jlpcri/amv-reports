@@ -1,22 +1,19 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component} from '@angular/core';
 import {Invoice} from '../../shared/types/invoice';
 import {Subject} from 'rxjs';
-import {ProgressService} from '../../shared/progress-bar/shared/progress.service';
-import {InvoiceService} from './invoice.service';
-import * as moment from 'moment';
-import {TableDataSource} from '../shared/data-table/tableDataSource';
+import {TableDataSource} from '../../shared/data-table/tableDataSource';
 import {COLUMNS} from './invoices.columns';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
+import {ReportService} from '../../shared/report/report.service';
 
 @Component({
     selector: 'app-invoices',
     templateUrl: './invoices.component.html',
     styleUrls: ['./invoices.component.css'],
+    providers: [ReportService]
 })
-export class InvoicesComponent implements OnInit {
-    dataSource: TableDataSource<Invoice>;
-
-    displayedColumns$ = new Subject<string[]>();
-
+export class InvoicesComponent implements AfterViewInit {
+    title = 'Invoice Report';
     selectedSites: number[] = [];
     selectedSites$ = new Subject<number[]>();
     sites: any[] = [];
@@ -25,58 +22,40 @@ export class InvoicesComponent implements OnInit {
     selectedRegion$ = new Subject<string>();
     regions: any[] = [];
 
-    constructor(private progressService: ProgressService, public invoiceService: InvoiceService) {}
+    constructor(public reportService: ReportService<Invoice>) {
+        reportService.dataSource = new TableDataSource<Invoice>(COLUMNS, this.title);
+        reportService.formatResponse = (response) => response;
+        reportService.reportEndpoint = '/invoices';
+        reportService.siteEndpoint = '/invoice-sites';
 
-    ngOnInit() {
-        this.dataSource = new TableDataSource<Invoice>(COLUMNS, 'Invoice Report');
-
-        this.displayedColumns$.subscribe({
-            next: columns => {
-                this.dataSource.displayedColumns$.next(columns);
-            }
-        });
-
-        this.displayedColumns$.next(this.dataSource.columns.map(col => col.field));
-
-        this.invoiceService.invoices$.subscribe({
-            next: invoices => {
-                this.dataSource.data$.next(invoices);
-            }
-        });
-
-        this.invoiceService.sites$.subscribe({
-            next: sites => {
-                this.sites = sites;
-                this.selectedSites$.next([]);
-            }
-        });
-
-        this.selectedSites$.subscribe({
+        this.selectedSites$.pipe(debounceTime(1000), distinctUntilChanged()).subscribe({
             next: sites => {
                 this.selectedSites = sites;
-                this.invoiceService.selectedSites$.next(sites);
+                this.reportService.selectedSites$.next(sites);
             }
         });
 
-        this.invoiceService.regions$.subscribe({
+        this.selectedRegion$.pipe(debounceTime(1000), distinctUntilChanged()).subscribe({
+            next: region => {
+                this.selectedRegion = region;
+                this.reportService.selectedRegion$.next(region);
+            }
+        });
+
+        this.reportService.regions$.subscribe({
             next: regions => {
                 this.regions = regions;
                 this.selectedRegion$.next('All');
             }
         });
 
-        this.selectedRegion$.subscribe({
-            next: region => {
-                this.selectedRegion = region;
-                this.invoiceService.selectedRegion$.next(region);
-            }
+        this.reportService.sites$.subscribe(sites => {
+            this.sites = sites;
         });
+    }
 
-        // reset date on component init to load fresh after app routing
-        this.invoiceService.date$.next(moment());
-
-        this.invoiceService.getRegions();
-        this.progressService.loading = true;
-
+    ngAfterViewInit() {
+        this.reportService.getRegions();
+        this.reportService.getSites();
     }
 }

@@ -1,4 +1,4 @@
-<div class="scroll-container mat-elevation-z7">
+<div class="scroll-container mat-elevation-z7" tabindex="0">
     <table mat-table class="data-table" matSort [attr.aria-label]="dataSource?.title">
         <ng-container *ngFor="let column of dataSource.columns">
             <ng-container [matColumnDef]="column.field">

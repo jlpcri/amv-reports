@@ -1,8 +1,0 @@
-<div #sideMenuDiv class="side-menu">
-    <div *ngFor="let route of childRoutes()" class="side-menu-item"
-         [ngClass]="{'active': isActive(route)}"
-         (click)="setRoute('/' + base + '/' + route)"
-    >
-        {{route}}
-    </div>
-</div>
