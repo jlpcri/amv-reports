@@ -9,3 +9,7 @@
 .report-header h2 {
     color: var(--primary-lighter-color);
 }
+
+button#csv-export:enabled {
+    color: white;
+}

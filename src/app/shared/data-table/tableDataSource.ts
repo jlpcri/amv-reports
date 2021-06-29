@@ -10,7 +10,7 @@ import {ExportToCsv} from 'export-to-csv';
 
 export class TableDataSource<T> extends DataSource<T> {
     data: T[] = [];
-    data$ = new Subject<T[]>();
+    data$ = new Subject<T[] | undefined>();
     paginator: MatPaginator;
     sort: MatSort;
 
@@ -18,6 +18,7 @@ export class TableDataSource<T> extends DataSource<T> {
     displayedColumns: string[];
     displayedColumns$ = new Subject<string[]>();
     title: string;
+    totalRecords: number;
 
     constructor(columns: ColumnDef[], title: string = 'Data Table') {
         super();
@@ -27,7 +28,11 @@ export class TableDataSource<T> extends DataSource<T> {
 
         this.data$.subscribe({
             next: (data) => {
-                this.data = data.map(row => {
+                if (data === undefined) {
+                    this.data = [];
+                    return;
+                }
+                const newData = data.map(row => {
                     // Flatten data
                     const newRow = {};
                     this.columns.forEach(col => {
@@ -35,6 +40,7 @@ export class TableDataSource<T> extends DataSource<T> {
                     });
                     return newRow as T;
                 });
+                this.data = [...this.data, ...newData];
             }
         });
         this.displayedColumns$.subscribe({
@@ -90,12 +96,19 @@ export class TableDataSource<T> extends DataSource<T> {
         exportToCsv.generateCsv(exportRows);
     }
 
-    // placeholder for anything that may need cleaned up on destroy
-    disconnect() {}
+    disconnect() {
+        this.data$.complete();
+        this.displayedColumns$.complete();
+    }
 
-    // Client-side pagination only
+    // Client-side pagination.
     getPagedData(data: T[]) {
         const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
         return this.format(data).splice(startIndex, this.paginator.pageSize);
+    }
+
+    get length() {
+        // Set explicitly for paged API results.
+        return this.totalRecords || this.data.length;
     }
 }

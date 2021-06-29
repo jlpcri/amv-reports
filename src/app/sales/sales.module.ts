@@ -8,9 +8,10 @@ import { ShippedComponent } from './shipped/shipped.component';
 import {SharedModule} from '../shared/shared.module';
 import {MatButtonModule} from '@angular/material/button';
 import {MatSnackBarModule} from '@angular/material/snack-bar';
+import { CustomerSkuComponent } from './customer-sku/customer-sku.component';
 
 @NgModule({
-    declarations: [InvoicesComponent, EcommSkusComponent, ShippedComponent],
+    declarations: [InvoicesComponent, EcommSkusComponent, ShippedComponent, CustomerSkuComponent],
     imports: [
         CommonModule,
         FormsModule,

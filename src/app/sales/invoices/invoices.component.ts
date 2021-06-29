@@ -1,4 +1,4 @@
-import {AfterViewInit, Component} from '@angular/core';
+import {AfterViewInit, Component, OnDestroy} from '@angular/core';
 import {Invoice} from '../../shared/types/invoice';
 import {Subject} from 'rxjs';
 import {TableDataSource} from '../../shared/data-table/tableDataSource';
@@ -12,7 +12,7 @@ import {ReportService} from '../../shared/report/report.service';
     styleUrls: ['./invoices.component.css'],
     providers: [ReportService]
 })
-export class InvoicesComponent implements AfterViewInit {
+export class InvoicesComponent implements AfterViewInit, OnDestroy {
     title = 'Invoice Report';
     selectedSites: number[] = [];
     selectedSites$ = new Subject<number[]>();
@@ -57,5 +57,10 @@ export class InvoicesComponent implements AfterViewInit {
     ngAfterViewInit() {
         this.reportService.getRegions();
         this.reportService.getSites();
+    }
+
+    ngOnDestroy() {
+        this.selectedRegion$.complete();
+        this.selectedSites$.complete();
     }
 }

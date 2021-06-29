@@ -13,17 +13,25 @@ export class ProgressService {
     public currentCount = 0;
     public cancel$ = new Subject<any>();
     public progress$ = new Subject<any>();
+    public done$ = new Subject<any>();
 
     constructor() {
         this.cancel$.subscribe(() => {
-            this.loading = false;
+            this.done$.next();
         });
-        this.progress$.subscribe(() => {
-            this.currentCount += 1;
-            this.progressPercent = Math.round((this.currentCount / this.totalCount) * 100)
-            if (this.currentCount >= this.totalCount) {
-                this.loading = false;
+        this.progress$.subscribe((count: number) => {
+            if (this.totalCount === 0) {
+                this.done$.next();
+            } else {
+                this.currentCount += count ?? 1;
+                this.progressPercent = Math.round((this.currentCount / this.totalCount) * 100);
+                if (this.currentCount >= this.totalCount) {
+                    this.done$.next();
+                }
             }
+        });
+        this.done$.subscribe(() => {
+            this.loading = false;
         });
     }
 

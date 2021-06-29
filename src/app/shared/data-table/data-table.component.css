@@ -36,13 +36,13 @@ app-data-table .cell-limit {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
-    max-width: 8rem;
+    max-width: 10rem;
 }
 
 app-data-table .scroll-container {
     overflow-x: scroll;
 }
 
-app-invoices .data-table {
-    width: 100%;
+app-data-table .data-table {
+    min-width: 100%;
 }

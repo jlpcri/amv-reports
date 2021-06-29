@@ -11,6 +11,7 @@ import {EcommSkusComponent} from './sales/ecomm-skus/ecomm-skus.component';
 import {ShippedComponent} from './sales/shipped/shipped.component';
 import {AuthGuard} from './auth.guard';
 import {SidebarLayoutComponent} from './sidebar-layout/sidebar-layout.component';
+import {CustomerSkuComponent} from './sales/customer-sku/customer-sku.component';
 
 const routes: Routes = [
     {
@@ -31,6 +32,7 @@ const routes: Routes = [
                     { path: 'shipped-items', component: ShippedComponent},
                     { path: 'new-ecomm-sku', component: EcommSkusComponent },
                     { path: 'ecomm-sku', component: EcommSkuComponent },
+                    { path: 'customer-sku', component: CustomerSkuComponent },
                 ]
             },
             {
