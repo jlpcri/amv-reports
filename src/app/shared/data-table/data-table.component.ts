@@ -1,9 +1,20 @@
-import {AfterViewInit, Component, Input, ViewChild, ViewEncapsulation} from '@angular/core';
+import {
+    AfterContentInit,
+    AfterViewChecked,
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    Input,
+    OnInit,
+    ViewChild,
+    ViewEncapsulation
+} from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
 import {MatTable} from '@angular/material/table';
 import getPath from 'lodash-es/get';
 import {TableDataSource} from './tableDataSource';
+import {ProgressService} from '../progress-bar/shared/progress.service';
 
 
 @Component({
@@ -19,16 +30,30 @@ export class DataTableComponent<T> implements AfterViewInit {
 
     @Input() dataSource: TableDataSource<T>;
 
-    getPath = getPath;
+    constructor(public progressService: ProgressService) {}
 
     ngAfterViewInit() {
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
+        // Data source does not connect until sort/paginator exist
         this.table.dataSource = this.dataSource;
+        setTimeout(() => {
+            // fixes empty table displaying incorrectly
+            // just needs to trigger after all initial lifecycle checks apparently
+            this.table.renderRows();
+        }, 1);
     }
 
     getTitle(row, column) {
         return column.limit ? getPath(row, column.field) : '';
+    }
+
+    get loading() {
+        if (this.progressService) {
+            return this.progressService.loading;
+        } else {
+            return true;
+        }
     }
 
 }

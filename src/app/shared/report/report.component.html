@@ -13,7 +13,7 @@
             </mat-select>
         </mat-form-field>
 
-        <button mat-flat-button color="accent" (click)="reportService.dataSource.export()" [disabled]="reportService.dataSource.data.length === 0">CSV Export</button>
+        <button mat-flat-button color="accent" id="csv-export" (click)="reportService.dataSource.export()" [disabled]="reportService.dataSource.data.length === 0 || progressService.loading">CSV Export</button>
     </div>
 
     <app-data-table [dataSource]="reportService.dataSource" [title]="title"></app-data-table>

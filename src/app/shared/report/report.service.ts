@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable, OnDestroy} from '@angular/core';
 import { Subject } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
 import { ProgressService } from '../../shared/progress-bar/shared/progress.service';
@@ -8,9 +8,10 @@ import { Region } from '../../shared/types/region';
 import { Site } from '../../shared/types/site';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {TableDataSource} from '../data-table/tableDataSource';
+import {takeUntil} from 'rxjs/operators';
 
 @Injectable()
-export class ReportService<T> {
+export class ReportService<T> implements OnDestroy {
     date$ = new Subject<Moment>();
     reportData$ = new Subject<T[]>();
     regions$ = new Subject<Region[]>();
@@ -28,6 +29,8 @@ export class ReportService<T> {
     siteEndpoint: string;
     formatResponse: (response: any) => any;
     dataSource: TableDataSource<T>;
+    fetchByPage = false;
+    unsubscribe$ = new Subject<void>();
 
     constructor(private reportsApiService: ReportsApiService,
                 private progressService: ProgressService,
@@ -50,7 +53,7 @@ export class ReportService<T> {
                 if (this.selectedSites.length > 0) {
                     this.getReportData();
                 } else {
-                    this.reportData$.next([]);
+                    this.reportData$.next();
                 }
             }
         });
@@ -68,15 +71,15 @@ export class ReportService<T> {
             if (this.selectedSource) {
                 this.getReportData();
             } else {
-                this.reportData$.next(undefined);
+                this.reportData$.next();
             }
         });
-        this.progressService.cancel$.subscribe(() => {
-            this.dataSource.data$.next([]);
+        this.progressService.cancel$.pipe(takeUntil(this.unsubscribe$)).subscribe(() => {
+            this.dataSource.data$.next();
         });
         this.reportData$.subscribe({
             next: reportData => {
-                this.dataSource.data$.next([...this.dataSource.data, ...reportData]);
+                this.dataSource.data$.next(reportData);
             }
         });
     }
@@ -131,18 +134,52 @@ export class ReportService<T> {
             params = params.set('sourceSystem', this.selectedSource.toString());
         }
 
-        this.reportsApiService.getDateRange<T[]>(this.reportEndpoint, this.startDate, this.stopDate, {params}).subscribe(
-            reportData => {
-                this.reportData$.next(this.formatResponse(reportData));
-            },
-            error => {
-                // Progress will already be cancelled.
-                this.displayError('Error loading report data.');
-            }
-        );
+        if (this.fetchByPage) {
+            // Gets as many pages of API data as are necessary.  Will keep fetching until complete or cancelled.
+            // Does not match table pagination but this will ultimately load much faster.
+            this.reportsApiService.getByPage<T>(this.reportEndpoint, this.startDate, this.stopDate, {params}).subscribe(
+                reportData => {
+                    this.dataSource.totalRecords = reportData.totalRecords;
+                    this.reportData$.next(this.formatResponse(reportData.records));
+                },
+                () => this.loadingError()
+            );
+        } else {
+            // Break into blocks of dates to retrieve more manageable number of rows if no pagination available yet
+            this.reportsApiService.getDateRange<T[]>(this.reportEndpoint, this.startDate, this.stopDate, {params}).subscribe(
+                reportData => {
+
+                    this.reportData$.next(this.formatResponse(reportData));
+                },
+                () => this.loadingError()
+            );
+        }
+    }
+
+    loadingError() {
+        this.displayError('Error loading report data.');
     }
 
     displayError(message: string) {
         this.snackBar.open(message, 'Dismiss', { duration: 15000 });
+    }
+
+    ngOnDestroy() {
+        this.dataSource.disconnect();
+        this.unsubscribe$.next();
+
+        const toComplete = [
+            this.date$,
+            this.reportData$,
+            this.regions$,
+            this.selectedRegion$,
+            this.sites$,
+            this.selectedSites$,
+            this.selectedSource$,
+            this.unsubscribe$
+        ];
+        toComplete.forEach((obs) => {
+            obs.complete();
+        });
     }
 }

@@ -22,15 +22,18 @@
 
         <tr mat-row *matRowDef="let row; let stripe = even; columns: dataSource.displayedColumns;" [class.stripe-row]="stripe"></tr>
         <tr class="mat-row" *matNoDataRow>
-            <td class="mat-cell" colspan="9999">
-                No rows found. Select options above.
+            <td class="mat-cell" colspan="9999" *ngIf="loading">
+                Loading...
+            </td>
+            <td class="mat-cell" colspan="9999" *ngIf="!loading">
+                No data.  Select options above.
             </td>
         </tr>
     </table>
 </div>
 
 <mat-paginator #paginator
-               [length]="dataSource.data.length"
+               [length]="dataSource.length"
                [pageIndex]="0"
                [pageSize]="10"
                [pageSizeOptions]="[10, 25, 100]">
