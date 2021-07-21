@@ -10,6 +10,12 @@ export const COLUMNS: ColumnDef[] = [
         label: 'Item ID'
     },
     {
+        field: 'eventDate',
+        label: 'Event Date',
+        html: 'Event&nbsp;Date',
+        type: 'date'
+    },
+    {
         field: 'createdAt',
         label: 'Created Date',
         html: 'Created&nbsp;Date',
@@ -53,8 +59,32 @@ export const COLUMNS: ColumnDef[] = [
         justify: 'right'
     },
     {
+        field: 'quantityOnHand',
+        label: 'Quantity On Hand',
+        html: 'Quantity On&nbsp;Hand',
+        justify: 'right'
+    },
+    {
         field: 'priceEach',
         label: 'Price Each',
+        type: 'money',
+        justify: 'right'
+    },
+    {
+        field: 'avgOnHandCost',
+        label: 'Average On Hand Cost',
+        type: 'money',
+        justify: 'right'
+    },
+    {
+        field: 'eventCost',
+        label: 'Event Cost',
+        type: 'money',
+        justify: 'right'
+    },
+    {
+        field: 'eventCostEach',
+        label: 'Event Cost Each',
         type: 'money',
         justify: 'right'
     },
