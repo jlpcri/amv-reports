@@ -31,6 +31,8 @@ export class ReportService<T> implements OnDestroy {
     dataSource: TableDataSource<T>;
     fetchByPage = false;
     unsubscribe$ = new Subject<void>();
+    multipleSites = true;
+    fixedSites = false;
 
     constructor(private reportsApiService: ReportsApiService,
                 private progressService: ProgressService,
@@ -41,9 +43,7 @@ export class ReportService<T> implements OnDestroy {
             next: date => {
                 this.startDate = date.startOf('month').toISOString();
                 this.stopDate = date.endOf('month').toISOString();
-                if (this.selectedSites.length > 0 || this.selectedSource) {
-                    this.getReportData();
-                }
+                this.getSites();
             }
         });
         this.selectedSites$.subscribe({
@@ -85,6 +85,9 @@ export class ReportService<T> implements OnDestroy {
     }
 
     getSites() {
+        if (this.fixedSites) {
+            return;
+        }
         this.progressService.loading = true;
         // gets a list of sites that have reportData in the provided period
         const params = new HttpParams()
@@ -123,7 +126,8 @@ export class ReportService<T> implements OnDestroy {
         let params = new HttpParams();
 
         if (this.selectedSites.length > 0) {
-            params = params.set('sites', this.selectedSites.toString());
+            const param = this.multipleSites ? 'sites' : 'site';
+            params = params.set(param, this.selectedSites.toString());
         }
 
         if (this.selectedRegion) {

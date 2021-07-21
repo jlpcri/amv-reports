@@ -25,6 +25,7 @@ export class StockHistoryComponent implements OnDestroy {
         reportService.dataSource = new TableDataSource<StockHistory>(COLUMNS, this.title);
         reportService.formatResponse = (response) => response;
         reportService.reportEndpoint = '/inventory/stock-history';
+        reportService.fixedSites = true;
         reportService.fetchByPage = true;
 
         this.selectedSource$.pipe(debounceTime(1000), distinctUntilChanged()).subscribe({

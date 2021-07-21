@@ -1,21 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import {AfterViewInit, Component, OnDestroy} from '@angular/core';
 import {TableDataSource} from '../../shared/data-table/tableDataSource';
 import {ShippedItem} from '../../shared/types/shippedItem';
 import {Subject} from 'rxjs';
-import {ProgressService} from '../../shared/progress-bar/shared/progress.service';
-import {ShippedService} from './shipped.service';
 import {COLUMNS} from './shipped.columns';
-import * as moment from 'moment';
+import {ReportService} from '../../shared/report/report.service';
+import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
 
 @Component({
   selector: 'app-shipped',
   templateUrl: './shipped.component.html',
-  styleUrls: ['./shipped.component.css']
+  styleUrls: ['./shipped.component.css'],
+    providers: [ReportService]
 })
-export class ShippedComponent implements OnInit {
-    dataSource: TableDataSource<ShippedItem>;
-
-    displayedColumns$ = new Subject<string[]>();
+export class ShippedComponent implements AfterViewInit, OnDestroy {
+    title = 'Shipped Item Report';
 
     selectedSite: number;
     selectedSite$ = new Subject<number>();
@@ -25,62 +23,46 @@ export class ShippedComponent implements OnInit {
     selectedRegion$ = new Subject<string>();
     regions: any[] = [];
 
-    constructor(private progressService: ProgressService, public shippedService: ShippedService) {}
+    constructor(public reportService: ReportService<ShippedItem>) {
+        reportService.dataSource = new TableDataSource<ShippedItem>(COLUMNS, this.title);
+        reportService.formatResponse = (response) => response;
+        reportService.reportEndpoint = '/shipped-items';
+        reportService.siteEndpoint = '/shipped-sites';
+        reportService.multipleSites = false;
 
-    ngOnInit() {
-        this.dataSource = new TableDataSource<ShippedItem>(COLUMNS, 'Shipped Item Report');
-
-        this.displayedColumns$.subscribe({
-            next: columns => {
-                this.dataSource.displayedColumns$.next(columns);
-            }
-        });
-
-        this.displayedColumns$.next(this.dataSource.columns.map(col => col.field));
-
-        this.shippedService.shippedItems$.subscribe({
-            next: shippedItems => {
-                this.dataSource.data$.next([...this.dataSource.data, ...shippedItems]);
-            }
-        });
-
-        this.progressService.cancel$.subscribe(() => {
-            this.dataSource.data$.next([]);
-        })
-
-        this.shippedService.sites$.subscribe({
-            next: sites => {
-                this.sites = sites;
-                this.selectedSite$.next(null);
-            }
-        });
-
-        this.selectedSite$.subscribe({
+        this.selectedSite$.pipe(debounceTime(1000), distinctUntilChanged()).subscribe({
             next: site => {
                 this.selectedSite = site;
-                this.shippedService.selectedSite$.next(site);
+                this.reportService.selectedSites$.next([site]);
             }
         });
 
-        this.shippedService.regions$.subscribe({
+        this.selectedRegion$.pipe(debounceTime(1000), distinctUntilChanged()).subscribe({
+            next: region => {
+                this.selectedRegion = region;
+                this.reportService.selectedRegion$.next(region);
+            }
+        });
+
+        this.reportService.regions$.subscribe({
             next: regions => {
                 this.regions = regions;
                 this.selectedRegion$.next('All');
             }
         });
 
-        this.selectedRegion$.subscribe({
-            next: region => {
-                this.selectedRegion = region;
-                this.shippedService.selectedRegion$.next(region);
-            }
+        this.reportService.sites$.subscribe(sites => {
+            this.sites = sites;
         });
+    }
 
-        // reset date on component init to load fresh after app routing
-        this.shippedService.date$.next(moment());
+    ngAfterViewInit() {
+        this.reportService.getRegions();
+        this.reportService.getSites();
+    }
 
-        this.shippedService.getRegions();
-        this.progressService.loading = true;
-
+    ngOnDestroy() {
+        this.selectedRegion$.complete();
+        this.selectedSite$.complete();
     }
 }
