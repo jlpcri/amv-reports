@@ -1,13 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ShippedComponent } from './shipped.component';
+import { PurchaseOrdersComponent } from './purchase-orders.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ReportService} from '../../shared/report/report.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
-import {HttpClientTestingModule} from '@angular/common/http/testing';
 
-describe('ShippedComponent', () => {
-  let component: ShippedComponent;
-  let fixture: ComponentFixture<ShippedComponent>;
+describe('PurchaseOrdersComponent', () => {
+  let component: PurchaseOrdersComponent;
+  let fixture: ComponentFixture<PurchaseOrdersComponent>;
 
   beforeEach(async(() => {
       const reportService = {
@@ -21,19 +21,20 @@ describe('ShippedComponent', () => {
           }
       };
       const snackbarSpy = jasmine.createSpyObj('MatSnackBar', ['open']);
-
       TestBed.configureTestingModule({
-          declarations: [ ShippedComponent ],
-          imports: [ HttpClientTestingModule ],
-          providers: [
-              {provide: ReportService, useValue: reportService},
-              { provide: MatSnackBar, useValue: snackbarSpy}
-          ]
-      }).compileComponents();
+      declarations: [ PurchaseOrdersComponent ],
+        imports: [ HttpClientTestingModule ],
+        providers: [
+            {provide: ReportService, useValue: reportService},
+            { provide: MatSnackBar, useValue: snackbarSpy}
+
+        ]
+    })
+    .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ShippedComponent);
+    fixture = TestBed.createComponent(PurchaseOrdersComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
