@@ -26,6 +26,7 @@ import {SharedModule} from './shared/shared.module';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import {MatSelectModule} from '@angular/material/select';
 import {MatProgressBarModule} from '@angular/material/progress-bar';
+import { PurchaseOrdersComponent } from './retail/purchase-orders/purchase-orders.component';
 
 @NgModule({
   declarations: [
@@ -41,7 +42,8 @@ import {MatProgressBarModule} from '@angular/material/progress-bar';
     ProgressBarComponent,
     MessageModalComponent,
     AgeCategoriesComponent,
-    SidebarLayoutComponent
+    SidebarLayoutComponent,
+    PurchaseOrdersComponent
   ],
     imports: [
         BrowserModule,

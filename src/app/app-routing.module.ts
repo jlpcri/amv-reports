@@ -12,6 +12,7 @@ import {ShippedComponent} from './sales/shipped/shipped.component';
 import {AuthGuard} from './auth.guard';
 import {SidebarLayoutComponent} from './sidebar-layout/sidebar-layout.component';
 import {CustomerSkuComponent} from './sales/customer-sku/customer-sku.component';
+import {PurchaseOrdersComponent} from './retail/purchase-orders/purchase-orders.component';
 
 const routes: Routes = [
     {
@@ -41,7 +42,8 @@ const routes: Routes = [
                     {path: '', redirectTo: 'id-scans', pathMatch: 'full'},
                     {path: 'id-scans', component: IdScansComponent},
                     {path: 'transactions', component: IdTransactionsComponent},
-                    {path: 'age-categories', component: AgeCategoriesComponent}
+                    {path: 'age-categories', component: AgeCategoriesComponent},
+                    {path: 'purchase-orders', component: PurchaseOrdersComponent}
                 ]
             },
             {
