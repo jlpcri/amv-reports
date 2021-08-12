@@ -73,6 +73,7 @@ export const COLUMNS: ColumnDef[] = [
     {
         field: 'avgOnHandCost',
         label: 'Average On Hand Cost',
+        html: 'Average&nbsp;On Hand Cost',
         type: 'money',
         justify: 'right'
     },
@@ -85,6 +86,20 @@ export const COLUMNS: ColumnDef[] = [
     {
         field: 'eventCostEach',
         label: 'Event Cost Each',
+        type: 'money',
+        justify: 'right'
+    },
+    {
+        field: 'finaleCostEach',
+        label: 'Finale Average Cost Each',
+        html: 'Finale&nbsp;Average Cost Each',
+        type: 'money',
+        justify: 'right'
+    },
+    {
+        field: 'finaleInvCost',
+        label: 'Finale Average Cost Inventory',
+        html: 'Finale&nbsp;Average Cost Inventory',
         type: 'money',
         justify: 'right'
     },

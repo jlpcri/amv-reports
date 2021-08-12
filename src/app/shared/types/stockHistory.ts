@@ -15,4 +15,10 @@ export interface StockHistory {
     quantity?: number;
     priceEach?: number;
     employee?: string;
+    quantityOnHand?: number;
+    eventDate?: string;
+    eventCost?: number;
+    eventCostEach?: number;
+    finaleCostEach?: number;
+    finaleInvCost?: number;
 }
