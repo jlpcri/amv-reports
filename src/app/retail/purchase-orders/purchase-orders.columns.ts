@@ -8,9 +8,14 @@ export const COLUMNS: ColumnDef[] = [
         type: 'date'
     },
     {
-        html: 'Invoice ID',
+        html: 'Invoice&nbsp;ID',
         field: 'invoiceId',
         label: 'Invoice ID'
+    },
+    {
+        html: 'Order&nbsp;ID',
+        field: 'orderId',
+        label: 'Order ID'
     },
     {
         html: 'Store Name',
