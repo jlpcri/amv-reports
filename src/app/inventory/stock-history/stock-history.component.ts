@@ -27,6 +27,7 @@ export class StockHistoryComponent implements OnDestroy {
         reportService.reportEndpoint = '/inventory/stock-history';
         reportService.fixedSites = true;
         reportService.fetchByPage = true;
+        reportService.dateRefresh = true;
 
         this.selectedSource$.pipe(debounceTime(1000), distinctUntilChanged()).subscribe({
           next: sourceSystem => {
@@ -34,6 +35,8 @@ export class StockHistoryComponent implements OnDestroy {
               this.reportService.selectedSource$.next(sourceSystem);
           }
       });
+
+
     }
 
     ngOnDestroy() {

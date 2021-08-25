@@ -33,6 +33,7 @@ export class ReportService<T> implements OnDestroy {
     unsubscribe$ = new Subject<void>();
     multipleSites = true;
     fixedSites = false;
+    dateRefresh = false;
 
     constructor(private reportsApiService: ReportsApiService,
                 private progressService: ProgressService,
@@ -44,6 +45,9 @@ export class ReportService<T> implements OnDestroy {
                 this.startDate = date.startOf('month').toISOString();
                 this.stopDate = date.endOf('month').toISOString();
                 this.getSites();
+                if (this.dateRefresh && (this.selectedSource || this.selectedSites.length > 0)) {
+                    this.getReportData();
+                }
             }
         });
         this.selectedSites$.subscribe({

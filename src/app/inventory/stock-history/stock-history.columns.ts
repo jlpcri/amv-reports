@@ -97,6 +97,13 @@ export const COLUMNS: ColumnDef[] = [
         justify: 'right'
     },
     {
+        field: 'finaleCost',
+        label: 'Finale Average Cost',
+        html: 'Finale&nbsp;Average Cost',
+        type: 'money',
+        justify: 'right'
+    },
+    {
         field: 'finaleInvCost',
         label: 'Finale Average Cost Inventory',
         html: 'Finale&nbsp;Average Cost Inventory',
@@ -107,4 +114,14 @@ export const COLUMNS: ColumnDef[] = [
         field: 'employee',
         label: 'Employee'
     },
+    {
+        field: 'saleSource',
+        html: 'Sale&nbsp;Source',
+        label: 'Sale Source'
+    },
+    {
+        field: 'productSource',
+        html: 'Product&nbsp;Source',
+        label: 'Product Source'
+    }
 ];
