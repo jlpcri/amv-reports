@@ -25,6 +25,12 @@ export const COLUMNS: ColumnDef[] = [
         type: 'date'
     },
     {
+        html: 'Order<br>Refunded',
+        field: 'refundedAt',
+        label: 'Refunded Date',
+        type: 'date'
+    },
+    {
         html: 'Payment<br>Amount',
         justify: 'right',
         field: 'paymentAmount',
