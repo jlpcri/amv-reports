@@ -6,6 +6,7 @@ import {ProgressService} from '../../shared/progress-bar/shared/progress.service
 import {EcommSkusService} from './ecomm-skus.service';
 import * as moment from 'moment';
 import {Subject} from 'rxjs';
+import {FormControl, FormGroup} from '@angular/forms';
 
 @Component({
   selector: 'app-ecomm-skus',
@@ -27,8 +28,16 @@ export class EcommSkusComponent implements OnInit {
     selectedRegion$ = new Subject<string>();
     regions: any[] = [];
 
+    range = new FormGroup({
+        startDate: new FormControl(moment().startOf('month')),
+        stopDate: new FormControl(moment().endOf('month'))
+    });
 
-  constructor(private progressService: ProgressService, public ecommSkusService: EcommSkusService) { }
+    minDate = moment().subtract(5, 'years').startOf('year');
+    maxDate = moment();
+
+
+    constructor(private progressService: ProgressService, public ecommSkusService: EcommSkusService) { }
 
   ngOnInit(): void {
       this.dataSource = new TableDataSource<EcommSku>(COLUMNS, 'Ecomms-SKU Report');
@@ -77,7 +86,8 @@ export class EcommSkusComponent implements OnInit {
       });
 
       // reset date on component init to load fresh after app routing
-      this.ecommSkusService.date$.next(moment());
+      this.ecommSkusService.startDate$.next(moment().startOf('month'));
+      this.ecommSkusService.stopDate$.next(moment().endOf('month'));
 
       this.ecommSkusService.getRegions();
 
