@@ -18,13 +18,9 @@ html, body {
     background-color: var(--panel-bg);
 }
 
-.main-content-title {
+.old-report .main-content-title {
     font-size: 1.2rem;
     padding-bottom: 12px;
-}
-
-.main-content-filter {
-
 }
 
 .amv-btn-grp {
@@ -73,17 +69,17 @@ html, body {
     color: #3b3b3b;
 }
 
-.lt {
+.old-report .lt {
     text-align: left;
 }
-.rt {
+.old-report .rt {
     text-align: right;
 }
-.ptr {
+.old-report .ptr {
     cursor: pointer;
 }
 
-.blink {
+.old-report .blink {
     animation: blinker 1s linear infinite;
 }
 
@@ -93,30 +89,30 @@ html, body {
     }
 }
 
-.focused {
+.old-report .focused {
     color: white;
 }
 
-.row {
+.old-report .row {
     display: flex;
     flex-flow: row nowrap;
     align-items: stretch;
 }
-.col {
+.old-report .col {
     display: flex;
 }
 
-.col-2 {
+.old-report .col-2 {
     width: 16.6%;
     padding: 8px 16px;
 }
 
-.col-auto {
+.old-report .col-auto {
     display: inline-block;
     padding: 8px 16px;
 }
 
-input[type=text] {
+.old-report input[type=text] {
     border-radius: var(--btn-radius);
     border: 1px solid var(--border-color);
     background-color: var(--menu-bg);
@@ -124,3 +120,4 @@ input[type=text] {
     padding: 2px 8px;
     outline: none;
 }
+

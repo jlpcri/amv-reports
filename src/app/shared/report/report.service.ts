@@ -1,24 +1,26 @@
 import {Injectable, OnDestroy} from '@angular/core';
 import { Subject } from 'rxjs';
 import { HttpParams } from '@angular/common/http';
-import { ProgressService } from '../../shared/progress-bar/shared/progress.service';
+import { ProgressService } from '../progress-bar/shared/progress.service';
 import { Moment } from 'moment';
-import { ReportsApiService} from '../../shared/reports-api/reports-api.service';
-import { Region } from '../../shared/types/region';
-import { Site } from '../../shared/types/site';
+import { ReportsApiService} from '../reports-api/reports-api.service';
+import { Region } from '../types/region';
+import { Site } from '../types/site';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import {TableDataSource} from '../data-table/tableDataSource';
 import {takeUntil} from 'rxjs/operators';
 
 @Injectable()
 export class ReportService<T> implements OnDestroy {
-    date$ = new Subject<Moment>();
+    // date$ = new Subject<Moment>();
     reportData$ = new Subject<T[]>();
     regions$ = new Subject<Region[]>();
     selectedRegion$ = new Subject<string>();
     selectedRegion: string;
     startDate: string;
     stopDate: string;
+    startDate$ = new Subject<Moment>();
+    stopDate$ = new Subject<Moment>();
     sites$ = new Subject<Site[]>();
     sites: Site[] = [];
     selectedSites$ = new Subject<number[]>();
@@ -39,11 +41,16 @@ export class ReportService<T> implements OnDestroy {
                 private progressService: ProgressService,
                 private snackBar: MatSnackBar,
                 ) {
-        this.date$.subscribe({
-            // currently reports are viewable by month but Material date picker selects a day
+        this.startDate$.subscribe({
             next: date => {
-                this.startDate = date.startOf('month').toISOString();
-                this.stopDate = date.endOf('month').toISOString();
+                // Date range selection is not complete until stop date is set and start date is always first
+                this.startDate = date.toISOString();
+            }
+        });
+        this.stopDate$.subscribe({
+            next: date => {
+                if (!date) { return; } // Reports as null when start date initially set
+                this.stopDate = date.toISOString();
                 this.getSites();
                 if (this.dateRefresh && (this.selectedSource || this.selectedSites.length > 0)) {
                     this.getReportData();
@@ -177,7 +184,8 @@ export class ReportService<T> implements OnDestroy {
         this.unsubscribe$.next();
 
         const toComplete = [
-            this.date$,
+            this.startDate$,
+            this.stopDate$,
             this.reportData$,
             this.regions$,
             this.selectedRegion$,

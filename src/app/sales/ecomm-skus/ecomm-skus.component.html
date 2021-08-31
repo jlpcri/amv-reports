@@ -2,8 +2,17 @@
     <div class="mat-elevation-z7 report-header">
         <h2>eCommerce SKU Report</h2>
 
-        <app-date-picker (dateChanged)="ecommSkusService.date$.next($event)"></app-date-picker>
+<!--        <app-date-picker (dateChanged)="ecommSkusService.date$.next($event)"></app-date-picker>-->
+        <mat-form-field appearance="fill">
+            <mat-label>Report range</mat-label>
+            <mat-date-range-input [formGroup]="range" [rangePicker]="picker" [min]="minDate" [max]="maxDate">
+                <input matStartDate formControlName="startDate" (dateChange)="ecommSkusService.startDate$.next($event.value)" placeholder="Start Date"/>
+                <input matEndDate formControlName="stopDate" (dateChange)="ecommSkusService.stopDate$.next($event.value)" placeholder="End Date"/>
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        </mat-form-field>
 
+        <mat-date-range-picker #picker></mat-date-range-picker>
         <mat-form-field appearance="fill">
             <mat-label>Site</mat-label>
             <mat-select multiple [ngModel]="selectedSites$ | async" (ngModelChange)="selectedSites$.next($event)">
