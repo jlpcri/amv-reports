@@ -7,6 +7,11 @@ export const COLUMNS: ColumnDef[] = [
         label: 'Invoice ID',
     },
     {
+        html: 'Refund ID',
+        field: 'refundId',
+        label: 'Refund ID',
+    },
+    {
         html: 'Payment<br>Date',
         field: 'paymentDate',
         label: 'Payment Date',

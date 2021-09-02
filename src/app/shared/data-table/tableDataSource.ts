@@ -55,7 +55,7 @@ export class TableDataSource<T> extends DataSource<T> {
         return data.map(row => {
             const newRow = {...row};
             this.columns.forEach(col => {
-                if (col.type === 'date' && row[col.field].length > 0) {
+                if (col.type === 'date' && row[col.field]?.length > 0) {
                     newRow[col.field] = moment(row[col.field]).format('YYYY-MM-DD');
                 } else if (col.type === 'money') {
                     newRow[col.field] = parseFloat(row[col.field] || 0).toFixed(2);
