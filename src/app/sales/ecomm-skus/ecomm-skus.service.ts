@@ -14,7 +14,8 @@ import {Cogs, StockCost} from '../ecomm-sku/shared/cogs.model';
     providedIn: 'root'
 })
 export class EcommSkusService {
-    date$ = new Subject<Moment>();
+    startDate$ = new Subject<Moment>();
+    stopDate$ = new Subject<Moment>();
     skus$ = new Subject<EcommSku[]>();
     ecommSkus: EcommSku[] = [];
     cogs$ = new Subject<Cogs[]>();
@@ -34,10 +35,15 @@ export class EcommSkusService {
     WC_ORDER = /^\D/;
 
     constructor(private reportsApiService: ReportsApiService, private progressService: ProgressService, private snackBar: MatSnackBar) {
-        this.date$.subscribe({
+        this.startDate$.subscribe({
             // currently reports are viewable by month but Material date picker selects a day
             next: date => {
                 this.startDate = date.startOf('month').toISOString();
+            }
+        });
+        this.stopDate$.subscribe({
+            // currently reports are viewable by month but Material date picker selects a day
+            next: date => {
                 this.stopDate = date.endOf('month').toISOString();
                 this.getSites();
             }
