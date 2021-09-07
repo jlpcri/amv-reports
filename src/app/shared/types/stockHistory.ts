@@ -1,5 +1,3 @@
-
-
 export interface StockHistory {
     sourceId?: string;
     itemId?: string;
