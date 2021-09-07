@@ -13,6 +13,7 @@ import {AuthGuard} from './auth.guard';
 import {SidebarLayoutComponent} from './sidebar-layout/sidebar-layout.component';
 import {CustomerSkuComponent} from './sales/customer-sku/customer-sku.component';
 import {PurchaseOrdersComponent} from './retail/purchase-orders/purchase-orders.component';
+import {ValuationReportComponent} from './inventory/valuation-report/valuation-report.component';
 
 const routes: Routes = [
     {
@@ -58,6 +59,7 @@ const routes: Routes = [
                 children: [
                     { path: '', redirectTo: 'stock-history', pathMatch: 'full' },
                     { path: 'stock-history', component: StockHistoryComponent },
+                    { path: 'valuation-report', component: ValuationReportComponent },
                 ]
             },
         ]
