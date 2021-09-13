@@ -27,6 +27,7 @@ export class InvoicesComponent implements AfterViewInit, OnDestroy {
         reportService.formatResponse = (response) => response;
         reportService.reportEndpoint = '/invoices';
         reportService.siteEndpoint = '/invoice-sites';
+        reportService.dateRefresh = true;
 
         this.selectedSites$.pipe(debounceTime(1000), distinctUntilChanged()).subscribe({
             next: sites => {

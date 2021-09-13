@@ -50,7 +50,7 @@ export class ReportService<T> implements OnDestroy {
         this.stopDate$.subscribe({
             next: date => {
                 if (!date) { return; } // Reports as null when start date initially set
-                this.stopDate = date.toISOString();
+                this.stopDate = date.add(1, 'day').toISOString();
                 this.getSites();
                 if (this.dateRefresh && (this.selectedSource || this.selectedSites.length > 0)) {
                     this.getReportData();
