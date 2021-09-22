@@ -15,7 +15,7 @@
                  [ngClass]="{focused: selectedPage===page}">
                 {{page}}
             </div>
-            <b> . . . </b>
+            <strong> . . . </strong>
             <div class="page-number" *ngFor="let page of lastPages" (click)="selectPage(page)"
                  [ngClass]="{focused: selectedPage===page}">
                 {{page | number}}

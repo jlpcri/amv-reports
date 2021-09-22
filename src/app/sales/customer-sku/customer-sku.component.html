@@ -1,0 +1,10 @@
+<app-report
+    [title]="title"
+    [reportService]="reportService">
+    <mat-form-field appearance="fill">
+        <mat-label>Site</mat-label>
+        <mat-select [ngModel]="selectedSource$ | async" (ngModelChange)="selectedSource$.next($event)">
+            <mat-option *ngFor="let site of sites" [value]="site.id">{{site.description}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+</app-report>

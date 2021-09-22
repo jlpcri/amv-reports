@@ -1,0 +1,40 @@
+<div class="scroll-container mat-elevation-z7" tabindex="0">
+    <table mat-table class="data-table" matSort [attr.aria-label]="dataSource?.title">
+        <ng-container *ngFor="let column of dataSource.columns">
+            <ng-container [matColumnDef]="column.field">
+                <th
+                    mat-header-cell *matHeaderCellDef
+                    [ngClass]="{'col-justify-right': column.justify === 'right' }"
+                    [innerHTML]="column.html || column.label">
+                </th>
+                <td mat-cell *matCellDef="let row"
+                    [title]="getTitle(row, column)"
+                    [ngClass]="{
+                            'col-justify-right': column.justify === 'right',
+                            'cell-limit': column.limit
+                        }">
+                    {{row[column.field]}}
+                </td>
+            </ng-container>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="dataSource.displayedColumns"></tr>
+
+        <tr mat-row *matRowDef="let row; let stripe = even; columns: dataSource.displayedColumns;" [class.stripe-row]="stripe"></tr>
+        <tr class="mat-row" *matNoDataRow>
+            <td class="mat-cell" colspan="9999" *ngIf="loading">
+                Loading...
+            </td>
+            <td class="mat-cell" colspan="9999" *ngIf="!loading">
+                No data.  Select options above.
+            </td>
+        </tr>
+    </table>
+</div>
+
+<mat-paginator #paginator
+               [length]="dataSource.length"
+               [pageIndex]="0"
+               [pageSize]="10"
+               [pageSizeOptions]="[10, 25, 100]">
+</mat-paginator>

@@ -1,5 +1,7 @@
-<div class="main-content-title">
-    <b>ID Scans by Register</b>
+<div class="old-report">
+    <div class="main-content-title">
+        <strong>ID Scans by Register</strong>
+    </div>
+    <app-old-date-picker></app-old-date-picker>
+    <pageable-table [columns]="idScanColumns" [rows]="idScans"></pageable-table>
 </div>
-<app-date-picker></app-date-picker>
-<pageable-table [columns]="idScanColumns" [rows]="idScans"></pageable-table>

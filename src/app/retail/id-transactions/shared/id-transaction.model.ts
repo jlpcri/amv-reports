@@ -1,4 +1,4 @@
-import {Invoice} from '../../../sales/invoices/shared/invoice.model';
+import {Invoice} from '../../../shared/types/invoice';
 import {IdScan} from '../../id-scans/shared/id-scan.model';
 import * as moment from 'moment';
 

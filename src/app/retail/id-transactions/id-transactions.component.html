@@ -1,14 +1,15 @@
-<div class="main-content-title">
-            <b>Transactions with ID Scans</b><br><br>
-</div>
-<app-date-picker></app-date-picker>
+<div class="old-report">
+    <div class="main-content-title">
+        <strong>Transactions with ID Scans</strong><br><br>
+    </div>
+    <app-old-date-picker></app-old-date-picker>
     <div class="row">
         <div class="col-2">
             <br>
-            <b>ID Scans: &nbsp;</b>
+            <strong>ID Scans: &nbsp;</strong>
             <span *ngIf="idScans">{{idScans.length | number}}</span>
             <br>
-            <b>Transactions: &nbsp;</b>
+            <strong>Transactions: &nbsp;</strong>
             <span *ngIf="invoices">{{invoices.length | number}}</span>
         </div>
         <div class="col-auto">
@@ -24,4 +25,6 @@
             <input [(ngModel)]="missingScans" type="checkbox" (change)="filterIdTransactions()"> Missing ID Scans
         </div>
     </div>
-<pageable-table [columns]="transactionColumns" [rows]="transactions" tableName="id-transactions"></pageable-table>
+    <pageable-table [columns]="transactionColumns" [rows]="transactions" tableName="id-transactions"></pageable-table>
+</div>
+

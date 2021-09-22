@@ -7,7 +7,7 @@ import {Subscription} from 'rxjs';
 import {IdScanColumns} from './shared/id-scan-columns';
 import {PageableTableColumn} from '../../shared/pageable-table/shared/pageable-table-column.model';
 import {ProgressService} from '../../shared/progress-bar/shared/progress.service';
-import _ from 'lodash';
+import orderBy from 'lodash-es/orderBy';
 
 @Component({
   selector: 'app-id-scans',
@@ -39,7 +39,7 @@ export class IdScansComponent implements OnInit, OnDestroy {
         this.progressService.progressMessage = 'Loading ID Scans...';
         this.idScanService.retrieve(dateRange.formatStartDate(), dateRange.formatStopDate())
             .subscribe((idScans) => {
-                this.idScans = _.orderBy(idScans, ['eventTimestamp'], ['asc']);
+                this.idScans = orderBy(idScans, ['eventTimestamp'], ['asc']);
                 this.progressService.loading = false;
             }, error => {
                 this.progressService.loading = false;

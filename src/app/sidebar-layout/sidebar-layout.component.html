@@ -1,0 +1,36 @@
+<app-message-modal></app-message-modal>
+<mat-toolbar role="banner">
+    <mat-toolbar-row>
+        <h1 class="brand">AMV Reporting</h1>
+        <mat-nav-list aria-label="top navigation">
+            <a mat-list-item
+                 *ngFor="let route of topLinks"
+                 [routerLinkActive]="['active']"
+                 [routerLink]="route.path"
+            >
+                {{route.path}}
+            </a>
+        </mat-nav-list>
+
+        <div class="userinfo">
+            {{firstName}}
+        </div>
+    </mat-toolbar-row>
+</mat-toolbar>
+<app-progress-bar></app-progress-bar>
+<mat-sidenav-container>
+    <mat-sidenav mode="side" opened>
+        <mat-nav-list aria-label="side navigation">
+            <a mat-list-item *ngFor="let route of childRoutes()"
+                 [routerLinkActive]="['active']"
+                 [routerLink]="[baseRoute.path, route.path]"
+            >
+                {{route.path}}
+            </a>
+        </mat-nav-list>
+
+    </mat-sidenav>
+    <mat-sidenav-content role="main">
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>

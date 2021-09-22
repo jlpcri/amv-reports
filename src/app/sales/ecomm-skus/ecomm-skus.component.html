@@ -1,0 +1,44 @@
+<div class="mat-elevation-z8">
+    <div class="mat-elevation-z7 report-header">
+        <h2>eCommerce SKU Report</h2>
+
+<!--        <app-date-picker (dateChanged)="ecommSkusService.date$.next($event)"></app-date-picker>-->
+        <mat-form-field appearance="fill">
+            <mat-label>Report range</mat-label>
+            <mat-date-range-input [formGroup]="range" [rangePicker]="picker" [min]="minDate" [max]="maxDate">
+                <input matStartDate formControlName="startDate" (dateChange)="ecommSkusService.startDate$.next($event.value)" placeholder="Start Date"/>
+                <input matEndDate formControlName="stopDate" (dateChange)="ecommSkusService.stopDate$.next($event.value)" placeholder="End Date"/>
+            </mat-date-range-input>
+            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+        </mat-form-field>
+
+        <mat-date-range-picker #picker></mat-date-range-picker>
+        <mat-form-field appearance="fill">
+            <mat-label>Site</mat-label>
+            <mat-select multiple [ngModel]="selectedSites$ | async" (ngModelChange)="selectedSites$.next($event)">
+                <mat-option *ngFor="let site of sites" [value]="site.id">{{site.description}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Region</mat-label>
+            <mat-select [ngModel]="selectedRegion$ | async" (ngModelChange)="selectedRegion$.next($event)">
+                <mat-option value="All">All</mat-option>
+                <mat-option *ngFor="let region of regions" [value]="region.id">{{region.name}}</mat-option>
+                <mat-option value="Other">Other</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+            <mat-label>Show/Hide Fields</mat-label>
+            <mat-select multiple [ngModel]="dataSource.displayedColumns" (ngModelChange)="displayedColumns$.next($event)">
+                <mat-option *ngFor="let column of dataSource.columns" [value]="column.field">{{column.label}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <button mat-flat-button color="accent" (click)="dataSource.export()" [disabled]="dataSource.data.length === 0">CSV Export</button>
+    </div>
+
+    <app-data-table [dataSource]="dataSource" title="Ecomm-SKU Report"></app-data-table>
+
+</div>

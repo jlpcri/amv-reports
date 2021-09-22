@@ -7,6 +7,7 @@ import {IndexedDatabaseService} from '../../../shared/indexed-database.service';
 import * as moment from 'moment';
 import {Moment} from 'moment';
 import {ReportsApiService} from '../../../shared/reports-api/reports-api.service';
+import {Invoice} from '../../../shared/types/invoice';
 
 @Injectable({
   providedIn: 'root'
@@ -54,5 +55,54 @@ export class IdScanService {
             }
         );
         return idScans;
+    }
+
+    getRange(startDate: string, stopDate: string): Observable<IdScan[]> {
+        let idScans = [];
+        let subject = new Subject<IdScan[]>();
+        console.log(startDate + ' -> ' + stopDate);
+        this.idb.db.transaction('id-scan', "readonly")
+            .objectStore('id-scan')
+            .index('event-timestamp')
+            .getAll(IDBKeyRange.bound(startDate, stopDate))
+            .onsuccess = (event) => {
+            console.log(event);
+            if (event.target.result) {
+                idScans = event.target.result;
+            }
+            subject.next(idScans);
+        };
+        return subject;
+    }
+
+    retrieveInvoices(startDate: string, stopDate: string) {
+        const complete = new Subject<Invoice[]>();
+        let invoices = [];
+
+        this.progressService.progressMessage = 'Loading Invoices...';
+        this.progressService.loading = true;
+
+        const options = {
+            params: new HttpParams()
+                .set('startDate', startDate)
+                .set('stopDate', stopDate)
+                .set('channel', 'retail')
+        };
+
+        this.reportsApiService.get<Invoice[]>('/invoices', options).subscribe(
+            resp => {
+                invoices = resp;
+                console.log('records: ' + resp.length);
+                console.log('invoices: ' + invoices.length);
+                complete.next(invoices);
+                this.progressService.loading = false;
+            },
+            error => {
+                // error message handler
+                complete.next(invoices);
+                this.progressService.loading = false;
+            });
+
+        return complete;
     }
 }

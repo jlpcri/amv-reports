@@ -1,1 +1,19 @@
-<p>invoices works!</p>
+<app-report
+    [title]="title"
+    [reportService]="reportService">
+            <mat-form-field appearance="fill">
+                <mat-label>Site</mat-label>
+                <mat-select multiple [ngModel]="selectedSites$ | async" (ngModelChange)="selectedSites$.next($event)">
+                    <mat-option *ngFor="let site of sites" [value]="site.id">{{site.description}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="fill">
+                <mat-label>Region</mat-label>
+                <mat-select [ngModel]="selectedRegion$ | async" (ngModelChange)="selectedRegion$.next($event)">
+                    <mat-option value="All">All</mat-option>
+                    <mat-option *ngFor="let region of regions" [value]="region.id">{{region.name}}</mat-option>
+                    <mat-option value="Other">Other</mat-option>
+                </mat-select>
+            </mat-form-field>
+</app-report>

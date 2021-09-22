@@ -2,7 +2,7 @@ import {AfterViewChecked, Component, ElementRef, Input, OnInit, ViewChild} from 
 import {PageableTableColumn} from './shared/pageable-table-column.model';
 import {ExportToCsv} from 'export-to-csv';
 import {ProgressService} from '../progress-bar/shared/progress.service';
-import * as _ from 'lodash';
+import debounce from 'lodash-es/debounce';
 
 @Component({
   selector: 'pageable-table',
@@ -25,7 +25,7 @@ export class PageableTableComponent implements OnInit, AfterViewChecked {
     firstPages;
     lastPages;
     selectedPage = 1;
-    searchRows = _.debounce(this._searchRows, 250);
+    searchRows = debounce(this._searchRows, 250);
 
     @ViewChild('pageableContentDiv') pageableContentDiv: ElementRef;
     @ViewChild('pageableTbody') pageableTbody: ElementRef;

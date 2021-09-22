@@ -1,0 +1,15 @@
+.report-header {
+    padding-bottom: 1rem;
+}
+
+.report-header mat-form-field {
+    margin-right: 1rem;
+}
+
+.report-header h2 {
+    color: var(--primary-lighter-color);
+}
+
+button#csv-export:enabled {
+    color: white;
+}
