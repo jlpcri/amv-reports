@@ -59,6 +59,7 @@ export class TableDataSource<T> extends DataSource<T> {
         this.selectedTimezones$.subscribe({
             next: selectedTimezone => {
                 this.selectedTimezone = selectedTimezone;
+                this.data = [];
             }
         });
     }
