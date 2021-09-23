@@ -1,5 +1,6 @@
 export interface Timezone {
     id: number;
     abbrev: string;
-    name: string;
+    value: string;
+    description: string;
 }

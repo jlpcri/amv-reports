@@ -31,8 +31,8 @@ export class TableDataSource<T> extends DataSource<T> {
 
         this.columns = columns;
         this.title = title;
-        this.selectedTimezone = moment.tz.guess();
         this.timezones = GlobalConstants.timezones;
+        this.selectedTimezone = GlobalConstants.timezones[2].value;
 
         this.data$.subscribe({
             next: (data) => {
