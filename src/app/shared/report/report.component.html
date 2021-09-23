@@ -2,6 +2,13 @@
     <div class="mat-elevation-z7 report-header">
         <h2>{{title}}</h2>
         <mat-form-field appearance="fill">
+            <mat-label>Timezone</mat-label>
+            <mat-select [ngModel]="reportService.dataSource.selectedTimezone" (ngModelChange)="reportService.dataSource.selectedTimezones$.next($event)">
+                <mat-option *ngFor="let timezone of reportService.dataSource.timezones" [value]="timezone.abbrev">{{timezone.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
             <mat-label>Report range</mat-label>
             <mat-date-range-input [formGroup]="range" [rangePicker]="picker" [min]="minDate" [max]="maxDate">
                 <input matStartDate formControlName="startDate" (dateChange)="reportService.startDate$.next($event.value)" placeholder="Start Date"/>
