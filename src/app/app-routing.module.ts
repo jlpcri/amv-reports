@@ -14,59 +14,11 @@ import {SidebarLayoutComponent} from './sidebar-layout/sidebar-layout.component'
 import {CustomerSkuComponent} from './sales/customer-sku/customer-sku.component';
 import {PurchaseOrdersComponent} from './retail/purchase-orders/purchase-orders.component';
 import {ValuationReportComponent} from './inventory/valuation-report/valuation-report.component';
-import {SalesSummaryComponent} from './sales/sales-summary/sales-summary.component';
-import {GuestSummaryComponent} from './guests/guest-summary/guest-summary.component';
-import {StockSummaryComponent} from './inventory/stock-summary/stock-summary.component';
-import {EcommSkuComponent} from './sales/ecomm-sku/ecomm-sku.component';
-import {IdScansComponent} from './retail/id-scans/id-scans.component';
-import {IdTransactionsComponent} from './retail/id-transactions/id-transactions.component';
-import {AgeCategoriesComponent} from './retail/age-categories/age-categories.component';
-import {ProductsComponent} from './inventory/products/products.component';
 import {RetailGuestComponent} from './retail/retail-guest/retail-guest.component';
-
 
 const routes: Routes = [
     {
         path: '',
-        redirectTo: 'sales',
-        pathMatch: 'full'
-    },
-    {
-        path: 'sales',
-        children: [
-            { path: '', redirectTo: 'summary', pathMatch: 'full' },
-            { path: 'summary', component: SalesSummaryComponent },
-            { path: 'invoices', component: SalesSummaryComponent },
-            { path: 'ecomm-sku', component: EcommSkuComponent },
-        ]
-    },
-    {
-        path: 'retail',
-        children: [
-            {path: '', redirectTo: 'id-scans', pathMatch: 'full'},
-            {path: 'id-scans', component: IdScansComponent},
-            {path: 'transactions', component: IdTransactionsComponent},
-            {path: 'age-categories', component: AgeCategoriesComponent},
-            {path: 'guests', component: RetailGuestComponent}
-        ]
-    },
-    {
-        path: 'guests',
-        children: [
-            { path: '', redirectTo: 'summary', pathMatch: 'full' },
-            { path: 'summary', component: GuestSummaryComponent },
-            { path: 'profile', component: GuestSummaryComponent },
-        ]
-    },
-    {
-        path: 'inventory',
-        children: [
-            { path: '', redirectTo: 'summary', pathMatch: 'full' },
-          { path: 'summary', component: StockSummaryComponent },
-          { path: 'products', component: ProductsComponent },
-          { path: 'warehouse', component: StockSummaryComponent },
-        ]
-    },
         component: SidebarLayoutComponent,
         canActivate: [AuthGuard],
         children: [
@@ -93,7 +45,8 @@ const routes: Routes = [
                     {path: 'id-scans', component: IdScansComponent},
                     {path: 'transactions', component: IdTransactionsComponent},
                     {path: 'age-categories', component: AgeCategoriesComponent},
-                    {path: 'purchase-orders', component: PurchaseOrdersComponent}
+                    {path: 'purchase-orders', component: PurchaseOrdersComponent},
+                    {path: 'guests', component: RetailGuestComponent}
                 ]
             },
             {

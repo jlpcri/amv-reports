@@ -1,8 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EcommSkusComponent } from './ecomm-skus.component';
-import {Subject} from 'rxjs';
+import {of, Subject} from 'rxjs';
 import {EcommSkusService} from './ecomm-skus.service';
+import * as moment from 'moment';
 
 describe('EcommSkusComponent', () => {
   let component: EcommSkusComponent;
@@ -16,7 +17,9 @@ describe('EcommSkusComponent', () => {
       date$: new Subject(),
       regions$: new Subject(),
       getRegions: () => {},
-      selectedRegions$: new Subject()
+      selectedRegions$: new Subject(),
+      startDate$: new Subject(),
+      stopDate$: new Subject()
     };
     TestBed.configureTestingModule({
       declarations: [ EcommSkusComponent ],

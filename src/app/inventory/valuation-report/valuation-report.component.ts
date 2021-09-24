@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, OnDestroy} from '@angular/core';
 import {ReportService} from '../../shared/report/report.service';
 import {Subject} from 'rxjs';
 import {InvValuation} from '../../shared/types/valuation';
@@ -12,22 +12,23 @@ import {debounceTime, distinctUntilChanged} from 'rxjs/operators';
     styleUrls: ['./valuation-report.component.css'],
     providers: [ReportService]
 })
+
 export class ValuationReportComponent implements OnDestroy {
     sourceSystems = [
-        { name: 'vtm', description: 'Finale Warehouse' },
-        { name: 'dfv', description: 'IL Warehousing System'}
+        {name: 'vtm', description: 'Finale Warehouse'},
+        {name: 'dfv', description: 'IL Warehousing System'}
     ];
     title = 'Inventory Valuation Report';
     selectedSource$ = new Subject<string>();
     selectedSource: string;
 
-    constructor(public reportService: ReportService<InvValuation>) {
-        reportService.dataSource = new TableDataSource<InvValuation>(COLUMNS, this.title);
-        reportService.formatResponse = (response) => response;
-        reportService.reportEndpoint = '/inventory/valuation';
-        reportService.fixedSites = true;
-        reportService.fetchByPage = true;
-        reportService.dateRefresh = true;
+    constructor(private rptService: ReportService<InvValuation>) {
+        rptService.dataSource = new TableDataSource<InvValuation>(COLUMNS, this.title);
+        rptService.formatResponse = (response) => response;
+        rptService.reportEndpoint = '/inventory/valuation';
+        rptService.fixedSites = true;
+        rptService.fetchByPage = true;
+        rptService.dateRefresh = true;
 
         this.selectedSource$.pipe(debounceTime(1000), distinctUntilChanged()).subscribe({
             next: sourceSystem => {
@@ -35,8 +36,10 @@ export class ValuationReportComponent implements OnDestroy {
                 this.reportService.selectedSource$.next(sourceSystem);
             }
         });
+    }
 
-
+    get reportService() {
+        return this.rptService;
     }
 
     ngOnDestroy() {

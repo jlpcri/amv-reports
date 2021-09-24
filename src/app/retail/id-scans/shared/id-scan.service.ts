@@ -1,16 +1,15 @@
 import { Injectable } from '@angular/core';
-import {Observable, ReplaySubject, Subject} from 'rxjs';
+import {Subject} from 'rxjs';
 import {HttpParams} from '@angular/common/http';
 import {IdScan} from './id-scan.model';
 import {ProgressService} from '../../../shared/progress-bar/shared/progress.service';
-import {IndexedDatabaseService} from '../../../shared/indexed-database.service';
 import * as moment from 'moment';
 import {Moment} from 'moment';
 import {ReportsApiService} from '../../../shared/reports-api/reports-api.service';
 import {Invoice} from '../../../shared/types/invoice';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 
 export class IdScanService {
@@ -18,8 +17,7 @@ export class IdScanService {
     DATE_FORMAT = 'YYYY-MM-DD hh:mm:ss';
 
     constructor(private reportsApiService: ReportsApiService,
-                private progressService: ProgressService,
-                private idb: IndexedDatabaseService
+                private progressService: ProgressService
     ) { }
 
     retrieveIncrement(startDate: Moment, stopDate: Moment, increment: string, current: number, total: number, complete: Subject<boolean>) {
@@ -55,24 +53,6 @@ export class IdScanService {
             }
         );
         return idScans;
-    }
-
-    getRange(startDate: string, stopDate: string): Observable<IdScan[]> {
-        let idScans = [];
-        let subject = new Subject<IdScan[]>();
-        console.log(startDate + ' -> ' + stopDate);
-        this.idb.db.transaction('id-scan', "readonly")
-            .objectStore('id-scan')
-            .index('event-timestamp')
-            .getAll(IDBKeyRange.bound(startDate, stopDate))
-            .onsuccess = (event) => {
-            console.log(event);
-            if (event.target.result) {
-                idScans = event.target.result;
-            }
-            subject.next(idScans);
-        };
-        return subject;
     }
 
     retrieveInvoices(startDate: string, stopDate: string) {

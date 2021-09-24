@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ReportComponent } from './report.component';
 import {ReportService} from './report.service';
+import {Subject} from 'rxjs';
 
 describe('ReportComponent', () => {
   let component;
@@ -17,7 +18,9 @@ describe('ReportComponent', () => {
           },
           date$: {
               next: jasmine.createSpy()
-          }
+          },
+          startDate$: new Subject(),
+          stopDate$: new Subject()
       };
       TestBed.configureTestingModule({
         declarations: [ ReportComponent ]
