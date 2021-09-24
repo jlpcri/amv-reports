@@ -21,6 +21,13 @@
             </mat-select>
         </mat-form-field>
 
+        <mat-form-field appearance="fill">
+            <mat-label>Timezone</mat-label>
+            <mat-select [ngModel]="reportService.dataSource.selectedTimezone" (ngModelChange)="reportService.dataSource.selectedTimezones$.next($event)">
+                <mat-option *ngFor="let timezone of reportService.dataSource.timezones" [value]="timezone.value">{{timezone.description}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
         <button mat-flat-button color="accent" id="csv-export" (click)="reportService.dataSource.export()" [disabled]="reportService.dataSource.data.length === 0 || progressService.loading">CSV Export</button>
     </div>
 
