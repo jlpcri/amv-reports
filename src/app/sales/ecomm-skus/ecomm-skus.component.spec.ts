@@ -16,7 +16,9 @@ describe('EcommSkusComponent', () => {
       date$: new Subject(),
       regions$: new Subject(),
       getRegions: () => {},
-      selectedRegions$: new Subject()
+      selectedRegions$: new Subject(),
+      startDate$: new Subject(),
+      stopDate$: new Subject()
     };
     TestBed.configureTestingModule({
       declarations: [ EcommSkusComponent ],
