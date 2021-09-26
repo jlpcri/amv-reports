@@ -21,7 +21,7 @@ import {ProgressService} from '../progress-bar/shared/progress.service';
   selector: 'app-data-table',
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.css'],
-    encapsulation: ViewEncapsulation.None
+  //  encapsulation: ViewEncapsulation.None
 })
 export class DataTableComponent<T> implements AfterViewInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;

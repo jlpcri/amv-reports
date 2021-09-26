@@ -10,7 +10,9 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import {TableDataSource} from '../data-table/tableDataSource';
 import {takeUntil} from 'rxjs/operators';
 
-@Injectable()
+@Injectable({
+    providedIn: 'root'
+})
 export class ReportService<T> implements OnDestroy {
     // date$ = new Subject<Moment>();
     reportData$ = new Subject<T[]>();

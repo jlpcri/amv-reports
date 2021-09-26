@@ -2,7 +2,7 @@
     padding-bottom: 1rem;
 }
 
-.report-header mat-form-field, .report-header app-date-picker {
+.report-header mat-form-field, .report-header {
     margin-right: 1rem;
 }
 

@@ -9,8 +9,7 @@ import {ReportService} from '../../shared/report/report.service';
 @Component({
     selector: 'app-invoices',
     templateUrl: './invoices.component.html',
-    styleUrls: ['./invoices.component.css'],
-    providers: [ReportService]
+    styleUrls: ['./invoices.component.css']
 })
 export class InvoicesComponent implements AfterViewInit, OnDestroy {
     title = 'Invoice Report';
