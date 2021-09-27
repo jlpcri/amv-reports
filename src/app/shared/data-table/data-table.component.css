@@ -1,48 +1,42 @@
-/*
-View encapsulation is disabled to allow overriding Material styles.
-This means almost everything here needs a prefix to prevent it from
-overriding styles outside of this component by accident.
- */
-
-/* app-data-table */ .mat-header-row {
+.mat-header-row {
     vertical-align: bottom;
 }
 
-/* app-data-table */ tr th.mat-header-cell {
+tr th.mat-header-cell {
     font-size: 14px;
     color: var(--primary-lighter-color);
     padding: 0.5rem 1rem;
     min-width: 4rem;
 }
 
-/* app-data-table */ tr td.mat-cell {
+tr td.mat-cell {
     padding: 0.5rem 1rem;
 }
 
-/* app-data-table */ .col-justify-right {
+.col-justify-right {
     text-align: right !important;
 }
 
-/* app-data-table */ div.mat-sort-header-content {
+div.mat-sort-header-content {
     text-align: inherit;
 }
 
-/* app-data-table */ .stripe-row {
+.stripe-row {
     background-color: rgba(119, 119, 119, 0.25);
 }
 
 
-/* app-data-table */ .cell-limit {
+.cell-limit {
     white-space: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
     max-width: 10rem;
 }
 
-/* app-data-table */ .scroll-container {
+.scroll-container {
     overflow-x: scroll;
 }
 
-/* app-data-table */ .data-table {
+.data-table {
     min-width: 100%;
 }

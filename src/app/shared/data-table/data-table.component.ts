@@ -1,13 +1,8 @@
 import {
-    AfterContentInit,
-    AfterViewChecked,
     AfterViewInit,
-    ChangeDetectorRef,
     Component,
     Input,
-    OnInit,
     ViewChild,
-    ViewEncapsulation
 } from '@angular/core';
 import {MatPaginator} from '@angular/material/paginator';
 import {MatSort} from '@angular/material/sort';
@@ -21,7 +16,6 @@ import {ProgressService} from '../progress-bar/shared/progress.service';
   selector: 'app-data-table',
   templateUrl: './data-table.component.html',
   styleUrls: ['./data-table.component.css'],
-  //  encapsulation: ViewEncapsulation.None
 })
 export class DataTableComponent<T> implements AfterViewInit {
     @ViewChild(MatPaginator) paginator: MatPaginator;
