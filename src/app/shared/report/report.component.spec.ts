@@ -1,7 +1,6 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, TestBed} from '@angular/core/testing';
 
-import { ReportComponent } from './report.component';
-import {ReportService} from './report.service';
+import {ReportComponent} from './report.component';
 
 describe('ReportComponent', () => {
   let component;
@@ -16,6 +15,12 @@ describe('ReportComponent', () => {
               data: []
           },
           date$: {
+              next: jasmine.createSpy()
+          },
+          startDate$: {
+              next: jasmine.createSpy()
+          },
+          stopDate$: {
               next: jasmine.createSpy()
           }
       };
